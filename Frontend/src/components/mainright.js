@@ -20,30 +20,38 @@ import TypingEffect from 'react-typing-effect';
 import Header from './Header'
 import MobileNav from './mobilenav'
 import Reviews from './Review';
-export default function Mainright() {
+import { useState } from 'react';
+export default function Mainright({ toggleHideLeft, Hide_Left }) {
     const nagivate = useNavigate();
     const routehander = (name) => {
         nagivate(`/traintoexcellency/Frontend-build/development/${name}`);
     }
 
+    
     return (
-        <section className={` flex flex-col lg:w-[80%] w-[100%]  h-full gap-4 global-scroll-bar`}>
+        <section className={`
+            flex flex-grow flex-col h-full gap-4 global-scroll-bar
+            ${Hide_Left ? 'w-[100%]' : 'lg:w-[80%] w-[100%]'}
+            transition-all duration-500 ease-in-out overflow-hidden
+          `}>
             <div className='flex justify-between py-4 px-4'>
-                <Header />
+                <Header toggleHideLeft={toggleHideLeft} Hide_Left={Hide_Left} />
             </div>
             <main className="flex flex-col gap-12 p-4 w-[100%]">
-                <div className="mainline">
-                    <p className="flex flex-col gap-1">
-                        <span className="text-white font-bold text-3xl flex flex-col">
+                <div className="mainline w-[60%]">
+                    <p className="flex flex-col gap-4">
+                        <span className="text-white font-bold text-6xl flex flex-col">
                             <span className='text-white'>Hello</span>
                             <TypingEffect text={[' Developers </>', ' Coders </>']} speed={100} eraseSpeed={50} eraseDelay={2000} typingDelay={1000} />
                         </span>
-                        <p className="text-purple-400 text-xl"> Ready to Elevate Your Coding Journey? At TrainToExcellency, we offer tailored roadmaps for every area of development, guided by our AI assistant. Whether you’re exploring web development, mastering machine learning, or diving into mobile apps, we’re here to support you at every stage. Start your journey and achieve excellence today!</p>
+                        <p className="text-purple-400 text-xl flex flex-col gap-1"> 
+                            <span className='text-3xl text-[#d4a5ff] font-bold'>Ready to Elevate Your Coding Journey? </span>
+                            At TrainToExcellency, we offer tailored roadmaps for every area of development, guided by our AI assistant. Whether you’re exploring web development, mastering machine learning, or diving into mobile apps, we’re here to support you at every stage. Start your journey and achieve excellence today!</p>
 
                     </p>
 
                 </div>
-                <div className="whatisfor z-1 w-[100%] items-center flex flex-col gap-4 justify-center  relative md:h-[50vh] ">
+                <div className="whatisfor z-1 w-[100%] items-center flex flex-col gap-4 justify-center  relative md:h-[60vh] ">
                     <Swiper
                         pagination={{
                             dynamicBullets: true,
@@ -98,11 +106,11 @@ export default function Mainright() {
                 <div className="developmentsection flex flex-col w-[100%]">
                     <div className="development flex flex-col">
                         <div className="border-b-2 border-gray-500">
-                            <h2 className=' text-2xl font-bold text-[#FFFF]'>Development</h2>
+                            <h2 className=' text-5xl font-bold text-[#FFFF]'>Development</h2>
                         </div>
                         <div className='development-container flex flex-wrap gap-5 py-4 items-center justify-center'>
-                            <div className=" flex flex-col gap-2 w-[98%] md:w-[31%]  min-h-48 bg-[#acc2ef] items-center justify-between py-2 border-0 rounded-lg">
-                                <img className='w-[96%] h-36 border-0 rounded-lg' src={webdevelopment} ></img>
+                            <div className=" flex flex-col gap-2 w-[98%] md:w-[32%]  min-h-[15rem] bg-[#acc2ef] items-center justify-between py-2 border-0 rounded-lg">
+                                <img className='w-[96%]  border-0 rounded-lg' src={webdevelopment} alt='webdevleopmentimg' ></img>
 
                                 <div className='flex flex-col gap-2 items-center justify-between px-2'>
                                     <h3 className='font-bold'>Full Stack Web Development</h3>
@@ -112,7 +120,7 @@ export default function Mainright() {
                                         className=' border-transparent bg-[#3D5A80] text-[#e0e0e0] flex  rounded-full py-1 px-3 items-center hover:font-bold hover:bg-[#84aee6] hover:text-black '> Show Track</button>
                                 </div>
                             </div>
-                            <div className=" flex flex-col gap-2 w-[98%] md:w-[31%] min-h-48 bg-[#acc2ef] items-center py-2 border-0 rounded-lg">
+                            <div className=" flex flex-col gap-2 w-[98%] md:w-[32%] min-h-48 bg-[#acc2ef] items-center py-2 border-0 rounded-lg">
                                 <img className='w-[96%] h-36 border-0 rounded-lg' src={appdevelopment} ></img>
 
                                 <div className='flex flex-col gap-2 items-center justify-center px-2'>
@@ -121,7 +129,7 @@ export default function Mainright() {
                                     <button className=' border-transparent bg-[#3D5A80] text-[#e0e0e0] flex  rounded-full py-1 px-3 items-center hover:font-bold mt-4  hover:bg-[#84aee6] hover:text-black'> Show Track</button>
                                 </div>
                             </div>
-                            <div className=" flex flex-col gap-2 w-[98%] md:w-[31%] min-h-48 bg-[#acc2ef] items-center py-2 border-0 rounded-lg">
+                            <div className=" flex flex-col gap-2 w-[98%] md:w-[32%] min-h-48 bg-[#acc2ef] items-center py-2 border-0 rounded-lg">
                                 <img className='w-[96%] h-36 border-0 rounded-lg' src={gamedevelopment} ></img>
 
                                 <div className='flex flex-col gap-2 items-center justify-between px-2'>
@@ -147,7 +155,7 @@ export default function Mainright() {
                         </div>
                     </div>
                     <div className='language-container flex flex-wrap gap-5 py-4  '>
-                        <div className=" flex flex-col gap-2 w-[98%] md:w-[31%] min-h-48 bg-[#acc2ef]
+                        <div className=" flex flex-col gap-2 w-[98%] md:w-[32%] min-h-48 bg-[#acc2ef]
                         items-center py-2 border-0 rounded-lg">
                             <img className='w-[96%] border-0 rounded-lg' src={c_language} ></img>
 
@@ -157,7 +165,7 @@ export default function Mainright() {
                                 <button className=' border-transparent bg-[#3D5A80] text-[#e0e0e0] flex  rounded-full py-1 px-3 items-center hover:font-bold mt-2 hover:text-black hover:bg-[#84aee6]'> Show Track</button>
                             </div>
                         </div>
-                        <div className=" flex flex-col gap-2 w-[98%] md:w-[31%] min-h-48  bg-[#acc2ef]
+                        <div className=" flex flex-col gap-2 w-[98%] md:w-[32%] min-h-48  bg-[#acc2ef]
                         items-center py-2 border-0 rounded-lg">
                             <img className='w-[96%] border-0 rounded-lg h-36' src={cplusplus} ></img>
 
@@ -167,7 +175,7 @@ export default function Mainright() {
                                 <button className=' border-transparent bg-[#3D5A80] text-[#e0e0e0] flex  rounded-full py-1 px-3 items-center hover:font-bold hover:bg-[#84aee6] hover:text-black'> Show Track</button>
                             </div>
                         </div>
-                        <div className=" flex flex-col gap-2 w-[98%] md:w-[31%] min-h-48 bg-[#acc2ef] items-center py-2 border-0 rounded-lg">
+                        <div className=" flex flex-col gap-2 w-[98%] md:w-[32%] min-h-48 bg-[#acc2ef] items-center py-2 border-0 rounded-lg">
                             <img className='w-[96%] border-0 rounded-lg h-36' src={python} ></img>
 
                             <div className='flex flex-col gap-2 items-center justify-between px-2'>

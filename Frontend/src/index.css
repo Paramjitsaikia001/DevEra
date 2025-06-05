@@ -109,3 +109,8 @@ code {
     height: 80%;
   }
 }
+
+.remove-bg {
+    mix-blend-mode: multiply;
+    background: transparent;
+}

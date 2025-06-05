@@ -28,7 +28,7 @@ function App() {
   return (
 
       <Router>
-        <main className='flex p-0 m-0 bg-[#3b3b6d] font-[Raleway] '>
+        <main className='flex p-0 m-0 bg-[#3b3b6d] font-[Inter]'>
           <MainLeft toggleHideLeft={toggleHideLeft} Hide_Left={Hide_Left} />
           <Routes>
             <Route path='/traintoexcellency/Frontend-build/' element={<MainRight toggleHideLeft={toggleHideLeft} Hide_Left={Hide_Left} />} />

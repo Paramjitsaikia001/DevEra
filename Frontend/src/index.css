@@ -4,7 +4,7 @@
 
 @font-face {
   font-family: 'styleScript';
-  src: local('YourFontName'), url('./Fonts/StyleScript-Regular.ttf') format('truetype');
+  src: local('YourFontName'), url('./assets/fonts/StyleScript-Regular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
@@ -66,7 +66,7 @@ code {
   text-align: center;
   background: rgb(16, 20, 57);
   background: radial-gradient(circle, rgba(16, 20, 57, 1) 0%, rgba(85, 116, 177, 1) 100%);
- 
+
   /* Center slide text vertically */
   box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }
@@ -88,29 +88,31 @@ code {
   background: linear-gradient(58deg, rgba(154, 238, 251, 1) 100%, rgba(0, 82, 94, 1) 100%, rgba(42, 200, 224, 1) 100%, rgba(17, 182, 208, 1) 100%, rgba(96, 233, 254, 1) 100%);
 }
 
-.animation{
+.animation {
   transition: all;
   transition-duration: 3s;
   translate: DetailPageAnimation;
 }
 
-.divShadows{
+.divShadows {
   box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
 }
 
 @keyframes DetailPageAnimation {
-  0%{
+  0% {
     height: 0;
   }
-  50%{
+
+  50% {
     height: 40%;
   }
-  100%{
+
+  100% {
     height: 80%;
   }
 }
 
 .remove-bg {
-    mix-blend-mode: multiply;
-    background: transparent;
+  mix-blend-mode: multiply;
+  background: transparent;
 }

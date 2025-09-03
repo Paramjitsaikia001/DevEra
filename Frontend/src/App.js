@@ -1,23 +1,22 @@
-
 import React, { useState } from 'react';
-
-import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from 'react-router-dom';
-import MainLeft from './components/mainleft';
-import MainRight from './components/mainright';
-import Development from './components/Development';
-import Language from './components/Language';
-import Explore from './components/explore';
-import Contact from './components/Contact';
-import Registation from './components/Registation';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import MainLeft from './components/layout/mainleft';
+import MainRight from './components/layout/mainright';
+import Development from './components/pages/Development';
+import Language from './components/pages/Language';
+import Explore from './components/pages/explore';
+import Contact from './components/pages/Contact';
+import Registation from './components/forms/Registation';
 
 import AiML from './components/DevelopmentRoutes/ALMLdevelopment/AIML_development';
-
 import Gamedev from './components/DevelopmentRoutes/Gamedevelopment/Gamedevelopment';
-
 import AppDev from './components/DevelopmentRoutes/APPdevelopment/appdevelopmet';
-
 import Webdev from './components/DevelopmentRoutes/webdevelopmentRoutes/webdevelopment';
-import AiChatPage from './components/AiChatPage';
+import FrontendDev from './components/DevelopmentRoutes/FrontendDevelopment/FrontendRoadmap';
+import AiChatPage from './components/ui/AiChatPage';
+import BackendRoadmap from './components/DevelopmentRoutes/BackendDev/BackendRoadmap';
+import { ROUTES } from './constants/routes';
+
 function App() {
   const [Hide_Left, setHide_Left] = useState(false);
 
@@ -26,30 +25,27 @@ function App() {
   };
 
   return (
+    <Router>
+      <main className='flex p-0 m-0 bg-primary-bg font-inter'>
+        <MainLeft toggleHideLeft={toggleHideLeft} Hide_Left={Hide_Left} />
+        <Routes>
+          <Route path={ROUTES.HOME} element={<MainRight toggleHideLeft={toggleHideLeft} Hide_Left={Hide_Left} />} />
+          <Route path={ROUTES.DEVELOPMENT} element={<Development />} />
+          <Route path={ROUTES.LANGUAGE} element={<Language />} />
+          <Route path={ROUTES.EXPLORE} element={<Explore />} />
+          <Route path={ROUTES.ABOUT_US} element={<Contact />} />
+          <Route path={ROUTES.AI_CHAT} element={<AiChatPage />} />
+          <Route path={ROUTES.REGISTER} element={<Registation />} />
 
-      <Router>
-        <main className='flex p-0 m-0 bg-[#3b3b6d] font-[Inter]'>
-          <MainLeft toggleHideLeft={toggleHideLeft} Hide_Left={Hide_Left} />
-          <Routes>
-            <Route path='/traintoexcellency/Frontend-build/' element={<MainRight toggleHideLeft={toggleHideLeft} Hide_Left={Hide_Left} />} />
-            <Route path="/traintoexcellency/Frontend-build/development" element={<Development />} />
-            <Route path="/traintoexcellency/Frontend-build/language" element={<Language />} />
-            <Route path="/traintoexcellency/Frontend-build/explore" element={<Explore />} />
-            <Route path="/traintoexcellency/Frontend-build/About-us" element={<Contact />} />
-            <Route path="/traintoexcellency/Frontend-build/ai-chat" element={<AiChatPage />} />
-            <Route path="/traintoexcellency/Frontend-build/Register" element={<Registation />} />
-
-            <Route path="/traintoexcellency/Frontend-build/development/appdev" element={<AppDev />} />
-
-            <Route path="/traintoexcellency/Frontend-build/development/AIML" element={<AiML />} />
-
-            <Route path="/traintoexcellency/Frontend-build/development/gamedev" element={<Gamedev />} />
-
-
-            <Route path="/traintoexcellency/Frontend-build/development/webdev" element={<Webdev />} />
-          </Routes>
-        </main>
-      </Router>
+          <Route path={ROUTES.APP_DEV} element={<AppDev />} />
+          <Route path={ROUTES.AI_ML} element={<AiML />} />
+          <Route path={ROUTES.GAME_DEV} element={<Gamedev />} />
+          <Route path={ROUTES.WEB_DEV} element={<Webdev />} />
+          <Route path={ROUTES.FRONTEND_DEV} element={<FrontendDev />} />
+          <Route path={ROUTES.BACKEND_DEV} element={<BackendRoadmap />} />
+        </Routes>
+      </main>
+    </Router>
   );
 }
 

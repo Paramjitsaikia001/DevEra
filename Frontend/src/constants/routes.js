@@ -14,7 +14,8 @@ export const ROUTES = {
     GAME_DEV: '/traintoexcellency/Frontend-build/development/gamedev',
     WEB_DEV: '/traintoexcellency/Frontend-build/development/webdev',
     FRONTEND_DEV:"/traintoexcellency/Frontend-build/development/frontend-web-dev"
-    ,BACKEND_DEV:"/traintoexcellency/Frontend-build/development/backend"
+    ,BACKEND_DEV:"/traintoexcellency/Frontend-build/development/backend",
+    BLOCKCHAIN_DEV:"/traintoexcellency/Frontend-build/development/blockchain"
 };
 
 export const NAV_ITEMS = [

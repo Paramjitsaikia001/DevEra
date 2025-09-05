@@ -1,9 +1,9 @@
 import { useState } from "react";
 
-export default function DeploymentDistributionPage({ closeDeployment, Done }) {
+export default function NativeModulesDevicePage({ closeNative, Done }) {
     const Nexthandler = () => {
         Done();
-        closeDeployment();
+        closeNative();
     };
 
     const [isFullScreen, setFullScreen] = useState("left-[60%]");
@@ -17,7 +17,6 @@ export default function DeploymentDistributionPage({ closeDeployment, Done }) {
             style={{ boxShadow: "0 0 10px 0px #000000" }}
         >
             <div className="bg-[#0e1542] text-white pb-0 px-4 h-[100%]">
-
                 {/* Header controls */}
                 <div className="flex pb-4 justify-between items-center w-[100%]">
                     {isFullScreen === "left-[60%]" ? (
@@ -36,7 +35,7 @@ export default function DeploymentDistributionPage({ closeDeployment, Done }) {
                         </span>
                     )}
                     <span
-                        onClick={closeDeployment}
+                        onClick={closeNative}
                         className="material-symbols-outlined text-[#8f8f8f] cursor-pointer"
                     >
                         close
@@ -45,97 +44,96 @@ export default function DeploymentDistributionPage({ closeDeployment, Done }) {
 
                 {/* Title */}
                 <h2 className="text-2xl mb-4 bg-[#00d9ff] text-black w-[100%] rounded-md p-2">
-                    Deployment & Distribution
+                    Native Modules & Device Features
                 </h2>
 
                 {/* Content */}
                 <div className="flex flex-col gap-1">
                     <p>
-                        <span className="text-[#23daff] font-bold">Deployment & Distribution</span> 
-                        is the final stage of app development — preparing your app for release, 
-                        testing it on real devices, and publishing it to Google Play Store and Apple App Store.
+                        <span className="text-[#23daff] font-bold">Native Modules & Device Features</span> 
+                        allow your app to tap into powerful capabilities of mobile devices like 
+                        camera, GPS, storage, notifications, and sensors. This is key for building 
+                        fully functional, real-world apps.
                     </p>
 
                     {/* Learning list */}
                     <div className="flex flex-col my-5 gap-4">
-                        <p className="font-bold">Preparing for Release:</p>
+                        <p className="font-bold">Core Features to Learn:</p>
                         <ul className="list-disc list-inside">
-                            <li>Set up app icons & splash screens</li>
-                            <li>Configure versioning & app metadata</li>
-                            <li>Optimize bundle size</li>
-                            <li>Test release build on devices</li>
+                            <li>Camera & Image Picker (photos, videos, gallery access)</li>
+                            <li>Location & GPS services</li>
+                            <li>Push Notifications & Local Notifications</li>
+                            <li>Accessing device sensors (accelerometer, gyroscope, etc.)</li>
+                            <li>File System (read/write, storage management)</li>
+                            <li>Contacts, SMS, and Phone APIs (with permissions)</li>
+                            <li>Platform APIs (iOS-specific & Android-specific modules)</li>
                         </ul>
 
-                        <p className="font-bold">Android Deployment:</p>
+                        <p className="font-bold">Native Modules in Cross-Platform Apps:</p>
                         <ul className="list-disc list-inside">
-                            <li>Generate Signed APK / AAB</li>
-                            <li>Configure Gradle for release keys</li>
-                            <li>Upload to Google Play Console</li>
-                            <li>Internal & beta testing</li>
+                            <li><span className="font-semibold">React Native</span>: 
+                                Linking native code (Java/Kotlin for Android, Swift/Obj-C for iOS)</li>
+                            <li><span className="font-semibold">Flutter</span>: 
+                                Platform Channels for communication with native code</li>
+                            <li>Bridging between JS/Dart and Native APIs</li>
                         </ul>
 
-                        <p className="font-bold">iOS Deployment:</p>
+                        <p className="font-bold">Popular Libraries:</p>
                         <ul className="list-disc list-inside">
-                            <li>Generate iOS build with Xcode</li>
-                            <li>Set up App Store Connect & provisioning profiles</li>
-                            <li>TestFlight for beta distribution</li>
-                            <li>Publish to App Store</li>
+                            <li><span className="font-semibold">React Native</span>: react-native-camera, react-native-geolocation-service, react-native-push-notification</li>
+                            <li><span className="font-semibold">Flutter</span>: image_picker, geolocator, firebase_messaging, sensors_plus</li>
                         </ul>
 
-                        <p className="font-bold">CI/CD & Automation:</p>
+                        <p className="font-bold">Best Practices:</p>
                         <ul className="list-disc list-inside">
-                            <li>Fastlane for automated builds</li>
-                            <li>App Center / Firebase App Distribution</li>
-                            <li>GitHub Actions / GitLab CI pipelines</li>
-                            <li>Continuous testing & release automation</li>
+                            <li>Always request runtime permissions safely</li>
+                            <li>Handle denied permissions gracefully</li>
+                            <li>Test device features on real hardware (emulators may be limited)</li>
+                            <li>Optimize usage of sensors to save battery</li>
+                            <li>Fallback gracefully if a feature is unavailable</li>
                         </ul>
 
-                        <p className="font-bold">📚 Resources to Learn:</p>
+                        <p className="font-bold">Resources to Learn:</p>
                         <div className="flex flex-col gap-4">
-
-                            {/* Docs */}
+                            {/* React Native Docs */}
                             <div className="flex gap-3">
                                 <span className="text-white py-0 px-2 bg-[#3348ff] rounded-md">doc</span>
                                 <a
-                                    href="https://reactnative.dev/docs/signed-apk-android"
+                                    href="https://reactnative.dev/docs/native-modules-intro"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                 >
-                                    <span className="text-[#28ffd4] underline">React Native Android Release Guide</span>
+                                    <span className="text-[#28ffd4] underline">
+                                        React Native – Native Modules Docs
+                                    </span>
                                 </a>
                             </div>
+                            {/* Flutter Docs */}
                             <div className="flex gap-3">
                                 <span className="text-white py-0 px-2 bg-[#3348ff] rounded-md">doc</span>
                                 <a
-                                    href="https://docs.flutter.dev/deployment/android"
+                                    href="https://docs.flutter.dev/development/platform-integration/platform-channels"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                 >
-                                    <span className="text-[#28ffd4] underline">Flutter Deployment Docs</span>
+                                    <span className="text-[#28ffd4] underline">
+                                        Flutter – Platform Channels
+                                    </span>
                                 </a>
                             </div>
-                            <div className="flex gap-3">
-                                <span className="text-white py-0 px-2 bg-[#3348ff] rounded-md">doc</span>
-                                <a
-                                    href="https://developer.apple.com/ios/submit/"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                >
-                                    <span className="text-[#28ffd4] underline">Apple App Store Submission Guide</span>
-                                </a>
-                            </div>
-
-                            {/* YouTube Tutorials */}
+                            {/* Tutorials */}
                             <div className="flex gap-3 items-center">
                                 <span className="material-symbols-outlined px-[10px] py-0 bg-red-600 text-white rounded-md">
                                     play_arrow
                                 </span>
                                 <a
-                                    href="https://youtu.be/M0q3LhJj8eA"
+                                    href="https://youtu.be/bNWuQD0wV2A"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                 >
-                                    <span className="text-[#28ffd4] underline">React Native Publish App to Play Store & App Store</span>
+                                    <span className="text-[#28ffd4] underline">
+                                        React Native Camera & Permissions Tutorial – Programming with Mash
+                                    </span>
                                 </a>
                             </div>
                             <div className="flex gap-3 items-center">
@@ -143,11 +141,13 @@ export default function DeploymentDistributionPage({ closeDeployment, Done }) {
                                     play_arrow
                                 </span>
                                 <a
-                                    href="https://youtu.be/qJ4PEz0jq0A"
+                                    href="https://youtu.be/LMSztYC_h9I"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                 >
-                                    <span className="text-[#28ffd4] underline">Flutter App Deployment Tutorial</span>
+                                    <span className="text-[#28ffd4] underline">
+                                        Flutter Device Features Crash Course – The Net Ninja
+                                    </span>
                                 </a>
                             </div>
                         </div>
@@ -157,7 +157,7 @@ export default function DeploymentDistributionPage({ closeDeployment, Done }) {
                 {/* Buttons */}
                 <div className="flex justify-between">
                     <button
-                        onClick={closeDeployment}
+                        onClick={closeNative}
                         className="px-4 py-2 bg-blue-600 text-white rounded"
                     >
                         Close

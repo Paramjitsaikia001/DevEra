@@ -1,9 +1,9 @@
 import { useState } from "react";
 
-export default function DeploymentDistributionPage({ closeDeployment, Done }) {
+export default function NavigationRoutingPage({ closeNavigation, Done }) {
     const Nexthandler = () => {
         Done();
-        closeDeployment();
+        closeNavigation();
     };
 
     const [isFullScreen, setFullScreen] = useState("left-[60%]");
@@ -17,7 +17,6 @@ export default function DeploymentDistributionPage({ closeDeployment, Done }) {
             style={{ boxShadow: "0 0 10px 0px #000000" }}
         >
             <div className="bg-[#0e1542] text-white pb-0 px-4 h-[100%]">
-
                 {/* Header controls */}
                 <div className="flex pb-4 justify-between items-center w-[100%]">
                     {isFullScreen === "left-[60%]" ? (
@@ -36,7 +35,7 @@ export default function DeploymentDistributionPage({ closeDeployment, Done }) {
                         </span>
                     )}
                     <span
-                        onClick={closeDeployment}
+                        onClick={closeNavigation}
                         className="material-symbols-outlined text-[#8f8f8f] cursor-pointer"
                     >
                         close
@@ -45,97 +44,66 @@ export default function DeploymentDistributionPage({ closeDeployment, Done }) {
 
                 {/* Title */}
                 <h2 className="text-2xl mb-4 bg-[#00d9ff] text-black w-[100%] rounded-md p-2">
-                    Deployment & Distribution
+                    Navigation & Routing in Cross-Platform Apps
                 </h2>
 
                 {/* Content */}
                 <div className="flex flex-col gap-1">
                     <p>
-                        <span className="text-[#23daff] font-bold">Deployment & Distribution</span> 
-                        is the final stage of app development — preparing your app for release, 
-                        testing it on real devices, and publishing it to Google Play Store and Apple App Store.
+                        <span className="text-[#23daff] font-bold">Navigation & Routing</span> 
+                        is crucial in mobile apps to move between screens, manage the stack, 
+                        and provide a seamless user experience. It involves stacks, tabs, 
+                        drawers, and deep linking.
                     </p>
 
                     {/* Learning list */}
                     <div className="flex flex-col my-5 gap-4">
-                        <p className="font-bold">Preparing for Release:</p>
+                        <p className="font-bold">Core Navigation Patterns:</p>
                         <ul className="list-disc list-inside">
-                            <li>Set up app icons & splash screens</li>
-                            <li>Configure versioning & app metadata</li>
-                            <li>Optimize bundle size</li>
-                            <li>Test release build on devices</li>
+                            <li><span className="font-semibold">Stack Navigation</span> – Push/pop screens like a browser history.</li>
+                            <li><span className="font-semibold">Tab Navigation</span> – Bottom tabs for quick screen switching.</li>
+                            <li><span className="font-semibold">Drawer Navigation</span> – Side menus for extra navigation options.</li>
+                            <li><span className="font-semibold">Nested Navigation</span> – Combining multiple navigators.</li>
+                            <li><span className="font-semibold">Deep Linking</span> – Open specific app pages via links.</li>
                         </ul>
 
-                        <p className="font-bold">Android Deployment:</p>
+                        <p className="font-bold">React Native Navigation Tools:</p>
                         <ul className="list-disc list-inside">
-                            <li>Generate Signed APK / AAB</li>
-                            <li>Configure Gradle for release keys</li>
-                            <li>Upload to Google Play Console</li>
-                            <li>Internal & beta testing</li>
+                            <li>React Navigation (most popular)</li>
+                            <li>React Native Navigation (Wix) – Native navigation performance</li>
+                            <li>Expo Router – File-based routing (Next.js style)</li>
                         </ul>
 
-                        <p className="font-bold">iOS Deployment:</p>
+                        <p className="font-bold">Flutter Navigation Tools:</p>
                         <ul className="list-disc list-inside">
-                            <li>Generate iOS build with Xcode</li>
-                            <li>Set up App Store Connect & provisioning profiles</li>
-                            <li>TestFlight for beta distribution</li>
-                            <li>Publish to App Store</li>
+                            <li>Navigator 1.0 (basic push/pop)</li>
+                            <li>Navigator 2.0 (declarative routing)</li>
+                            <li>go_router (community-driven, simple API)</li>
+                            <li>auto_route (advanced routing with code generation)</li>
                         </ul>
 
-                        <p className="font-bold">CI/CD & Automation:</p>
+                        <p className="font-bold">Key Concepts to Master:</p>
                         <ul className="list-disc list-inside">
-                            <li>Fastlane for automated builds</li>
-                            <li>App Center / Firebase App Distribution</li>
-                            <li>GitHub Actions / GitLab CI pipelines</li>
-                            <li>Continuous testing & release automation</li>
+                            <li>Passing parameters between screens</li>
+                            <li>Navigation state persistence</li>
+                            <li>Authentication flows (login → home → logout)</li>
+                            <li>Handling back button behavior (Android vs iOS)</li>
+                            <li>Navigation guards & middleware</li>
                         </ul>
 
-                        <p className="font-bold">📚 Resources to Learn:</p>
+                        <p className="font-bold">Resources to Learn Navigation:</p>
                         <div className="flex flex-col gap-4">
-
-                            {/* Docs */}
+                            {/* React Native */}
                             <div className="flex gap-3">
                                 <span className="text-white py-0 px-2 bg-[#3348ff] rounded-md">doc</span>
                                 <a
-                                    href="https://reactnative.dev/docs/signed-apk-android"
+                                    href="https://reactnavigation.org/docs/getting-started/"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                 >
-                                    <span className="text-[#28ffd4] underline">React Native Android Release Guide</span>
-                                </a>
-                            </div>
-                            <div className="flex gap-3">
-                                <span className="text-white py-0 px-2 bg-[#3348ff] rounded-md">doc</span>
-                                <a
-                                    href="https://docs.flutter.dev/deployment/android"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                >
-                                    <span className="text-[#28ffd4] underline">Flutter Deployment Docs</span>
-                                </a>
-                            </div>
-                            <div className="flex gap-3">
-                                <span className="text-white py-0 px-2 bg-[#3348ff] rounded-md">doc</span>
-                                <a
-                                    href="https://developer.apple.com/ios/submit/"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                >
-                                    <span className="text-[#28ffd4] underline">Apple App Store Submission Guide</span>
-                                </a>
-                            </div>
-
-                            {/* YouTube Tutorials */}
-                            <div className="flex gap-3 items-center">
-                                <span className="material-symbols-outlined px-[10px] py-0 bg-red-600 text-white rounded-md">
-                                    play_arrow
-                                </span>
-                                <a
-                                    href="https://youtu.be/M0q3LhJj8eA"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                >
-                                    <span className="text-[#28ffd4] underline">React Native Publish App to Play Store & App Store</span>
+                                    <span className="text-[#28ffd4] underline">
+                                        React Navigation Docs
+                                    </span>
                                 </a>
                             </div>
                             <div className="flex gap-3 items-center">
@@ -143,11 +111,40 @@ export default function DeploymentDistributionPage({ closeDeployment, Done }) {
                                     play_arrow
                                 </span>
                                 <a
-                                    href="https://youtu.be/qJ4PEz0jq0A"
+                                    href="https://youtu.be/xXrhg26VCSc"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                 >
-                                    <span className="text-[#28ffd4] underline">Flutter App Deployment Tutorial</span>
+                                    <span className="text-[#28ffd4] underline">
+                                        React Navigation Tutorial – Programming with Mash
+                                    </span>
+                                </a>
+                            </div>
+                            {/* Flutter */}
+                            <div className="flex gap-3">
+                                <span className="text-white py-0 px-2 bg-[#3348ff] rounded-md">doc</span>
+                                <a
+                                    href="https://docs.flutter.dev/development/ui/navigation"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    <span className="text-[#28ffd4] underline">
+                                        Flutter Navigation Docs
+                                    </span>
+                                </a>
+                            </div>
+                            <div className="flex gap-3 items-center">
+                                <span className="material-symbols-outlined px-[10px] py-0 bg-red-600 text-white rounded-md">
+                                    play_arrow
+                                </span>
+                                <a
+                                    href="https://youtu.be/9rJx-5uUOHc"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    <span className="text-[#28ffd4] underline">
+                                        Flutter Navigation Tutorial – The Net Ninja
+                                    </span>
                                 </a>
                             </div>
                         </div>
@@ -157,7 +154,7 @@ export default function DeploymentDistributionPage({ closeDeployment, Done }) {
                 {/* Buttons */}
                 <div className="flex justify-between">
                     <button
-                        onClick={closeDeployment}
+                        onClick={closeNavigation}
                         className="px-4 py-2 bg-blue-600 text-white rounded"
                     >
                         Close

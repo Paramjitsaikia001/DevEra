@@ -42,20 +42,23 @@ const developmentCards = [
 
         route: "appdev"
     },
-    {
-        title: "iOS App Development",
-        description: "iOS app development involves creating applications for Apple's iOS platform using languages like Swift or Objective-C. It focuses on delivering seamless, high-quality experiences for iPhone and iPad users.",
+
+    // {
+    //     title: "iOS App Development",
+    //     description: "iOS app development involves creating applications for Apple's iOS platform using languages like Swift or Objective-C. It focuses on delivering seamless, high-quality experiences for iPhone and iPad users.",
                     
 
-        route: "ios"
-    },
-    {
-        title: "Android App Development",
-        description: "Android app development involves creating applications for devices running on the Android operating system using languages like Java or Kotlin. It focuses on delivering robust, user-friendly experiences for a wide range of Android smartphones and tablets.",
+    //     route: "ios"
+    // },
+    // {
+    //     title: "Android App Development",
+    //     description: "Android app development involves creating applications for devices running on the Android operating system using languages like Java or Kotlin. It focuses on delivering robust, user-friendly experiences for a wide range of Android smartphones and tablets.",
                                                 
 
-        route: "android"
-    },
+    //     route: "android"
+    // },
+
+    
     {
         title: "Game Development",
         description: "Game Development involves creating interactive games, blending art, storytelling, and coding. It's a dynamic field with growing opportunities thanks to advances in VR and AR technologies.",

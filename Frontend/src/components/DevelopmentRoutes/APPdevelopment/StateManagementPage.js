@@ -1,9 +1,9 @@
 import { useState } from "react";
 
-export default function DeploymentDistributionPage({ closeDeployment, Done }) {
+export default function StateManagementPage({ closeState, Done }) {
     const Nexthandler = () => {
         Done();
-        closeDeployment();
+        closeState();
     };
 
     const [isFullScreen, setFullScreen] = useState("left-[60%]");
@@ -17,7 +17,6 @@ export default function DeploymentDistributionPage({ closeDeployment, Done }) {
             style={{ boxShadow: "0 0 10px 0px #000000" }}
         >
             <div className="bg-[#0e1542] text-white pb-0 px-4 h-[100%]">
-
                 {/* Header controls */}
                 <div className="flex pb-4 justify-between items-center w-[100%]">
                     {isFullScreen === "left-[60%]" ? (
@@ -36,7 +35,7 @@ export default function DeploymentDistributionPage({ closeDeployment, Done }) {
                         </span>
                     )}
                     <span
-                        onClick={closeDeployment}
+                        onClick={closeState}
                         className="material-symbols-outlined text-[#8f8f8f] cursor-pointer"
                     >
                         close
@@ -45,97 +44,85 @@ export default function DeploymentDistributionPage({ closeDeployment, Done }) {
 
                 {/* Title */}
                 <h2 className="text-2xl mb-4 bg-[#00d9ff] text-black w-[100%] rounded-md p-2">
-                    Deployment & Distribution
+                    State Management in Cross-Platform Apps
                 </h2>
 
                 {/* Content */}
                 <div className="flex flex-col gap-1">
                     <p>
-                        <span className="text-[#23daff] font-bold">Deployment & Distribution</span> 
-                        is the final stage of app development — preparing your app for release, 
-                        testing it on real devices, and publishing it to Google Play Store and Apple App Store.
+                        <span className="text-[#23daff] font-bold">State Management</span> is one of the 
+                        most important aspects of mobile app development. It controls how data flows between 
+                        components, screens, and services, ensuring a smooth user experience.
+                    </p>
+
+                    <p>
+                        Choosing the right state management solution depends on the app’s complexity, 
+                        performance requirements, and developer familiarity.
                     </p>
 
                     {/* Learning list */}
                     <div className="flex flex-col my-5 gap-4">
-                        <p className="font-bold">Preparing for Release:</p>
+                        <p className="font-bold">Key Concepts:</p>
                         <ul className="list-disc list-inside">
-                            <li>Set up app icons & splash screens</li>
-                            <li>Configure versioning & app metadata</li>
-                            <li>Optimize bundle size</li>
-                            <li>Test release build on devices</li>
+                            <li>Local state vs global state</li>
+                            <li>Prop drilling and context</li>
+                            <li>Immutable data updates</li>
+                            <li>Side effects and async operations</li>
+                            <li>Performance optimization with memoization</li>
                         </ul>
 
-                        <p className="font-bold">Android Deployment:</p>
+                        <p className="font-bold">Popular State Management Tools:</p>
                         <ul className="list-disc list-inside">
-                            <li>Generate Signed APK / AAB</li>
-                            <li>Configure Gradle for release keys</li>
-                            <li>Upload to Google Play Console</li>
-                            <li>Internal & beta testing</li>
+                            <li>
+                                <span className="text-[#28ffd4] font-semibold">React Context API</span> – Great for small to medium apps.
+                            </li>
+                            <li>
+                                <span className="text-[#28ffd4] font-semibold">Redux</span> – Predictable state container with middleware like Thunk & Saga.
+                            </li>
+                            <li>
+                                <span className="text-[#28ffd4] font-semibold">MobX</span> – Simple, reactive state management.
+                            </li>
+                            <li>
+                                <span className="text-[#28ffd4] font-semibold">Zustand</span> – Minimal, fast, and easy-to-use state management library.
+                            </li>
+                            <li>
+                                <span className="text-[#28ffd4] font-semibold">Recoil</span> – Experimental state management for React apps.
+                            </li>
+                            <li>
+                                <span className="text-[#28ffd4] font-semibold">Flutter Bloc / Riverpod</span> – Popular choices in Flutter ecosystem.
+                            </li>
                         </ul>
 
-                        <p className="font-bold">iOS Deployment:</p>
-                        <ul className="list-disc list-inside">
-                            <li>Generate iOS build with Xcode</li>
-                            <li>Set up App Store Connect & provisioning profiles</li>
-                            <li>TestFlight for beta distribution</li>
-                            <li>Publish to App Store</li>
-                        </ul>
-
-                        <p className="font-bold">CI/CD & Automation:</p>
-                        <ul className="list-disc list-inside">
-                            <li>Fastlane for automated builds</li>
-                            <li>App Center / Firebase App Distribution</li>
-                            <li>GitHub Actions / GitLab CI pipelines</li>
-                            <li>Continuous testing & release automation</li>
-                        </ul>
-
-                        <p className="font-bold">📚 Resources to Learn:</p>
+                        <p className="font-bold">Resources to Learn State Management:</p>
                         <div className="flex flex-col gap-4">
-
-                            {/* Docs */}
                             <div className="flex gap-3">
                                 <span className="text-white py-0 px-2 bg-[#3348ff] rounded-md">doc</span>
                                 <a
-                                    href="https://reactnative.dev/docs/signed-apk-android"
+                                    href="https://redux.js.org/"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                 >
-                                    <span className="text-[#28ffd4] underline">React Native Android Release Guide</span>
+                                    <span className="text-[#28ffd4] underline">Redux Official Docs</span>
                                 </a>
                             </div>
                             <div className="flex gap-3">
                                 <span className="text-white py-0 px-2 bg-[#3348ff] rounded-md">doc</span>
                                 <a
-                                    href="https://docs.flutter.dev/deployment/android"
+                                    href="https://react.dev/reference/react/useContext"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                 >
-                                    <span className="text-[#28ffd4] underline">Flutter Deployment Docs</span>
+                                    <span className="text-[#28ffd4] underline">React Context API Docs</span>
                                 </a>
                             </div>
                             <div className="flex gap-3">
                                 <span className="text-white py-0 px-2 bg-[#3348ff] rounded-md">doc</span>
                                 <a
-                                    href="https://developer.apple.com/ios/submit/"
+                                    href="https://bloclibrary.dev/#/"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                 >
-                                    <span className="text-[#28ffd4] underline">Apple App Store Submission Guide</span>
-                                </a>
-                            </div>
-
-                            {/* YouTube Tutorials */}
-                            <div className="flex gap-3 items-center">
-                                <span className="material-symbols-outlined px-[10px] py-0 bg-red-600 text-white rounded-md">
-                                    play_arrow
-                                </span>
-                                <a
-                                    href="https://youtu.be/M0q3LhJj8eA"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                >
-                                    <span className="text-[#28ffd4] underline">React Native Publish App to Play Store & App Store</span>
+                                    <span className="text-[#28ffd4] underline">Flutter Bloc Docs</span>
                                 </a>
                             </div>
                             <div className="flex gap-3 items-center">
@@ -143,11 +130,23 @@ export default function DeploymentDistributionPage({ closeDeployment, Done }) {
                                     play_arrow
                                 </span>
                                 <a
-                                    href="https://youtu.be/qJ4PEz0jq0A"
+                                    href="https://youtu.be/poQXNp9ItL4"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                 >
-                                    <span className="text-[#28ffd4] underline">Flutter App Deployment Tutorial</span>
+                                    <span className="text-[#28ffd4] underline">Redux Crash Course – Traversy Media</span>
+                                </a>
+                            </div>
+                            <div className="flex gap-3 items-center">
+                                <span className="material-symbols-outlined px-[10px] py-0 bg-red-600 text-white rounded-md">
+                                    play_arrow
+                                </span>
+                                <a
+                                    href="https://youtu.be/2kL28Qyw9FQ"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    <span className="text-[#28ffd4] underline">Flutter State Management – Bloc Pattern</span>
                                 </a>
                             </div>
                         </div>
@@ -157,7 +156,7 @@ export default function DeploymentDistributionPage({ closeDeployment, Done }) {
                 {/* Buttons */}
                 <div className="flex justify-between">
                     <button
-                        onClick={closeDeployment}
+                        onClick={closeState}
                         className="px-4 py-2 bg-blue-600 text-white rounded"
                     >
                         Close

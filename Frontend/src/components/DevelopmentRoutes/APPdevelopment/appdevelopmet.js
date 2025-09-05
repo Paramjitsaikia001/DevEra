@@ -2,18 +2,20 @@ import { useState } from "react";
 import Header from "../../layout/Header";
 
 // Import roadmap detail pages (you can create each one later)
-import FoundationsPage from "./FoundationsPage";
+import FoundationsPage from "../APPdevelopment/FoundationsPage";
 import FrameworksPage from "./FrameworksPage";
-import UIStylingPage from "./UIStylingPage";
-import StateManagementPage from "./StateManagementPage";
-import NavigationPage from "./NavigationPage";
-import APIsNetworkingPage from "./APIsNetworkingPage";
-import NativeModulesPage from "./NativeModulesPage";
-import AuthSecurityPage from "./AuthSecurityPage";
-import TestingDebuggingPage from "./TestingDebuggingPage";
-import PerformancePage from "./PerformancePage";
-import DeploymentPage from "./DeploymentPage";
-import AdvancedTopicsPage from "./AdvancedTopicsPage";
+import UIStylingPage from "../APPdevelopment/UIStylingPage";
+import StateManagementPage from "../APPdevelopment/StateManagementPage";
+import NavigationRoutingPage from "../APPdevelopment/NavigationPage";
+import APIsNetworkingPage from "../APPdevelopment/APIsNetworkingPage";
+import NativeModulesPage from "../APPdevelopment/NativeModulesPage";
+import AuthSecurityPage from "../APPdevelopment/AuthSecurityPage";
+import TestingDebuggingPage from "../APPdevelopment/TestingDebuggingPage";
+import PerformancePage from "../APPdevelopment/PerformancePage";
+import DeploymentPage from "../APPdevelopment/DeploymentPage";
+import AdvancedTopicsPage from "../APPdevelopment/AdvancedTopicsPage";
+import ProjectIdeaPage from "../APPdevelopment/ProjectIdea"
+import FullresourcePage from "../APPdevelopment/Fullresource"
 
 const roadmap = [
   {
@@ -87,6 +89,12 @@ const roadmap = [
     name: "Advanced Topics",
     handler: "handleAdvancedTopics",
     des: "Explore backend integration, payments, real-time chat, AI/ML, AR/VR, push notifications, analytics, and scaling strategies."
+  },
+  {
+    id: 13,
+    name:"Project ideas",
+    handler: "handleProjectIdeas",
+    des: "Build real-world projects like a social media app, e-commerce app, chat application, fitness tracker, or a news aggregator to apply your skills."
   }
 ];
 
@@ -106,6 +114,9 @@ export default function CrossPlatformRoadmap() {
   const [showPerformance, setPerformance] = useState(false);
   const [showDeployment, setDeployment] = useState(false);
   const [showAdvancedTopics, setAdvancedTopics] = useState(false);
+  const [showProjectIdeas, setProjectIdeas] = useState(false);
+  const [showFullResources, setFullResources] = useState(false);
+
 
   // Handlers
   const handleFoundations = () => setFoundations(!showFoundations);
@@ -120,6 +131,8 @@ export default function CrossPlatformRoadmap() {
   const handlePerformance = () => setPerformance(!showPerformance);
   const handleDeployment = () => setDeployment(!showDeployment);
   const handleAdvancedTopics = () => setAdvancedTopics(!showAdvancedTopics);
+  const handleProjectIdeas = () => setProjectIdeas(!showProjectIdeas);
+  const handleFullResources = () => setFullResources(!showFullResources);
 
   const handlers = {
     handleFoundations,
@@ -134,23 +147,27 @@ export default function CrossPlatformRoadmap() {
     handlePerformance,
     handleDeployment,
     handleAdvancedTopics,
+    handleProjectIdeas,
+    handleFullResources
   };
 
   return (
     <section className="flex flex-col items-center justify-center h-full lg:w-[80%] w-[100%] gap-3 overflow-hidden pt-[5rem]">
       {/* Modals */}
-      {showFoundations && <FoundationsPage close={handleFoundations} />}
-      {showFrameworks && <FrameworksPage close={handleFrameworks} />}
-      {showUIStyling && <UIStylingPage close={handleUIStyling} />}
-      {showStateManagement && <StateManagementPage close={handleStateManagement} />}
-      {showNavigation && <NavigationPage close={handleNavigation} />}
-      {showAPIsNetworking && <APIsNetworkingPage close={handleAPIsNetworking} />}
-      {showNativeModules && <NativeModulesPage close={handleNativeModules} />}
-      {showAuthSecurity && <AuthSecurityPage close={handleAuthSecurity} />}
-      {showTestingDebugging && <TestingDebuggingPage close={handleTestingDebugging} />}
-      {showPerformance && <PerformancePage close={handlePerformance} />}
-      {showDeployment && <DeploymentPage close={handleDeployment} />}
-      {showAdvancedTopics && <AdvancedTopicsPage close={handleAdvancedTopics} />}
+      {showFoundations && <FoundationsPage closeFoundation={handleFoundations} />}
+      {showFrameworks && <FrameworksPage closeFrameworks={handleFrameworks} />}
+      {showUIStyling && <UIStylingPage closeUIStyling={handleUIStyling} />}
+      {showStateManagement && <StateManagementPage closeState={handleStateManagement} />}
+      {showNavigation && <NavigationRoutingPage closeNavigation={handleNavigation} />}
+      {showAPIsNetworking && <APIsNetworkingPage closeAPIs={handleAPIsNetworking} />}
+      {showNativeModules && <NativeModulesPage closeNative={handleNativeModules} />}
+      {showAuthSecurity && <AuthSecurityPage closeAuth={handleAuthSecurity} />}
+      {showTestingDebugging && <TestingDebuggingPage closeTesting={handleTestingDebugging} />}
+      {showPerformance && <PerformancePage closePerformance={handlePerformance} />}
+      {showDeployment && <DeploymentPage closeDeployment={handleDeployment} />}
+      {showAdvancedTopics && <AdvancedTopicsPage closeAdvanced={handleAdvancedTopics} />}
+      {showProjectIdeas && <ProjectIdeaPage closeProjects={handleProjectIdeas} />}
+      {showFullResources && <FullresourcePage closeFullResources={handleFullResources} />}
 
       <div className="flex justify-center p-4 w-[100%]">
         <Header />
@@ -219,10 +236,12 @@ export default function CrossPlatformRoadmap() {
             </div>
           ))}
         </div>
-      </div>
+      </div>  
 
       {/* Full Resources Button */}
-      <div className="fixed bottom-0 right-0 top-[90%] left-[82%] z-10">
+      <div
+       onClick={handleFullResources}
+      className="fixed bottom-0 right-0 top-[90%] left-[82%] z-10">
         <button className="bg-[#198de0] hover:bg-[#ffff] px-3 py-3 rounded-2xl font-bold flex gap-2">
           full course Resource
           <span className="material-symbols-outlined">text_snippet</span>

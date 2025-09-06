@@ -2,7 +2,7 @@
 export const ROUTES = {
     HOME: '/traintoexcellency/Frontend-build/',
     DEVELOPMENT: '/traintoexcellency/Frontend-build/development',
-    LANGUAGE: '/traintoexcellency/Frontend-build/language',
+    PROFILE: '/traintoexcellency/Frontend-build/profile',
     EXPLORE: '/traintoexcellency/Frontend-build/explore',
     ABOUT_US: '/traintoexcellency/Frontend-build/About-us',
     AI_CHAT: '/traintoexcellency/Frontend-build/ai-chat',

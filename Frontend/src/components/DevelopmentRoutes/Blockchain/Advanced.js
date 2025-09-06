@@ -1,134 +1,179 @@
 import { useState } from "react";
 
 export default function AdvancedPaths({ closeAdvancedPaths, Done }) {
+  const [isFullScreen, setFullScreen] = useState("left-[60%]");
+
+  const fullscrenHandler = () => {
+    setFullScreen(isFullScreen === "left-[60%]" ? "left-[20%]" : "left-[60%]");
+  };
+
   const Nexthandler = () => {
     Done();
     closeAdvancedPaths();
   };
 
-  const [isFullScreen, setFullScreen] = useState("left-[60%]");
-  const fullscrenHandler = () => {
-    setFullScreen(isFullScreen === "left-[60%]" ? "left-[20%]" : "left-[60%]");
-  };
-
   return (
-    <div
-      className={`absolute top-0 ${isFullScreen} h-full w-[40%] bg-white shadow-lg p-6 transition-all duration-300 rounded-2xl`}
+    <section
+      className={`transition-transform duration-300 ease-in-out fixed right-0 ${isFullScreen} top-0 bottom-0 overflow-y-scroll scrollbar scrollbar-thumb-scrollbarThumb scrollbar-track-scrollbarTrack scrollbar-bg-scrollbarBg inset-0 bg-[#0e1542] flex justify-center items-center z-50 m-0 h-[100%] pt-6`}
+      style={{ boxShadow: "0 0 10px 0px #000000" }}
     >
-      {/* Header */}
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-2xl font-bold">Advanced Paths</h2>
-        <button
-          onClick={closeAdvancedPaths}
-          className="text-gray-600 hover:text-gray-900"
-        >
-          ✖
-        </button>
-      </div>
+      <div className="bg-[#0e1542] text-white pb-0 px-4 h-[100%]">
+        {/* Header controls */}
+        <div className="flex pb-4 justify-between items-center w-[100%]">
+          {isFullScreen === "left-[60%]" ? (
+            <span
+              className="material-symbols-outlined text-[#8f8f8f] cursor-pointer"
+              onClick={fullscrenHandler}
+            >
+              open_in_full
+            </span>
+          ) : (
+            <span
+              className="material-symbols-outlined text-[#8f8f8f] cursor-pointer"
+              onClick={fullscrenHandler}
+            >
+              close_fullscreen
+            </span>
+          )}
+          <span
+            onClick={closeAdvancedPaths}
+            className="material-symbols-outlined text-[#8f8f8f] cursor-pointer"
+          >
+            close
+          </span>
+        </div>
 
-      {/* Description */}
-      <p className="text-gray-700 leading-relaxed mb-4">
-        Choose your advanced blockchain specialization: Solana with Rust,
-        Polkadot with Substrate, ZK proofs, or Cairo for StarkNet. Each path
-        focuses on high-performance, scalable, and next-generation blockchain
-        development techniques.
-      </p>
+        {/* Title */}
+        <h2 className="text-2xl mb-4 bg-[#00d9ff] text-black w-[100%] rounded-md p-2">
+          Advanced Paths
+        </h2>
 
-      {/* Mini Projects */}
-      <div className="mt-4">
-        <h3 className="text-lg font-semibold mb-2">🛠️ Mini Projects</h3>
-        <ul className="list-disc list-inside text-gray-700 space-y-1">
-          <li>
-            <span className="font-bold">Solana + Rust:</span> Token vesting
-            program with a React client using Anchor framework.
-          </li>
-          <li>
-            <span className="font-bold">Polkadot + Substrate:</span> Custom
-            reputation pallet for a test chain.
-          </li>
-          <li>
-            <span className="font-bold">ZK Proofs:</span> Allowlist with
-            zero-knowledge proof of membership using Noir or Circom.
-          </li>
-          <li>
-            <span className="font-bold">Cairo + StarkNet:</span> Account
-            abstraction with paymaster integration.
-          </li>
-        </ul>
-      </div>
+        {/* Content */}
+        <div className="flex flex-col gap-1">
+          <p>
+            Choose your advanced blockchain specialization:{" "}
+            <span className="text-[#23daff] font-bold">Solana with Rust</span>,{" "}
+            <span className="text-[#23daff] font-bold">Polkadot with Substrate</span>,{" "}
+            <span className="text-[#23daff] font-bold">ZK proofs</span>, or{" "}
+            <span className="text-[#23daff] font-bold">Cairo for StarkNet</span>. 
+            Each path focuses on high-performance, scalable, and next-generation 
+            blockchain development techniques.
+          </p>
 
-      {/* Resources */}
-      <div className="mt-4">
-        <h3 className="text-lg font-semibold mb-2">📚 Resources</h3>
-        <ul className="list-disc list-inside text-gray-700 space-y-2">
-          <li>
-            <a
-              href="https://docs.solana.com/developing"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 hover:underline"
-            >
-              Solana Developer Docs
-            </a>
-          </li>
-          <li>
-            <a
-              href="https://substrate.dev/docs/en/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 hover:underline"
-            >
-              Substrate + Polkadot Docs
-            </a>
-          </li>
-          <li>
-            <a
-              href="https://noir-lang.org/docs/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 hover:underline"
-            >
-              Noir Language for ZK Proofs
-            </a>
-          </li>
-          <li>
-            <a
-              href="https://starknet.io/docs/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 hover:underline"
-            >
-              Cairo + StarkNet Documentation
-            </a>
-          </li>
-          <li>
-            <a
-              href="https://www.youtube.com/@LearnSolana"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 hover:underline"
-            >
-              Solana Video Tutorials – LearnSolana
-            </a>
-          </li>
-        </ul>
-      </div>
+          {/* Learning list */}
+          <div className="flex flex-col my-5 gap-4">
+            <p className="font-bold">What to Learn:</p>
+            <ul className="list-disc list-inside">
+              <li>
+                <span className="font-bold">Solana + Rust:</span> Token vesting
+                program with a React client using Anchor framework.
+              </li>
+              <li>
+                <span className="font-bold">Polkadot + Substrate:</span> Custom
+                reputation pallet for a test chain.
+              </li>
+              <li>
+                <span className="font-bold">ZK Proofs:</span> Allowlist with
+                zero-knowledge proof of membership using Noir or Circom.
+              </li>
+              <li>
+                <span className="font-bold">Cairo + StarkNet:</span> Account
+                abstraction with paymaster integration.
+              </li>
+            </ul>
 
-      {/* Buttons */}
-      <div className="flex justify-between mt-6">
-        <button
-          onClick={fullscrenHandler}
-          className="bg-blue-500 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-600"
-        >
-          {isFullScreen === "left-[60%]" ? "Expand" : "Shrink"}
-        </button>
-        <button
-          onClick={Nexthandler}
-          className="bg-green-500 text-white px-4 py-2 rounded-lg shadow hover:bg-green-600"
-        >
-          Next
-        </button>
+            <p className="font-bold">Resources:</p>
+            <div className="flex flex-col gap-4">
+              <div className="flex gap-3">
+                <span className="text-white py-0 px-2 bg-[#3348ff] rounded-md">
+                  doc
+                </span>
+                <a
+                  href="https://docs.solana.com/developing"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span className="text-[#28ffd4] underline">
+                    Solana Developer Docs
+                  </span>
+                </a>
+              </div>
+              <div className="flex gap-3">
+                <span className="text-white py-0 px-2 bg-[#3348ff] rounded-md">
+                  doc
+                </span>
+                <a
+                  href="https://substrate.dev/docs/en/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span className="text-[#28ffd4] underline">
+                    Substrate + Polkadot Docs
+                  </span>
+                </a>
+              </div>
+              <div className="flex gap-3">
+                <span className="text-white py-0 px-2 bg-[#3348ff] rounded-md">
+                  doc
+                </span>
+                <a
+                  href="https://noir-lang.org/docs/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span className="text-[#28ffd4] underline">
+                    Noir Language for ZK Proofs
+                  </span>
+                </a>
+              </div>
+              <div className="flex gap-3">
+                <span className="text-white py-0 px-2 bg-[#3348ff] rounded-md">
+                  doc
+                </span>
+                <a
+                  href="https://starknet.io/docs/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span className="text-[#28ffd4] underline">
+                    Cairo + StarkNet Documentation
+                  </span>
+                </a>
+              </div>
+              <div className="flex gap-3 items-center">
+                <span className="material-symbols-outlined px-[10px] py-0 bg-red-600 text-white rounded-md">
+                  play_arrow
+                </span>
+                <a
+                  href="https://www.youtube.com/@LearnSolana"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span className="text-[#28ffd4] underline">
+                    Solana Video Tutorials – LearnSolana
+                  </span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Buttons */}
+        <div className="flex justify-between">
+          <button
+            onClick={closeAdvancedPaths}
+            className="px-4 py-2 bg-blue-600 text-white rounded"
+          >
+            Close
+          </button>
+          <button
+            onClick={Nexthandler}
+            className="px-4 py-2 bg-blue-600 text-white rounded"
+          >
+            Done
+          </button>
+        </div>
       </div>
-    </div>
+    </section>
   );
 }

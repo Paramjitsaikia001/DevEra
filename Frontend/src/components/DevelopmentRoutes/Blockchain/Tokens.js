@@ -1,120 +1,219 @@
 import { useState } from "react";
 
 export default function TokenStandards({ closeTokenStandards, Done }) {
-  const Nexthandler = () => {
-    Done();
-    closeTokenStandards();
-  };
-
   const [isFullScreen, setFullScreen] = useState("left-[60%]");
   const fullscrenHandler = () => {
     setFullScreen(isFullScreen === "left-[60%]" ? "left-[20%]" : "left-[60%]");
   };
+  const handleDone = () => {
+    Done();
+    closeTokenStandards();
+  };
 
   return (
-    <div
-      className={`absolute top-0 ${isFullScreen} h-full w-[40%] bg-white shadow-lg p-6 transition-all duration-300 rounded-2xl`}
+    <section
+      className={`transition-transform duration-300 ease-in-out fixed right-0 ${isFullScreen} top-0 bottom-0 overflow-y-scroll scrollbar scrollbar-thumb-scrollbarThumb scrollbar-track-scrollbarTrack scrollbar-bg-scrollbarBg inset-0 bg-[#0e1542] flex justify-center items-center z-50 m-0 h-[100%] pt-6`}
+      style={{
+        boxShadow:
+          "0 4px 32px 0 rgba(0, 0, 0, 0.45), 0 0.5px 1.5px 0 rgba(0, 0, 0, 0.18)",
+      }}
     >
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-2xl font-bold">Token Standards</h2>
-        <button
-          onClick={closeTokenStandards}
-          className="text-gray-600 hover:text-gray-900"
-        >
-          ✖
-        </button>
-      </div>
+      <div className="relative bg-[#0e1542] text-white pb-0 px-4 h-[100%] w-full max-w-2xl rounded-xl shadow-lg flex flex-col">
+        {/* Top bar: Fullscreen and Close */}
+        <div className="flex items-center justify-between mb-2 w-full">
+          <button
+            onClick={fullscrenHandler}
+            className="material-icons text-[#23daff] hover:bg-[#23daff] hover:text-[#0e1542] rounded-full p-1 transition-colors"
+            title={isFullScreen === "left-[60%]" ? "Expand" : "Shrink"}
+            style={{ fontSize: "2rem" }}
+          >
+            {isFullScreen === "left-[60%]" ? "open_in_full" : "close_fullscreen"}
+          </button>
+          <button
+            onClick={closeTokenStandards}
+            className="material-icons text-red-400 hover:bg-red-500 hover:text-white rounded-full p-1 transition-colors"
+            title="Close"
+            style={{ fontSize: "2rem" }}
+          >
+            close
+          </button>
+        </div>
 
-      <p className="text-gray-700 leading-relaxed mb-4">
-        Understand and implement Ethereum token standards like{" "}
-        <strong>ERC-20</strong> (fungible tokens), <strong>ERC-721</strong>{" "}
-        (NFTs), and <strong>ERC-1155</strong> (multi-token). Learn about
-        extensions such as <strong>EIP-2612 permits</strong>,{" "}
-        <strong>ERC-2981 royalties</strong>, and role-based access control.
-        Practice by building your own ERC-20 with airdrop features and an
-        NFT collection with on-chain metadata.
-      </p>
+        {/* Title */}
+        <h2 className="text-2xl mb-4 bg-[#00d9ff] text-black w-[100%] rounded-md p-2 text-center font-bold">
+          Token Standards
+        </h2>
 
-      <div className="mt-4">
-        <h3 className="text-lg font-semibold mb-2">📚 Resources</h3>
-        <ul className="list-disc list-inside text-gray-700 space-y-2">
-          <li>
-            <a
-              href="https://docs.openzeppelin.com/contracts/4.x/tokens"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 hover:underline"
-            >
-              OpenZeppelin Token Contracts
-            </a>
-          </li>
-          <li>
-            <a
-              href="https://ethereum.org/en/developers/docs/standards/tokens/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 hover:underline"
-            >
-              Ethereum.org Token Standards Guide
-            </a>
-          </li>
-          <li>
-            <a
-              href="https://eips.ethereum.org/EIPS/eip-20"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 hover:underline"
-            >
-              ERC-20 Specification (EIP-20)
-            </a>
-          </li>
-          <li>
-            <a
-              href="https://eips.ethereum.org/EIPS/eip-721"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 hover:underline"
-            >
-              ERC-721 Specification (EIP-721)
-            </a>
-          </li>
-          <li>
-            <a
-              href="https://eips.ethereum.org/EIPS/eip-1155"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 hover:underline"
-            >
-              ERC-1155 Specification (EIP-1155)
-            </a>
-          </li>
-          <li>
-            <a
-              href="https://www.youtube.com/watch?v=9uEmNgHzPhQ"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 hover:underline"
-            >
-              ERC-20 & ERC-721 Explained (YouTube)
-            </a>
-          </li>
-        </ul>
-      </div>
+        {/* Description */}
+        <p className="text-base mb-6 leading-relaxed">
+          Understand and implement Ethereum token standards like{" "}
+          <span className="text-[#23daff] font-bold">ERC-20</span> (fungible tokens),{" "}
+          <span className="text-[#23daff] font-bold">ERC-721</span> (NFTs), and{" "}
+          <span className="text-[#23daff] font-bold">ERC-1155</span> (multi-token). Learn about extensions such as{" "}
+          <span className="text-[#23daff] font-bold">EIP-2612</span> permits,{" "}
+          <span className="text-[#23daff] font-bold">ERC-2981</span> royalties, and role-based access control.
+          Practice by building your own <span className="text-[#23daff] font-bold">ERC-20</span> with airdrop features and an NFT collection with on-chain metadata.
+        </p>
 
-      <div className="flex justify-between mt-6">
-        <button
-          onClick={fullscrenHandler}
-          className="bg-blue-500 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-600"
-        >
-          {isFullScreen === "left-[60%]" ? "Expand" : "Shrink"}
-        </button>
-        <button
-          onClick={Nexthandler}
-          className="bg-green-500 text-white px-4 py-2 rounded-lg shadow hover:bg-green-600"
-        >
-          Next
-        </button>
+        {/* Resources */}
+        <div className="flex flex-col gap-4 w-full">
+          {/* ERC-20 */}
+          <div className="border border-[#23daff] rounded-lg bg-[#12206c] p-4">
+            <div className="flex items-center mb-1">
+              <span className="material-icons text-[#23daff] mr-2" style={{ fontSize: "1.3rem" }}>token</span>
+              <span className="font-semibold text-lg text-[#23daff]">ERC-20 (Fungible Token)</span>
+            </div>
+            <ul className="ml-6 list-disc text-sm">
+              <li>
+                <a
+                  href="https://eips.ethereum.org/EIPS/eip-20"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline text-[#23daff] hover:text-[#00d9ff]"
+                >
+                  ERC-20 Specification (EIP-20)
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://docs.openzeppelin.com/contracts/4.x/erc20"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline text-[#23daff] hover:text-[#00d9ff]"
+                >
+                  OpenZeppelin ERC-20 Docs
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          {/* ERC-721 */}
+          <div className="border border-[#23daff] rounded-lg bg-[#12206c] p-4">
+            <div className="flex items-center mb-1">
+              <span className="material-icons text-[#23daff] mr-2" style={{ fontSize: "1.3rem" }}>collections</span>
+              <span className="font-semibold text-lg text-[#23daff]">ERC-721 (NFT)</span>
+            </div>
+            <ul className="ml-6 list-disc text-sm">
+              <li>
+                <a
+                  href="https://eips.ethereum.org/EIPS/eip-721"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline text-[#23daff] hover:text-[#00d9ff]"
+                >
+                  ERC-721 Specification (EIP-721)
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://docs.openzeppelin.com/contracts/4.x/erc721"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline text-[#23daff] hover:text-[#00d9ff]"
+                >
+                  OpenZeppelin ERC-721 Docs
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          {/* ERC-1155 */}
+          <div className="border border-[#23daff] rounded-lg bg-[#12206c] p-4">
+            <div className="flex items-center mb-1">
+              <span className="material-icons text-[#23daff] mr-2" style={{ fontSize: "1.3rem" }}>layers</span>
+              <span className="font-semibold text-lg text-[#23daff]">ERC-1155 (Multi-Token)</span>
+            </div>
+            <ul className="ml-6 list-disc text-sm">
+              <li>
+                <a
+                  href="https://eips.ethereum.org/EIPS/eip-1155"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline text-[#23daff] hover:text-[#00d9ff]"
+                >
+                  ERC-1155 Specification (EIP-1155)
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://docs.openzeppelin.com/contracts/4.x/erc1155"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline text-[#23daff] hover:text-[#00d9ff]"
+                >
+                  OpenZeppelin ERC-1155 Docs
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          {/* Extensions */}
+          <div className="border border-[#23daff] rounded-lg bg-[#12206c] p-4">
+            <div className="flex items-center mb-1">
+              <span className="material-icons text-[#23daff] mr-2" style={{ fontSize: "1.3rem" }}>extension</span>
+              <span className="font-semibold text-lg text-[#23daff]">Extensions</span>
+            </div>
+            <ul className="ml-6 list-disc text-sm">
+              <li>
+                <a
+                  href="https://eips.ethereum.org/EIPS/eip-2612"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline text-[#23daff] hover:text-[#00d9ff]"
+                >
+                  EIP-2612 (Permit Extension)
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://eips.ethereum.org/EIPS/eip-2981"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline text-[#23daff] hover:text-[#00d9ff]"
+                >
+                  ERC-2981 (NFT Royalty Standard)
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          {/* Video */}
+          <div className="border border-[#23daff] rounded-lg bg-[#12206c] p-4">
+            <div className="flex items-center mb-1">
+              <span className="material-icons text-[#23daff] mr-2" style={{ fontSize: "1.3rem" }}>ondemand_video</span>
+              <span className="font-semibold text-lg text-[#23daff]">Video</span>
+            </div>
+            <ul className="ml-6 list-disc text-sm">
+              <li>
+                <a
+                  href="https://www.youtube.com/watch?v=9uEmNgHzPhQ"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline text-[#23daff] hover:text-[#00d9ff]"
+                >
+                  ERC-20 & ERC-721 Explained (YouTube)
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        {/* Action Buttons */}
+        <div className="flex justify-end gap-4 mt-8 mb-4">
+          <button
+            onClick={closeTokenStandards}
+            className="px-6 py-2 bg-[#e83e58] hover:bg-[#ff4e6b] text-white font-bold rounded-lg shadow transition-colors"
+          >
+            Close
+          </button>
+          <button
+            onClick={handleDone}
+            className="px-6 py-2 bg-[#23daff] hover:bg-[#00d9ff] text-[#0e1542] font-bold rounded-lg shadow transition-colors"
+          >
+            Done
+          </button>
+        </div>
       </div>
-    </div>
+    </section>
   );
 }

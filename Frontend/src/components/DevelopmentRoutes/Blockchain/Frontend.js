@@ -1,99 +1,149 @@
 import { useState } from "react";
 
 export default function FrontendIntegration({ closeFrontendIntegration, Done }) {
-  const Nexthandler = () => {
-    Done();
-    closeFrontendIntegration();
-  };
-
   const [isFullScreen, setFullScreen] = useState("left-[60%]");
   const fullscrenHandler = () => {
     setFullScreen(isFullScreen === "left-[60%]" ? "left-[20%]" : "left-[60%]");
   };
+  const handleDone = () => {
+    Done();
+    closeFrontendIntegration();
+  };
 
   return (
-    <div
-      className={`absolute top-0 ${isFullScreen} h-full w-[40%] bg-white shadow-lg p-6 transition-all duration-300 rounded-2xl`}
+    <section
+      className={`transition-transform duration-300 ease-in-out fixed right-0 ${isFullScreen} top-0 bottom-0 overflow-y-scroll scrollbar scrollbar-thumb-scrollbarThumb scrollbar-track-scrollbarTrack scrollbar-bg-scrollbarBg inset-0 bg-[#0e1542] flex justify-center items-center z-50 m-0 h-[100%] pt-6`}
+      style={{
+        boxShadow:
+          "0 8px 32px 0 rgba(31, 38, 135, 0.37), 0 1.5px 8px 0 rgba(0,0,0,0.25)",
+      }}
     >
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-2xl font-bold">Frontend Integration</h2>
-        <button
-          onClick={closeFrontendIntegration}
-          className="text-gray-600 hover:text-gray-900"
-        >
-          ✖
-        </button>
-      </div>
+      <div className="bg-[#0e1542] text-white pb-0 px-4 h-[100%] w-full max-w-2xl rounded-xl shadow-lg flex flex-col">
+        {/* Header with fullscreen toggle and close */}
+        <div className="flex justify-between items-center mb-4">
+          <div className="flex items-center gap-2">
+            <button
+              onClick={fullscrenHandler}
+              className="text-[#00d9ff] hover:bg-[#25305b] rounded-full p-2 transition-colors"
+              title={isFullScreen === "left-[60%]" ? "Expand" : "Shrink"}
+            >
+              {isFullScreen === "left-[60%]" ? (
+                <span className="material-icons align-middle text-2xl">open_in_full</span>
+              ) : (
+                <span className="material-icons align-middle text-2xl">close_fullscreen</span>
+              )}
+            </button>
+          </div>
+          <button
+            onClick={closeFrontendIntegration}
+            className="text-[#00d9ff] hover:bg-[#25305b] rounded-full p-2 transition-colors"
+            title="Close"
+          >
+            <span className="material-icons align-middle text-2xl">close</span>
+          </button>
+        </div>
 
-      <p className="text-gray-700 leading-relaxed mb-4">
-        Learn how to connect your smart contracts with web applications using
-        libraries like <strong>Ethers.js</strong> and <strong>Web3.js</strong>.
-        Build decentralized apps (dApps) that interact with blockchain networks
-        through MetaMask or WalletConnect. Practice by creating a simple dApp
-        with user authentication, transactions, and real-time blockchain data
-        display.
-      </p>
+        {/* Title */}
+        <h2 className="text-2xl mb-4 bg-[#00d9ff] text-black w-[100%] rounded-md p-2">
+          Frontend Integration
+        </h2>
 
-      <div className="mt-4">
-        <h3 className="text-lg font-semibold mb-2">📚 Resources</h3>
-        <ul className="list-disc list-inside text-gray-700 space-y-2">
-          <li>
-            <a
-              href="https://docs.ethers.org/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 hover:underline"
-            >
-              Ethers.js Documentation
-            </a>
-          </li>
-          <li>
-            <a
-              href="https://web3js.readthedocs.io/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 hover:underline"
-            >
-              Web3.js Documentation
-            </a>
-          </li>
-          <li>
-            <a
-              href="https://docs.metamask.io/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 hover:underline"
-            >
-              MetaMask Developer Docs
-            </a>
-          </li>
-          <li>
-            <a
-              href="https://www.youtube.com/watch?v=gyMwXuJrbJQ"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 hover:underline"
-            >
-              FreeCodeCamp Web3.js & Ethers.js Course
-            </a>
-          </li>
-        </ul>
-      </div>
+        {/* Description */}
+        <p className="mb-6 text-base leading-relaxed">
+          Learn how to connect your smart contracts with web applications using{" "}
+          <span className="text-[#23daff] font-bold">Ethers.js</span> and{" "}
+          <span className="text-[#23daff] font-bold">Web3.js</span>. Build{" "}
+          <span className="text-[#23daff] font-bold">decentralized apps (dApps)</span> that interact with blockchain networks through{" "}
+          <span className="text-[#23daff] font-bold">MetaMask</span> or{" "}
+          <span className="text-[#23daff] font-bold">WalletConnect</span>. Practice by creating a simple dApp with{" "}
+          <span className="text-[#23daff] font-bold">user authentication</span>,{" "}
+          <span className="text-[#23daff] font-bold">transactions</span>, and real-time blockchain data display.
+        </p>
 
-      <div className="flex justify-between mt-6">
-        <button
-          onClick={fullscrenHandler}
-          className="bg-blue-500 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-600"
-        >
-          {isFullScreen === "left-[60%]" ? "Expand" : "Shrink"}
-        </button>
-        <button
-          onClick={Nexthandler}
-          className="bg-green-500 text-white px-4 py-2 rounded-lg shadow hover:bg-green-600"
-        >
-          Next
-        </button>
+        {/* Resources Sections */}
+        <div className="space-y-4">
+          {/* Ethers.js Section */}
+          <div className="border border-[#23daff] rounded-md p-4">
+            <h3 className="text-lg font-semibold text-[#23daff] mb-1">Ethers.js</h3>
+            <ul className="list-disc list-inside ml-3">
+              <li>
+                <a
+                  href="https://docs.ethers.org/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#00d9ff] hover:underline"
+                >
+                  Ethers.js Documentation
+                </a>
+              </li>
+            </ul>
+          </div>
+          {/* Web3.js Section */}
+          <div className="border border-[#23daff] rounded-md p-4">
+            <h3 className="text-lg font-semibold text-[#23daff] mb-1">Web3.js</h3>
+            <ul className="list-disc list-inside ml-3">
+              <li>
+                <a
+                  href="https://web3js.readthedocs.io/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#00d9ff] hover:underline"
+                >
+                  Web3.js Documentation
+                </a>
+              </li>
+            </ul>
+          </div>
+          {/* MetaMask Section */}
+          <div className="border border-[#23daff] rounded-md p-4">
+            <h3 className="text-lg font-semibold text-[#23daff] mb-1">MetaMask</h3>
+            <ul className="list-disc list-inside ml-3">
+              <li>
+                <a
+                  href="https://docs.metamask.io/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#00d9ff] hover:underline"
+                >
+                  MetaMask Developer Docs
+                </a>
+              </li>
+            </ul>
+          </div>
+          {/* Video Course Section */}
+          <div className="border border-[#23daff] rounded-md p-4">
+            <h3 className="text-lg font-semibold text-[#23daff] mb-1">Video Course</h3>
+            <ul className="list-disc list-inside ml-3">
+              <li>
+                <a
+                  href="https://www.youtube.com/watch?v=gyMwXuJrbJQ"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#00d9ff] hover:underline"
+                >
+                  FreeCodeCamp Web3.js & Ethers.js Course
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        {/* Action Buttons */}
+        <div className="flex justify-end gap-3 mt-8 mb-2">
+          <button
+            onClick={closeFrontendIntegration}
+            className="bg-[#25305b] hover:bg-[#00d9ff] hover:text-black text-[#00d9ff] px-6 py-2 rounded-md font-semibold transition-all duration-150"
+          >
+            Close
+          </button>
+          <button
+            onClick={handleDone}
+            className="bg-[#00d9ff] hover:bg-[#25305b] text-black hover:text-[#00d9ff] px-6 py-2 rounded-md font-semibold transition-all duration-150"
+          >
+            Done
+          </button>
+        </div>
       </div>
-    </div>
+    </section>
   );
 }

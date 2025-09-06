@@ -57,8 +57,8 @@ export default function Mainleft({ toggleHideLeft, Hide_Left }) {
                                 </div>
                             </li>
                         </Link>
-                        <Link to="/traintoexcellency/Frontend-build/language">
-                            <li className={`text-white ${location.pathname === '/language' ? 'text-[#00ffea]' : ''} lg:list-none lg:gap-3 flex md:py-2 px-3 hover:bg-[#314969] rounded-xl items-center lg:flex-row flex-col text-gray-300 hover:text-gray-100 `}>
+                        <Link to="/traintoexcellency/Frontend-build/profile">
+                            <li className={`text-white ${location.pathname === '/profile' ? 'text-[#00ffea]' : ''} lg:list-none lg:gap-3 flex md:py-2 px-3 hover:bg-[#314969] rounded-xl items-center lg:flex-row flex-col text-gray-300 hover:text-gray-100 `}>
                                 <span className="material-symbols-outlined text-3xl">person</span>
                                 <span className='lg:block md:hidden'>Profile</span>
                             </li>

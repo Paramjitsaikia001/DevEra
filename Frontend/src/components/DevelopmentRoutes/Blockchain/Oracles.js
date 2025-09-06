@@ -1,123 +1,134 @@
 import { useState } from "react";
 
 export default function OraclesAutomation({ closeOraclesAutomation, Done }) {
-  const Nexthandler = () => {
-    Done();
-    closeOraclesAutomation();
-  };
-
   const [isFullScreen, setFullScreen] = useState("left-[60%]");
   const fullscrenHandler = () => {
     setFullScreen(isFullScreen === "left-[60%]" ? "left-[20%]" : "left-[60%]");
   };
 
+  const Nexthandler = () => {
+    Done();
+    closeOraclesAutomation();
+  };
+
   return (
-    <div
-      className={`absolute top-0 ${isFullScreen} h-full w-[40%] bg-white shadow-lg p-6 transition-all duration-300 rounded-2xl`}
+    <section
+      className={`transition-transform duration-300 ease-in-out fixed right-0 ${isFullScreen} top-0 bottom-0 overflow-y-scroll scrollbar scrollbar-thumb-[#00d9ff] scrollbar-track-[#0e1542] bg-[#0e1542] flex justify-center items-center z-50 m-0 h-[100%] pt-6`}
+      style={{ boxShadow: "0 0 10px 0px #000000" }}
     >
-      {/* Header */}
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-2xl font-bold">Oracles & Automation</h2>
-        <button
-          onClick={closeOraclesAutomation}
-          className="text-gray-600 hover:text-gray-900"
-        >
-          ✖
-        </button>
-      </div>
+      <div className="bg-[#0e1542] text-white pb-0 px-4 h-[100%]">
+        {/* Header */}
+        <div className="flex pb-4 justify-between items-center w-[100%]">
+          <div />
+          <div className="flex gap-4">
+            <span
+              className="material-symbols-outlined text-[#8f8f8f] cursor-pointer"
+              onClick={fullscrenHandler}
+            >
+              {isFullScreen === "left-[60%]" ? "open_in_full" : "close_fullscreen"}
+            </span>
+            <span
+              className="material-symbols-outlined text-[#8f8f8f] cursor-pointer"
+              onClick={closeOraclesAutomation}
+            >
+              close
+            </span>
+          </div>
+        </div>
 
-      {/* Description */}
-      <p className="text-gray-700 leading-relaxed mb-4">
-        Smart contracts cannot fetch real-world data on their own.{" "}
-        <strong>Oracles</strong> like Chainlink bring off-chain data
-        (price feeds, APIs, randomness) on-chain, enabling DeFi and other
-        real-world applications. For recurring tasks,{" "}
-        <strong>automation services</strong> like Chainlink Keepers
-        or Gelato Network let contracts self-execute without manual triggers.
-      </p>
+        {/* Title */}
+        <h2 className="text-2xl mb-4 bg-[#00d9ff] text-black w-[100%] rounded-md p-2">
+          Oracles & Automation
+        </h2>
 
-      {/* Mini Projects */}
-      <div className="mt-4">
-        <h3 className="text-lg font-semibold mb-2">🛠️ Mini Projects</h3>
-        <ul className="list-disc list-inside text-gray-700 space-y-1">
-          <li>Create a lottery dApp using Chainlink VRF for randomness.</li>
-          <li>Fetch live ETH/USD price using Chainlink Price Feeds.</li>
-          <li>Automate recurring token transfers using Chainlink Automation.</li>
-        </ul>
-      </div>
+        {/* Description */}
+        <p className="mb-4">
+          Smart contracts cannot fetch real-world data on their own. <strong>Oracles</strong> like Chainlink bring off-chain data (price feeds, APIs, randomness) on-chain, enabling DeFi and other real-world applications. For recurring tasks, <strong>automation services</strong> like Chainlink Keepers or Gelato Network let contracts self-execute without manual triggers.
+        </p>
 
-      {/* Resources */}
-      <div className="mt-4">
-        <h3 className="text-lg font-semibold mb-2">📚 Resources</h3>
-        <ul className="list-disc list-inside text-gray-700 space-y-2">
-          <li>
-            <a
-              href="https://docs.chain.link/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 hover:underline"
-            >
-              Chainlink Official Documentation
-            </a>
-          </li>
-          <li>
-            <a
-              href="https://learn.chain.link/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 hover:underline"
-            >
-              Chainlink Learning Hub
-            </a>
-          </li>
-          <li>
-            <a
-              href="https://docs.gelato.network/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 hover:underline"
-            >
-              Gelato Automation Docs
-            </a>
-          </li>
-          <li>
-            <a
-              href="https://youtu.be/7xAZ1I2jWY8"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 hover:underline"
-            >
-              Chainlink Automation & Keepers Explained (YouTube)
-            </a>
-          </li>
-          <li>
-            <a
-              href="https://www.rareskills.io/post/chainlink-vrf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 hover:underline"
-            >
-              RareSkills – Chainlink VRF Tutorial
-            </a>
-          </li>
-        </ul>
-      </div>
+        {/* What to Learn */}
+        <div className="mb-6">
+          <h3 className="mb-2 font-semibold">What to Learn:</h3>
+          <ul className="list-disc list-inside">
+            <li>Create a lottery dApp using Chainlink VRF for randomness.</li>
+            <li>Fetch live ETH/USD price using Chainlink Price Feeds.</li>
+            <li>Automate recurring token transfers using Chainlink Automation.</li>
+          </ul>
+        </div>
 
-      {/* Buttons */}
-      <div className="flex justify-between mt-6">
-        <button
-          onClick={fullscrenHandler}
-          className="bg-blue-500 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-600"
-        >
-          {isFullScreen === "left-[60%]" ? "Expand" : "Shrink"}
-        </button>
-        <button
-          onClick={Nexthandler}
-          className="bg-green-500 text-white px-4 py-2 rounded-lg shadow hover:bg-green-600"
-        >
-          Next
-        </button>
+        {/* Resources */}
+        <div className="mb-6">
+          <h3 className="mb-2 font-semibold">Resources:</h3>
+          <div className="flex flex-col gap-3">
+            <div className="flex gap-3 items-center">
+              <span className="material-symbols-outlined text-xs bg-[#3348ff] text-white px-2 py-1 rounded">doc</span>
+              <a
+                href="https://docs.chain.link/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span className="text-[#28ffd4] underline">Chainlink Official Documentation</span>
+              </a>
+            </div>
+            <div className="flex gap-3 items-center">
+              <span className="material-symbols-outlined text-xs bg-[#3348ff] text-white px-2 py-1 rounded">blog</span>
+              <a
+                href="https://learn.chain.link/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span className="text-[#28ffd4] underline">Chainlink Learning Hub</span>
+              </a>
+            </div>
+            <div className="flex gap-3 items-center">
+              <span className="material-symbols-outlined text-xs bg-[#3348ff] text-white px-2 py-1 rounded">art_track</span>
+              <a
+                href="https://docs.gelato.network/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span className="text-[#28ffd4] underline">Gelato Automation Docs</span>
+              </a>
+            </div>
+            <div className="flex gap-3 items-center">
+              <span className="material-symbols-outlined text-xs bg-red-600 text-white px-2 py-1 rounded">play_arrow</span>
+              <a
+                href="https://youtu.be/7xAZ1I2jWY8"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span className="text-[#28ffd4] underline">Chainlink Automation &amp; Keepers Explained (YouTube)</span>
+              </a>
+            </div>
+            <div className="flex gap-3 items-center">
+              <span className="material-symbols-outlined text-xs bg-[#3348ff] text-white px-2 py-1 rounded">blog</span>
+              <a
+                href="https://www.rareskills.io/post/chainlink-vrf"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span className="text-[#28ffd4] underline">RareSkills – Chainlink VRF Tutorial</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {/* Buttons */}
+        <div className="flex justify-between">
+          <button
+            onClick={closeOraclesAutomation}
+            className="px-4 py-2 bg-blue-600 text-white rounded"
+          >
+            Close
+          </button>
+          <button
+            onClick={Nexthandler}
+            className="px-4 py-2 bg-blue-600 text-white rounded"
+          >
+            Done
+          </button>
+        </div>
       </div>
-    </div>
+    </section>
   );
 }

@@ -16,6 +16,7 @@ import FrontendDev from './components/DevelopmentRoutes/FrontendDevelopment/Fron
 import AiChatPage from './components/ui/AiChatPage';
 import BackendRoadmap from './components/DevelopmentRoutes/BackendDev/BackendRoadmap';
 import BlockchainDev from './components/DevelopmentRoutes/Blockchain/Roadmap';
+import Profile from './components/pages/Profile';
 import { ROUTES } from './constants/routes';
 
 function App() {
@@ -45,6 +46,7 @@ function App() {
           <Route path={ROUTES.FRONTEND_DEV} element={<FrontendDev />} />
           <Route path={ROUTES.BACKEND_DEV} element={<BackendRoadmap />} />
           <Route path={ROUTES.BLOCKCHAIN_DEV} element={<BlockchainDev />} />
+          <Route path={ROUTES.PROFILE} element={<Profile />} />
         </Routes>
       </main>
     </Router>

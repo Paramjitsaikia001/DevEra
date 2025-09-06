@@ -1,132 +1,168 @@
 import { useState } from "react";
 
 export default function CareerPrep({ closeCareerPrep, Done }) {
+  const [isFullScreen, setFullScreen] = useState("left-[60%]");
+
+  const fullscrenHandler = () => {
+    setFullScreen(isFullScreen === "left-[60%]" ? "left-[20%]" : "left-[60%]");
+  };
+
   const Nexthandler = () => {
     Done();
     closeCareerPrep();
   };
 
-  const [isFullScreen, setFullScreen] = useState("left-[60%]");
-  const fullscrenHandler = () => {
-    setFullScreen(isFullScreen === "left-[60%]" ? "left-[20%]" : "left-[60%]");
-  };
-
   return (
-    <div
-      className={`absolute top-0 ${isFullScreen} h-full w-[40%] bg-white shadow-lg p-6 transition-all duration-300 rounded-2xl`}
+    <section
+      className={`transition-transform duration-300 ease-in-out fixed right-0 ${isFullScreen} top-0 bottom-0 overflow-y-scroll scrollbar scrollbar-thumb-scrollbarThumb scrollbar-track-scrollbarTrack scrollbar-bg-scrollbarBg inset-0 bg-[#0e1542] flex justify-center items-center z-50 m-0 h-[100%] pt-6`}
+      style={{ boxShadow: "0 0 10px 0px #000000" }}
     >
-      {/* Header */}
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-2xl font-bold">Career Prep & Job-Ready Projects</h2>
-        <button
-          onClick={closeCareerPrep}
-          className="text-gray-600 hover:text-gray-900"
-        >
-          ✖
-        </button>
-      </div>
+      <div className="bg-[#0e1542] text-white pb-0 px-4 h-[100%]">
+        {/* Header controls */}
+        <div className="flex pb-4 justify-between items-center w-[100%]">
+          {isFullScreen === "left-[60%]" ? (
+            <span
+              className="material-symbols-outlined text-[#8f8f8f] cursor-pointer"
+              onClick={fullscrenHandler}
+            >
+              open_in_full
+            </span>
+          ) : (
+            <span
+              className="material-symbols-outlined text-[#8f8f8f] cursor-pointer"
+              onClick={fullscrenHandler}
+            >
+              close_fullscreen
+            </span>
+          )}
+          <span
+            onClick={closeCareerPrep}
+            className="material-symbols-outlined text-[#8f8f8f] cursor-pointer"
+          >
+            close
+          </span>
+        </div>
 
-      {/* Description */}
-      <p className="text-gray-700 leading-relaxed mb-4">
-        Prepare for a blockchain developer career by building polished projects, 
-        contributing to open source, and learning industry-standard tools and workflows. 
-        Focus on portfolios, security reviews, and deploying real-world applications.
-      </p>
+        {/* Title */}
+        <h2 className="text-2xl mb-4 bg-[#00d9ff] text-black w-[100%] rounded-md p-2">
+          Career Prep & Job-Ready Projects
+        </h2>
 
-      {/* Actionable Steps */}
-      <div className="mt-4">
-        <h3 className="text-lg font-semibold mb-2">🎯 Steps to Get Job-Ready</h3>
-        <ul className="list-disc list-inside text-gray-700 space-y-1">
-          <li>
-            Write postmortems and security reviews for your own repositories.
-          </li>
-          <li>
-            Contribute pull requests to projects like OpenZeppelin, Foundry, or wagmi.
-          </li>
-          <li>
-            Participate in hackathons and aim for top 10% finishes.
-          </li>
-          <li>
-            Build real-world projects and document them professionally in your portfolio.
-          </li>
-          <li>
-            Learn interview patterns, smart contract challenges, and blockchain system design.
-          </li>
-        </ul>
-      </div>
+        {/* Content */}
+        <div className="flex flex-col gap-1">
+          <p>
+            Prepare for a blockchain developer career by{" "}
+            <span className="text-[#23daff] font-bold">building polished projects</span>,{" "}
+            <span className="text-[#23daff] font-bold">contributing to open source</span>, 
+            and learning{" "}
+            <span className="text-[#23daff] font-bold">industry-standard tools</span> 
+            and workflows. Focus on portfolios, security reviews, and deploying 
+            real-world applications.
+          </p>
 
-      {/* Resources */}
-      <div className="mt-4">
-        <h3 className="text-lg font-semibold mb-2">📚 Resources</h3>
-        <ul className="list-disc list-inside text-gray-700 space-y-2">
-          <li>
-            <a
-              href="https://www.blockchain-council.org/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 hover:underline"
-            >
-              Blockchain Council – Career Resources & Certifications
-            </a>
-          </li>
-          <li>
-            <a
-              href="https://ethereum.org/en/developers/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 hover:underline"
-            >
-              Ethereum Developer Docs – Best Practices & Job-Ready Skills
-            </a>
-          </li>
-          <li>
-            <a
-              href="https://github.com/ConsenSys"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 hover:underline"
-            >
-              ConsenSys Open Source Projects – Contribute & Learn
-            </a>
-          </li>
-          <li>
-            <a
-              href="https://medium.com/@ethereumfoundation"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 hover:underline"
-            >
-              Ethereum Foundation Medium – Updates, Tutorials, and Tips
-            </a>
-          </li>
-          <li>
-            <a
-              href="https://www.youtube.com/@DappUniversity"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 hover:underline"
-            >
-              Dapp University – YouTube Tutorials & Project Guides
-            </a>
-          </li>
-        </ul>
-      </div>
+          {/* Learning list */}
+          <div className="flex flex-col my-5 gap-4">
+            <p className="font-bold">Steps to Get Job-Ready:</p>
+            <ul className="list-disc list-inside">
+              <li>Write postmortems and security reviews for your own repositories.</li>
+              <li>Contribute pull requests to projects like OpenZeppelin, Foundry, or wagmi.</li>
+              <li>Participate in hackathons and aim for top 10% finishes.</li>
+              <li>Build real-world projects and document them professionally in your portfolio.</li>
+              <li>Learn interview patterns, smart contract challenges, and blockchain system design.</li>
+            </ul>
 
-      {/* Buttons */}
-      <div className="flex justify-between mt-6">
-        <button
-          onClick={fullscrenHandler}
-          className="bg-blue-500 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-600"
-        >
-          {isFullScreen === "left-[60%]" ? "Expand" : "Shrink"}
-        </button>
-        <button
-          onClick={Nexthandler}
-          className="bg-green-500 text-white px-4 py-2 rounded-lg shadow hover:bg-green-600"
-        >
-          Done
-        </button>
+            <p className="font-bold">Resources:</p>
+            <div className="flex flex-col gap-4">
+              <div className="flex gap-3">
+                <span className="text-white py-0 px-2 bg-[#3348ff] rounded-md">
+                  doc
+                </span>
+                <a
+                  href="https://www.blockchain-council.org/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span className="text-[#28ffd4] underline">
+                    Blockchain Council – Career Resources & Certifications
+                  </span>
+                </a>
+              </div>
+              <div className="flex gap-3">
+                <span className="text-white py-0 px-2 bg-[#3348ff] rounded-md">
+                  doc
+                </span>
+                <a
+                  href="https://ethereum.org/en/developers/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span className="text-[#28ffd4] underline">
+                    Ethereum Developer Docs – Best Practices & Job-Ready Skills
+                  </span>
+                </a>
+              </div>
+              <div className="flex gap-3">
+                <span className="text-white py-0 px-2 bg-[#3348ff] rounded-md">
+                  art
+                </span>
+                <a
+                  href="https://github.com/ConsenSys"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span className="text-[#28ffd4] underline">
+                    ConsenSys Open Source Projects – Contribute & Learn
+                  </span>
+                </a>
+              </div>
+              <div className="flex gap-3">
+                <span className="text-white py-0 px-2 bg-[#3348ff] rounded-md">
+                  blog
+                </span>
+                <a
+                  href="https://medium.com/@ethereumfoundation"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span className="text-[#28ffd4] underline">
+                    Ethereum Foundation Medium – Updates, Tutorials, and Tips
+                  </span>
+                </a>
+              </div>
+              <div className="flex gap-3 items-center">
+                <span className="material-symbols-outlined px-[10px] py-0 bg-red-600 text-white rounded-md">
+                  play_arrow
+                </span>
+                <a
+                  href="https://www.youtube.com/@DappUniversity"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span className="text-[#28ffd4] underline">
+                    Dapp University – YouTube Tutorials & Project Guides
+                  </span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Buttons */}
+        <div className="flex justify-between">
+          <button
+            onClick={closeCareerPrep}
+            className="px-4 py-2 bg-blue-600 text-white rounded"
+          >
+            Close
+          </button>
+          <button
+            onClick={Nexthandler}
+            className="px-4 py-2 bg-blue-600 text-white rounded"
+          >
+            Done
+          </button>
+        </div>
       </div>
-    </div>
+    </section>
   );
 }

@@ -18,6 +18,7 @@ import AdvancedPage from "../Blockchain/Advanced";
 import DevOpsPage from "../Blockchain/DevOps";
 import PortfolioPage from "../Blockchain/Portfolio";
 import CareerPage from "../Blockchain/Career";
+import Fullresource from "../Blockchain/Fullresource";
 
 const roadmap = [
   {
@@ -138,6 +139,7 @@ export default function Blockchain() {
   const [showDevOps, setDevOps] = useState(false);
   const [showPortfolio, setPortfolio] = useState(false);
   const [showCareer, setCareer] = useState(false);
+   const [showFullResource, setFullResource] = useState(false);
 
   // Handlers
   const handlers = {
@@ -157,6 +159,7 @@ export default function Blockchain() {
     handleDevOps: () => setDevOps(!showDevOps),
     handlePortfolio: () => setPortfolio(!showPortfolio),
     handleCareer: () => setCareer(!showCareer),
+    handleFullResource: () => setFullResource(!showFullResource),
   };
 
   return (
@@ -178,6 +181,7 @@ export default function Blockchain() {
       {showDevOps && <DevOpsPage closeDevOps={handlers.handleDevOps} />}
       {showPortfolio && <PortfolioPage closePortfolio={handlers.handlePortfolio} />}
       {showCareer && <CareerPage closeCareerPrep={handlers.handleCareer} />}
+      {showFullResource && <Fullresource closeFullResources={handlers.handleFullResource} />}
 
       <div className="flex justify-center p-4 w-[100%]">
         <Header />
@@ -240,7 +244,10 @@ export default function Blockchain() {
 
       {/* Full Resources Button */}
       <div className="fixed bottom-0 right-0 top-[90%] left-[82%] z-10">
-        <button className="bg-[#198de0] hover:bg-[#ffff] px-3 py-3 rounded-2xl font-bold flex gap-2">
+        <button
+          onClick={handlers.handleFullResource}
+          className="bg-[#198de0] hover:bg-[#ffff] px-3 py-3 rounded-2xl font-bold flex gap-2"
+        >
           full course Resource
           <span className="material-symbols-outlined">text_snippet</span>
         </button>

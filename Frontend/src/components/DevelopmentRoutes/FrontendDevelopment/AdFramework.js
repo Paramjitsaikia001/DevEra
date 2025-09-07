@@ -1,9 +1,9 @@
 import { useState } from "react";
 
-export default function TestingPage({ closeTesting, Done }) {
+export default function AdFrameworkPage({ closeAdvancedFrameworks, Done }) {
     const Nexthandler = () => {
         Done();
-        closeTesting();
+        closeAdvancedFrameworks();
     };
 
     const [isFullScreen, setFullScreen] = useState("left-[60%]");
@@ -28,89 +28,89 @@ export default function TestingPage({ closeTesting, Done }) {
                             close_fullscreen
                         </span>
                     )}
-                    <span onClick={closeTesting} className="material-symbols-outlined text-[#8f8f8f] cursor-pointer">
+                    <span onClick={closeAdvancedFrameworks} className="material-symbols-outlined text-[#8f8f8f] cursor-pointer">
                         close
                     </span>
                 </div>
 
                 {/* Title */}
-                <h2 className="text-2xl mb-4 bg-[#00d9ff] text-black w-[100%] rounded-md p-2">Testing & Quality Assurance</h2>
+                <h2 className="text-2xl mb-4 bg-[#00d9ff] text-black w-[100%] rounded-md p-2">Advanced React Frameworks</h2>
 
                 {/* Intro */}
                 <p className="mb-6">
-                    **Testing** ensures reliable, bug-free applications. Learn Jest, React Testing Library, or Cypress for unit and end-to-end testing to validate functionality and enhance user experience in production environments.
+                    Advanced frameworks like **Next.js** or **Gatsby** enhance React with server-side rendering and static site generation. These tools are key for building SEO-friendly, high-performance applications like blogs or e-commerce platforms.
                 </p>
 
-                {/* Unit & Component Testing */}
+                {/* Next.js */}
                 <div className="border border-[#38bdf8] rounded-lg p-4 mb-6">
-                    <h3 className="text-xl font-bold text-[#38bdf8] mb-2">Unit & Component Testing (Jest, RTL)</h3>
+                    <h3 className="text-xl font-bold text-[#38bdf8] mb-2">Next.js</h3>
                     <ul className="list-disc list-inside mb-3">
-                        <li>**Jest**: A powerful JavaScript testing framework with a focus on simplicity.</li>
-                        <li>**React Testing Library (RTL)**: A library for testing React components from a user's perspective.</li>
-                        <li>Learn to test individual functions, components, and hooks in isolation.</li>
+                        <li>**Server-Side Rendering (SSR):** Renders pages on the server for faster initial load times and better SEO.</li>
+                        <li>**Static Site Generation (SSG):** Pre-renders pages at build time for ultimate performance.</li>
+                        <li>An all-in-one solution with file-based routing, API routes, and image optimization.</li>
                     </ul>
                     <p className="font-bold">Resources:</p>
                     <div className="flex flex-col gap-3 mt-2">
                         <div className="flex gap-3">
                             <span className="bg-[#3348ff] text-white px-2 rounded-md">doc</span>
-                            <a href="https://jestjs.io/docs/getting-started" target="_blank" rel="noopener noreferrer" className="text-[#28ffd4] underline">
-                                Jest Official Docs
+                            <a href="https://nextjs.org/docs" target="_blank" rel="noopener noreferrer" className="text-[#28ffd4] underline">
+                                Next.js Official Docs
                             </a>
                         </div>
                         <div className="flex gap-3 items-center">
                             <span className="material-symbols-outlined px-[10px] bg-red-600 text-white rounded-md">play_arrow</span>
-                            <a href="https://youtu.be/u95C_F8-lXw" target="_blank" rel="noopener noreferrer" className="text-[#28ffd4] underline">
-                                React Testing Library Tutorial - The Net Ninja
+                            <a href="https://youtu.be/A6ZZiL8Y_W8" target="_blank" rel="noopener noreferrer" className="text-[#28ffd4] underline">
+                                Next.js 13 Tutorial - The Net Ninja
                             </a>
                         </div>
                     </div>
                 </div>
 
-                {/* End-to-End Testing */}
+                {/* Gatsby */}
                 <div className="border border-[#0288d1] rounded-lg p-4 mb-6">
-                    <h3 className="text-xl font-bold text-[#0288d1] mb-2">End-to-End (E2E) Testing (Cypress)</h3>
+                    <h3 className="text-xl font-bold text-[#0288d1] mb-2">Gatsby</h3>
                     <ul className="list-disc list-inside mb-3">
-                        <li>**Cypress**: A popular E2E testing framework that runs tests in a real browser.</li>
-                        <li>Simulate user behavior and test entire application flows from start to finish.</li>
-                        <li>Ideal for validating critical user journeys and integrations.</li>
+                        <li>A framework for building blazing-fast websites and apps with React.</li>
+                        <li>Focuses on **Static Site Generation (SSG)** and can pull data from any source (CMS, Markdown, APIs).</li>
+                        <li>Rich plugin ecosystem for features like image optimization and offline support.</li>
                     </ul>
                     <p className="font-bold">Resources:</p>
                     <div className="flex flex-col gap-3 mt-2">
                         <div className="flex gap-3">
                             <span className="bg-[#3348ff] text-white px-2 rounded-md">doc</span>
-                            <a href="https://docs.cypress.io/guides/overview/why-cypress" target="_blank" rel="noopener noreferrer" className="text-[#28ffd4] underline">
-                                Cypress Official Docs
+                            <a href="https://www.gatsbyjs.com/docs/" target="_blank" rel="noopener noreferrer" className="text-[#28ffd4] underline">
+                                Gatsby Official Docs
                             </a>
                         </div>
                         <div className="flex gap-3 items-center">
                             <span className="material-symbols-outlined px-[10px] bg-red-600 text-white rounded-md">play_arrow</span>
-                            <a href="https://youtu.be/W8QyY1nE8zM" target="_blank" rel="noopener noreferrer" className="text-[#28ffd4] underline">
-                                Cypress Crash Course - Traversy Media
+                            <a href="https://youtu.be/8t0Yl2cT9aY" target="_blank" rel="noopener noreferrer" className="text-[#28ffd4] underline">
+                                Gatsby Tutorial - FreeCodeCamp
                             </a>
                         </div>
                     </div>
                 </div>
 
-                {/* Best Practices */}
+                {/* Key Concepts */}
                 <div className="border border-[#7952b3] rounded-lg p-4 mb-6">
-                    <h3 className="text-xl font-bold text-[#7952b3] mb-2">Best Practices</h3>
+                    <h3 className="text-xl font-bold text-[#7952b3] mb-2">Key Concepts</h3>
                     <ul className="list-disc list-inside mb-3">
-                        <li>**Test Pyramid**: Understand the balance between unit, integration, and E2E tests.</li>
-                        <li>**TDD (Test-Driven Development)**: Write tests before you write code to guide development.</li>
-                        <li>**Mocking**: Learn to mock API calls and external services to isolate your tests.</li>
+                        <li>**SSR vs. SSG:** Understand when to choose between server-side rendering for dynamic content and static site generation for static content.</li>
+                        <li>**Hybrid Rendering:** Learn how to use both SSR and SSG within the same application.</li>
+                        <li>**Data Fetching:** Master different data fetching methods like `getStaticProps` and `getServerSideProps` in Next.js.</li>
                     </ul>
                     <p className="font-bold">Resources:</p>
                     <div className="flex flex-col gap-3 mt-2">
                         <div className="flex gap-3">
                             <span className="bg-[#3348ff] text-white px-2 rounded-md">doc</span>
-                            <a href="https://kentcdodds.com/blog/unit-vs-integration-vs-e2e-tests" target="_blank" rel="noopener noreferrer" className="text-[#28ffd4] underline">
-                                Unit vs. Integration vs. E2E Tests - Kent C. Dodds
+                            <a href="https://nextjs.org/docs/basic-features/data-fetching/overview" target="_blank" rel="noopener noreferrer" className="text-[#28ffd4] underline">
+                                Next.js Data Fetching Overview
                             </a>
                         </div>
                         <div className="flex gap-3 items-center">
                             <span className="material-symbols-outlined px-[10px] bg-red-600 text-white rounded-md">play_arrow</span>
-                            <a href="https://youtu.be/J5XNCl4m5dY" target="_blank" rel="noopener noreferrer" className="text-[#28ffd4] underline">
-                                What is TDD? - Traversy Media
+                            <a href="https://youtu.be/x1sR2J_F9t8" target="_blank" rel="noopener noreferrer" className="text-[#28ffd4] underline">
+                                SSR vs. SSG Explained - Fireship
                             </a>
                         </div>
                     </div>
@@ -118,7 +118,7 @@ export default function TestingPage({ closeTesting, Done }) {
 
                 {/* Buttons */}
                 <div className="flex justify-between mt-6">
-                    <button onClick={closeTesting} className="px-4 py-2 bg-blue-600 text-white rounded">Close</button>
+                    <button onClick={closeAdvancedFrameworks} className="px-4 py-2 bg-blue-600 text-white rounded">Close</button>
                     <button onClick={Nexthandler} className="px-4 py-2 bg-blue-600 text-white rounded">Done</button>
                 </div>
             </div>

@@ -1,9 +1,9 @@
 import { useState } from "react";
 
-export default function TestingPage({ closeTesting, Done }) {
+export default function PerformancePage({ closePerformance, Done }) {
     const Nexthandler = () => {
         Done();
-        closeTesting();
+        closePerformance();
     };
 
     const [isFullScreen, setFullScreen] = useState("left-[60%]");
@@ -28,89 +28,89 @@ export default function TestingPage({ closeTesting, Done }) {
                             close_fullscreen
                         </span>
                     )}
-                    <span onClick={closeTesting} className="material-symbols-outlined text-[#8f8f8f] cursor-pointer">
+                    <span onClick={closePerformance} className="material-symbols-outlined text-[#8f8f8f] cursor-pointer">
                         close
                     </span>
                 </div>
 
                 {/* Title */}
-                <h2 className="text-2xl mb-4 bg-[#00d9ff] text-black w-[100%] rounded-md p-2">Testing & Quality Assurance</h2>
+                <h2 className="text-2xl mb-4 bg-[#00d9ff] text-black w-[100%] rounded-md p-2">Performance & Optimization</h2>
 
                 {/* Intro */}
                 <p className="mb-6">
-                    **Testing** ensures reliable, bug-free applications. Learn Jest, React Testing Library, or Cypress for unit and end-to-end testing to validate functionality and enhance user experience in production environments.
+                    Optimizing performance with **lazy loading**, **code splitting**, and **asset optimization** (images, fonts) ensures fast applications. Use tools like **Lighthouse** to audit and improve load times, vital for user retention and SEO.
                 </p>
 
-                {/* Unit & Component Testing */}
+                {/* Code Optimization */}
                 <div className="border border-[#38bdf8] rounded-lg p-4 mb-6">
-                    <h3 className="text-xl font-bold text-[#38bdf8] mb-2">Unit & Component Testing (Jest, RTL)</h3>
+                    <h3 className="text-xl font-bold text-[#38bdf8] mb-2">Code Optimization</h3>
                     <ul className="list-disc list-inside mb-3">
-                        <li>**Jest**: A powerful JavaScript testing framework with a focus on simplicity.</li>
-                        <li>**React Testing Library (RTL)**: A library for testing React components from a user's perspective.</li>
-                        <li>Learn to test individual functions, components, and hooks in isolation.</li>
+                        <li>**Lazy Loading**: Load components only when they're needed, not on initial page load.</li>
+                        <li>**Code Splitting**: Break your JavaScript bundle into smaller chunks to reduce initial load time.</li>
+                        <li>**Bundle Auditing**: Use tools like Webpack Bundle Analyzer to visualize and reduce bundle size.</li>
                     </ul>
                     <p className="font-bold">Resources:</p>
                     <div className="flex flex-col gap-3 mt-2">
                         <div className="flex gap-3">
                             <span className="bg-[#3348ff] text-white px-2 rounded-md">doc</span>
-                            <a href="https://jestjs.io/docs/getting-started" target="_blank" rel="noopener noreferrer" className="text-[#28ffd4] underline">
-                                Jest Official Docs
+                            <a href="https://react.dev/reference/react/lazy" target="_blank" rel="noopener noreferrer" className="text-[#28ffd4] underline">
+                                React Docs - Lazy Loading
                             </a>
                         </div>
                         <div className="flex gap-3 items-center">
                             <span className="material-symbols-outlined px-[10px] bg-red-600 text-white rounded-md">play_arrow</span>
-                            <a href="https://youtu.be/u95C_F8-lXw" target="_blank" rel="noopener noreferrer" className="text-[#28ffd4] underline">
-                                React Testing Library Tutorial - The Net Ninja
+                            <a href="https://youtu.be/3B7_G8R5-yU" target="_blank" rel="noopener noreferrer" className="text-[#28ffd4] underline">
+                                Code Splitting & Lazy Loading in React - The Net Ninja
                             </a>
                         </div>
                     </div>
                 </div>
 
-                {/* End-to-End Testing */}
+                {/* Asset Optimization */}
                 <div className="border border-[#0288d1] rounded-lg p-4 mb-6">
-                    <h3 className="text-xl font-bold text-[#0288d1] mb-2">End-to-End (E2E) Testing (Cypress)</h3>
+                    <h3 className="text-xl font-bold text-[#0288d1] mb-2">Asset Optimization (Images & Fonts)</h3>
                     <ul className="list-disc list-inside mb-3">
-                        <li>**Cypress**: A popular E2E testing framework that runs tests in a real browser.</li>
-                        <li>Simulate user behavior and test entire application flows from start to finish.</li>
-                        <li>Ideal for validating critical user journeys and integrations.</li>
+                        <li>**Image Compression**: Use responsive images, modern formats (WebP, AVIF), and compression to reduce file size without losing quality.</li>
+                        <li>**Font Optimization**: Load only the necessary font weights and subsets to improve rendering time.</li>
+                        <li>**Caching**: Implement browser and server caching strategies to speed up repeat visits.</li>
                     </ul>
                     <p className="font-bold">Resources:</p>
                     <div className="flex flex-col gap-3 mt-2">
                         <div className="flex gap-3">
                             <span className="bg-[#3348ff] text-white px-2 rounded-md">doc</span>
-                            <a href="https://docs.cypress.io/guides/overview/why-cypress" target="_blank" rel="noopener noreferrer" className="text-[#28ffd4] underline">
-                                Cypress Official Docs
+                            <a href="https://web.dev/fast/" target="_blank" rel="noopener noreferrer" className="text-[#28ffd4] underline">
+                                web.dev - Make the Web Faster
                             </a>
                         </div>
                         <div className="flex gap-3 items-center">
                             <span className="material-symbols-outlined px-[10px] bg-red-600 text-white rounded-md">play_arrow</span>
-                            <a href="https://youtu.be/W8QyY1nE8zM" target="_blank" rel="noopener noreferrer" className="text-[#28ffd4] underline">
-                                Cypress Crash Course - Traversy Media
+                            <a href="https://youtu.be/L8eRzzY-c3c" target="_blank" rel="noopener noreferrer" className="text-[#28ffd4] underline">
+                                Image Optimization Explained - Fireship
                             </a>
                         </div>
                     </div>
                 </div>
 
-                {/* Best Practices */}
+                {/* Auditing & Monitoring */}
                 <div className="border border-[#7952b3] rounded-lg p-4 mb-6">
-                    <h3 className="text-xl font-bold text-[#7952b3] mb-2">Best Practices</h3>
+                    <h3 className="text-xl font-bold text-[#7952b3] mb-2">Auditing & Monitoring</h3>
                     <ul className="list-disc list-inside mb-3">
-                        <li>**Test Pyramid**: Understand the balance between unit, integration, and E2E tests.</li>
-                        <li>**TDD (Test-Driven Development)**: Write tests before you write code to guide development.</li>
-                        <li>**Mocking**: Learn to mock API calls and external services to isolate your tests.</li>
+                        <li>**Google Lighthouse**: A tool for auditing performance, accessibility, SEO, and best practices.</li>
+                        <li>**Core Web Vitals**: Understand and monitor key metrics like Largest Contentful Paint (LCP) and First Input Delay (FID).</li>
+                        <li>**Performance Monitoring**: Use tools like Sentry or Datadog to track real-world user performance.</li>
                     </ul>
                     <p className="font-bold">Resources:</p>
                     <div className="flex flex-col gap-3 mt-2">
                         <div className="flex gap-3">
                             <span className="bg-[#3348ff] text-white px-2 rounded-md">doc</span>
-                            <a href="https://kentcdodds.com/blog/unit-vs-integration-vs-e2e-tests" target="_blank" rel="noopener noreferrer" className="text-[#28ffd4] underline">
-                                Unit vs. Integration vs. E2E Tests - Kent C. Dodds
+                            <a href="https://developers.google.com/web/tools/lighthouse" target="_blank" rel="noopener noreferrer" className="text-[#28ffd4] underline">
+                                Lighthouse Documentation
                             </a>
                         </div>
                         <div className="flex gap-3 items-center">
                             <span className="material-symbols-outlined px-[10px] bg-red-600 text-white rounded-md">play_arrow</span>
-                            <a href="https://youtu.be/J5XNCl4m5dY" target="_blank" rel="noopener noreferrer" className="text-[#28ffd4] underline">
-                                What is TDD? - Traversy Media
+                            <a href="https://youtu.be/83w5x25P5Gk" target="_blank" rel="noopener noreferrer" className="text-[#28ffd4] underline">
+                                What are Core Web Vitals? - Google Chrome Developers
                             </a>
                         </div>
                     </div>
@@ -118,7 +118,7 @@ export default function TestingPage({ closeTesting, Done }) {
 
                 {/* Buttons */}
                 <div className="flex justify-between mt-6">
-                    <button onClick={closeTesting} className="px-4 py-2 bg-blue-600 text-white rounded">Close</button>
+                    <button onClick={closePerformance} className="px-4 py-2 bg-blue-600 text-white rounded">Close</button>
                     <button onClick={Nexthandler} className="px-4 py-2 bg-blue-600 text-white rounded">Done</button>
                 </div>
             </div>

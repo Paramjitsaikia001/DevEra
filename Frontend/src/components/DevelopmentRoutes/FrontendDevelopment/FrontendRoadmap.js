@@ -8,6 +8,17 @@ import FrontendFrameworksPage from "./FrontendFW";
 import CSSFrameworksPage from "./CSSFW";
 import WebAnimationPage from "./WebAnimation";
 import AdvancedJavaScriptPage from "./AdvancedJavaScriptPage";
+import BuildToolsPage from "./BuildTools";
+import StateManagementPage from "./StateMang";
+import TypeScriptPage from "./TypeScript";
+import TestingPage from "./TestingPage";
+import PerformanceOptimizationPage from "./Perfomance";
+import ThreeDModelingPage from "./Treedmodel";
+import AdFrameworkPage from "./AdFramework";
+import UIUX from "./UIXPric";
+import Jobprep from "./PortJOB";
+import Continouslearn from "./Continous";
+import FullResource from "./FullResource";
 const roadmap = [
     {
         id: 1,
@@ -61,51 +72,61 @@ const roadmap = [
     {
         id: 9,
         name: "Build Tools",
+        handler:"buildtoolspagehandler",
         des: "Build tools like Webpack, Vite, and package managers (npm/yarn) streamline development by bundling code and managing dependencies. Learn these alongside basic CI/CD concepts to deploy production-ready apps to platforms like Netlify or Vercel."
     },
     {
         id: 10,
         name: "State Management",
+        handler:"statemanagementpagehandler",
         des: "Advanced state management with Redux Toolkit, Zustand, or React Context ensures efficient data flow in complex applications. These skills are critical for maintainability in projects like dashboards or e-commerce platforms."
     },
     {
         id: 11,
         name: "TypeScript",
+        handler:"typescriptpagehandler",
         des: "TypeScript adds type safety to JavaScript, improving code reliability and scalability. Learn interfaces, generics, and TypeScript integration with frameworks like React to build robust, error-free applications."
     },
     {
         id: 12,
         name: "Testing",
+        handler:"testingpagehandler",
         des: "Testing ensures reliable, bug-free applications. Learn Jest, React Testing Library, or Cypress for unit and end-to-end testing to validate functionality and enhance user experience in production environments."
     },
     {
         id: 13,
         name: "Performance Optimization",
+        handler:"performancepagehandler",
         des: "Optimizing performance with lazy loading, code splitting, and asset optimization (images, fonts) ensures fast applications. Use tools like Lighthouse to audit and improve load times, vital for user retention and SEO."
     },
     {
         id: 14,
         name: "3D Modeling for Web",
+        handler:"modelingpagehandler",
         des: "3D modeling enhances web experiences with immersive visuals. Learn Three.js or Babylon.js to create and render 3D graphics, integrating interactive models or animations into web applications for games, product showcases, or visualizations."
     },
     {
         id: 15,
         name: "Advanced Frameworks (Next.js/Gatsby)",
+        handler:"Adframworkshandler",
         des: "Advanced frameworks like Next.js or Gatsby enhance React with server-side rendering and static site generation. These tools are key for building SEO-friendly, high-performance applications like blogs or e-commerce platforms."
     },
     {
         id: 16,
         name: "UI/UX Principles",
+        handler: "uiuxpagehandler",
         des: "UI/UX principles, design systems, and tools like Figma, combined with accessibility standards (WCAG), ensure user-friendly, inclusive applications. These skills bridge development and design for polished, professional interfaces."
     },
     {
         id: 17,
         name: "Portfolio and Job Prep",
+        handler: "jobpreppagehandler",
         des: "A strong portfolio with 3-5 diverse projects (e.g., animated landing pages, 3D product viewers, SPAs) showcases your skills. Combine with open-source contributions, a technical blog, and coding interview prep (LeetCode, HackerRank) to land a frontend role."
     },
     {
         id: 18,
         name: "Continuous Learning",
+        handler: "continouslearnpagehandler",
         des: "Frontend development evolves rapidly. Stay updated on trends like Web3, PWAs, or advanced animations/3D tools by following X posts, contributing to open-source, and engaging with communities on Discord or meetups to remain competitive."
     }
 ];
@@ -120,6 +141,17 @@ const [showadvancejspage,setadvancejspage] = useState(false)
 const [showfrontendFWpage,setfrontendFWpage] = useState(false)
 const [showcssFWpage,setcssFWpage] = useState(false)
 const [showWebanimation,setWebanimation] = useState(false)
+const [showbuildtoolspage,setbuildtoolspage] = useState(false)
+const [showstatemanagementpage,setstatemanagementpage] = useState(false)
+const [showtypescriptpage,settypescriptpage] = useState(false)
+const [showtestingpage,settestingpage] = useState(false)
+const [showperformancepage,setperformancepage] = useState(false)
+const [show3dmodelingpage,set3dmodelingpage] = useState(false)
+const [showadframworks,setadframworks] = useState(false)
+const [showuiux,setuiux] = useState(false)
+const [showjobprep,setjobprep] = useState(false)
+const [showcontinouslearn,setcontinouslearn] = useState(false)
+const [showfullresource,setfullresource] = useState(false)
 
     const htmlpagehandler =()=>{
         sethtmlpage(!showhtmlpage);
@@ -145,10 +177,39 @@ const [showWebanimation,setWebanimation] = useState(false)
     const webanimationpagehandler = ()=>{
         setWebanimation(!showWebanimation);
     }
-
-
-
-
+    const buildtoolspagehandler = ()=>{
+        setbuildtoolspage(!showbuildtoolspage);
+    }
+    const statemanagementpagehandler = ()=>{
+        setstatemanagementpage(!showstatemanagementpage);
+    }
+    const typescriptpagehandler = ()=>{
+        settypescriptpage(!showtypescriptpage);
+    }
+    const testingpagehandler = ()=>{
+        settestingpage(!showtestingpage);
+    }
+    const performancepagehandler = ()=>{
+        setperformancepage(!showperformancepage);
+    }
+    const modelingpagehandler = ()=>{
+        set3dmodelingpage(!show3dmodelingpage);
+    }
+    const Adframworkshandler = ()=>{
+        setadframworks(!showadframworks);
+    }
+    const uiuxpagehandler = ()=>{
+        setuiux(!showuiux);
+    }
+    const jobpreppagehandler = ()=>{
+        setjobprep(!showjobprep);
+    }
+    const continouslearnpagehandler = ()=>{
+        setcontinouslearn(!showcontinouslearn);
+    }
+    const fullresourcehandler = ()=>{
+        setfullresource(!showfullresource);
+    }
 
     const handlers =
         {
@@ -160,6 +221,17 @@ const [showWebanimation,setWebanimation] = useState(false)
             frontendFWpagehandler,
             cssFWpagehandler,
             webanimationpagehandler,
+            buildtoolspagehandler,
+            statemanagementpagehandler,
+            typescriptpagehandler,
+            testingpagehandler,
+            performancepagehandler,
+            modelingpagehandler,
+            Adframworkshandler,
+            uiuxpagehandler,
+            jobpreppagehandler,
+            continouslearnpagehandler,
+            fullresourcehandler
         }
     
     return (
@@ -177,6 +249,17 @@ const [showWebanimation,setWebanimation] = useState(false)
                 {showfrontendFWpage && <FrontendFrameworksPage closeFrontendFrameworks={()=>setfrontendFWpage(false)}/>}
                 {showcssFWpage && <CSSFrameworksPage closeCSSFrameworks={()=>setcssFWpage(false)}/>}
                 {showWebanimation && <WebAnimationPage closeWebAnimation={()=>setWebanimation(false)}/>}
+                {showbuildtoolspage && <BuildToolsPage closeBuildTools={()=>setbuildtoolspage(false)}/>}
+                {showstatemanagementpage && <StateManagementPage closeAdvancedState={()=>setstatemanagementpage(false)}/>}
+                {showtypescriptpage && <TypeScriptPage closeTypeScript={()=>settypescriptpage(false)}/>}
+                {showtestingpage && <TestingPage closeTesting={()=>settestingpage(false)}/>}
+                {showperformancepage && <PerformanceOptimizationPage closePerformance={()=>setperformancepage(false)}/>}
+                {show3dmodelingpage && <ThreeDModelingPage closeThreeDModeling={()=>set3dmodelingpage(false)}/>}
+                {showadframworks && <AdFrameworkPage closeAdvancedFrameworks={()=>setadframworks(false)}/>}
+                {showuiux && <UIUX closeUIUX={()=>setuiux(false)}/>}
+                {showjobprep && <Jobprep closePortfolio={()=>setjobprep(false)}/>}
+                {showcontinouslearn && <Continouslearn closeStayingUpdated={()=>setcontinouslearn(false)}/>}
+                {showfullresource && <FullResource closeFullResources={()=>setfullresource(false)}/>}
 
 
             <div className='flex justify-center p-4 w-[100%]'>
@@ -255,7 +338,16 @@ const [showWebanimation,setWebanimation] = useState(false)
                     })}
                 </div>
             </div>
-
+ <div className="fixed bottom-0 right-0 top-[90%] left-[82%] z-10">
+                <button
+                onClick={fullresourcehandler}
+                className="bg-[#198de0] hover:bg-[#ffff] px-3 py-3 rounded-2xl font-bold flex gap-2">
+                    full course Resource
+                    <span className="material-symbols-outlined">
+                        text_snippet
+                    </span>
+                </button>
+            </div>
 
 
         </section>

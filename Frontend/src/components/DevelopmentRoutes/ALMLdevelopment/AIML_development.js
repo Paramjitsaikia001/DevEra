@@ -8,6 +8,7 @@ import NeuralNetworksPage from "./NauandDP";
 import NLPPage from "./NeuralandProcess";
 import ComputerVisionPage from "./ComputerVission";
 import EthicsAIPage from "./ERAI";
+import Fullresource from "./FullResource";
 
 const roadmap = [
     {
@@ -72,6 +73,7 @@ export default function AiMl() {
     const [showNLPPage, setNLPPage] = useState(false);
     const [showcomputervission, setcomputervission] = useState(false);
     const [showEthicsAIPage, setEthicsAIPage] = useState(false);
+     const [showfullresource, setFullResource] = useState(false);
 
     // Handlers
     const handlePythonPage = () => setPythonpage(!pythonpage);
@@ -82,6 +84,7 @@ export default function AiMl() {
     const NLPhandler = () => setNLPPage(!showNLPPage);
     const computervisionHandler = () => setcomputervission(!showcomputervission);
     const EthicsAIHandler = () => setEthicsAIPage(!showEthicsAIPage);
+    const fullresourcehandler = () => setFullResource(!showfullresource);
 
     const handlers = {
         handlePythonPage,
@@ -92,6 +95,7 @@ export default function AiMl() {
         NLPhandler,
         computervisionHandler,
         EthicsAIHandler,
+        fullresourcehandler
     };
 
     return (
@@ -105,6 +109,7 @@ export default function AiMl() {
             {showNLPPage && <NLPPage closeNLP={NLPhandler} />}
             {showcomputervission && <ComputerVisionPage closeComputerVision={computervisionHandler} />}
             {showEthicsAIPage && <EthicsAIPage closeEthicsAI={EthicsAIHandler} />}
+            {showfullresource && <Fullresource closeFullResources={() => setFullResource(false)} />}
 
             <div className='flex justify-center p-4 w-[100%]'>
                 <Header />
@@ -163,7 +168,7 @@ export default function AiMl() {
 
             {/* Full Resources Button */}
             <div className="fixed bottom-0 right-0 top-[90%] left-[82%] z-10">
-                <button className="bg-[#198de0] hover:bg-[#ffff] px-3 py-3 rounded-2xl font-bold flex gap-2">
+                <button onClick={fullresourcehandler} className="bg-[#198de0] hover:bg-[#ffff] px-3 py-3 rounded-2xl font-bold flex gap-2">
                     full course Resource
                     <span className="material-symbols-outlined">
                         text_snippet

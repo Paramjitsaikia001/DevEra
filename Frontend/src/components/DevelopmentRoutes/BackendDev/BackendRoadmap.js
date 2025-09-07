@@ -20,6 +20,7 @@ import MonitoringPage from "../BackendDev/MonitoringPage";
 import CloudPage from "../BackendDev/CloudPage";
 import SystemDesignPage from "../BackendDev/SystemDesignPage";
 import CareerPrepPage from "../BackendDev/CareerPrepPage";
+import Fullresource from "./FullResource";
 
 const backendRoadmap = [
   {
@@ -147,6 +148,7 @@ export default function BackendRoadmap() {
   const [showcloudpage, setcloudpage] = useState(false);
   const [showsystemdesignpage, setsystemdesignpage] = useState(false);
   const [showcareerpage, setcareerpage] = useState(false);
+  const [showfullresource, setFullResource] = useState(false);
 
   const handlers = {
     nodepagehandler: () => setnodepage(!shownodepage),
@@ -166,6 +168,7 @@ export default function BackendRoadmap() {
     cloudpagehandler: () => setcloudpage(!showcloudpage),
     systemdesignpagehandler: () => setsystemdesignpage(!showsystemdesignpage),
     careerpagehandler: () => setcareerpage(!showcareerpage),
+    fullresourcehandler: () => setFullResource(!showfullresource)
   };
 
   return (
@@ -188,6 +191,7 @@ export default function BackendRoadmap() {
       {showcloudpage && <CloudPage closeCloudInfra={() => setcloudpage(false)} />}
       {showsystemdesignpage && <SystemDesignPage closeSystemDesign={() => setsystemdesignpage(false)} />}
       {showcareerpage && <CareerPrepPage closeCareer={() => setcareerpage(false)} />}
+      {showfullresource && <Fullresource closeFullResources={() => setFullResource(false)} />}
 
       {/* Header */}
       <div className="flex justify-center p-4 w-[100%]">
@@ -258,6 +262,14 @@ export default function BackendRoadmap() {
                         );
                     })}
                 </div>
+            </div>
+            <div className="fixed bottom-0 right-0 top-[90%] left-[82%] z-10">
+                <button onClick={() => handlers.fullresourcehandler()} className="bg-[#198de0] hover:bg-[#ffff] px-3 py-3 rounded-2xl font-bold flex gap-2">
+                    full course Resource
+                    <span className="material-symbols-outlined">
+                        text_snippet
+                    </span>
+                </button>
             </div>
     </section>
   );

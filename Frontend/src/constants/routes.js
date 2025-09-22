@@ -17,6 +17,10 @@ export const ROUTES = {
     ,BACKEND_DEV:"/traintoexcellency/Frontend-build/development/backend",
     BLOCKCHAIN_DEV:"/traintoexcellency/Frontend-build/development/blockchain",
     CLOUD_COMPUTING:"/traintoexcellency/Frontend-build/development/devopscloud",
+    CYBERSECURITY:"/traintoexcellency/Frontend-build/development/cybersecurity",
+    DATASCIENCE:"/traintoexcellency/Frontend-build/development/datascience",
+    BIGDATA:"/traintoexcellency/Frontend-build/development/bigdata",
+    IOT:"/traintoexcellency/Frontend-build/development/iot",
 };
 
 export const NAV_ITEMS = [

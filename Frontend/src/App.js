@@ -9,7 +9,7 @@ import Contact from './components/pages/Contact';
 import Registation from './components/forms/Registation';
 
 import AiML from './components/DevelopmentRoutes/ALMLdevelopment/AIML_development';
-import Gamedev from './components/DevelopmentRoutes/Gamedevelopment/Gamedevelopment';
+import Gamedev from './components/DevelopmentRoutes/Gamedevelopment/Roadmap';
 import AppDev from './components/DevelopmentRoutes/APPdevelopment/appdevelopmet';
 import Webdev from './components/DevelopmentRoutes/webdevelopmentRoutes/webdevelopment';
 import FrontendDev from './components/DevelopmentRoutes/FrontendDevelopment/FrontendRoadmap';
@@ -17,6 +17,10 @@ import AiChatPage from './components/ui/AiChatPage';
 import BackendRoadmap from './components/DevelopmentRoutes/BackendDev/BackendRoadmap';
 import BlockchainDev from './components/DevelopmentRoutes/Blockchain/Roadmap';
 import CloudComputing from './components/DevelopmentRoutes/CloudDevOps/Roadmap';
+import Cybersecurity from './components/DevelopmentRoutes/CyberSecurity/roadmap';
+import DataScience from './components/DevelopmentRoutes/DataScience/roadmap';
+import BigData from './components/DevelopmentRoutes/BigData/roadmap';
+import IoT from './components/DevelopmentRoutes/IoT/roadmap';
 import Profile from './components/pages/Profile';
 import { ROUTES } from './constants/routes';
 
@@ -49,6 +53,10 @@ function App() {
           <Route path={ROUTES.BLOCKCHAIN_DEV} element={<BlockchainDev />} />
           <Route path={ROUTES.PROFILE} element={<Profile />} />
           <Route path={ROUTES.CLOUD_COMPUTING} element={<CloudComputing />} />
+          <Route path={ROUTES.CYBERSECURITY} element={<Cybersecurity />} />
+          <Route path={ROUTES.DATASCIENCE} element={<DataScience />} />
+          <Route path={ROUTES.BIGDATA} element={<BigData />} />
+          <Route path={ROUTES.IOT} element={<IoT />} />
         </Routes>
       </main>
     </Router>

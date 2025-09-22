@@ -94,20 +94,20 @@ const developmentCards = [
 
         route: "datascience"
     },
-    {
-        title: "Virtual Reality (VR)",
-        description: "Virtual Reality (VR) creates immersive, simulated environments that users can interact with in a seemingly real way. It leverages advanced technology to provide experiences in gaming, education, and more through specialized headsets and sensors.",
+    // {
+    //     title: "Virtual Reality (VR)",
+    //     description: "Virtual Reality (VR) creates immersive, simulated environments that users can interact with in a seemingly real way. It leverages advanced technology to provide experiences in gaming, education, and more through specialized headsets and sensors.",
                 
 
-        route: "vr"
-    },
-    {
-        title: "Augmented Reality (AR)",
-        description: "Augmented Reality (AR) overlays digital content onto the real world, enhancing users' perception of their environment. It uses smartphones and AR glasses to provide interactive and immersive experiences in various applications.",
+    //     route: "vr"
+    // },
+    // {
+    //     title: "Augmented Reality (AR)",
+    //     description: "Augmented Reality (AR) overlays digital content onto the real world, enhancing users' perception of their environment. It uses smartphones and AR glasses to provide interactive and immersive experiences in various applications.",
                 
 
-        route: "ar"
-    },
+    //     route: "ar"
+    // },
     {
         title: "Internet of Things (IoT) Development",
         description: "IoT development involves creating and integrating connected devices that communicate over the internet. It requires knowledge in hardware, software, and networking to build smart solutions for homes, cities, healthcare, and industries.",

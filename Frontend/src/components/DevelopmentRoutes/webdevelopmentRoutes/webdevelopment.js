@@ -24,7 +24,6 @@ import BootstrapPage from "./Bootstrap";
 import Tailwindcss from "./Tailwindcss";
 import MaterialUIPage from "./Material_UI";
 import FullResources from "./FullResources";
-import Details from "./Details";
 import ReactContextAPI from "./reactContextAPI"
 import ReduxPage from "./reduxpage";
 import ZustandPage from "./ZustandPage";
@@ -310,7 +309,7 @@ export default function WebDevelopment() {
             {showReactContextAPI && <ReactContextAPI closeContextAPI={() => setshowReactContextAPI(false)} />}
             {showReduxPage && <ReduxPage closeRedux={() => setshowReduxPage(false)} />}
             {showZustandPage && <ZustandPage closeZustand={() => setZustandPage(false)} />}
-            {showDetails && <Details />}
+         
 
             <div className='flex justify-center p-4 w-[100%]'>
                 <Header />

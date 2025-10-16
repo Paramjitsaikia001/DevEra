@@ -1,6 +1,7 @@
 // Application routes constants
 export const ROUTES = {
-    HOME: '/traintoexcellency/Frontend-build/',
+    LANDINGPAGE: '/traintoexcellency/Frontend-build/',
+    HOME: '/traintoexcellency/Frontend-build/home',
     DEVELOPMENT: '/traintoexcellency/Frontend-build/development',
     PROFILE: '/traintoexcellency/Frontend-build/profile',
     EXPLORE: '/traintoexcellency/Frontend-build/explore',

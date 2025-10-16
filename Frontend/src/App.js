@@ -7,6 +7,7 @@ import Language from './components/pages/Language';
 import Explore from './components/pages/explore';
 import Contact from './components/pages/Contact';
 import Registation from './components/forms/Registation';
+import LandingPage from './components/ui/LandingPage';
 
 import AiML from './components/DevelopmentRoutes/ALMLdevelopment/AIML_development';
 import Gamedev from './components/DevelopmentRoutes/Gamedevelopment/Roadmap';
@@ -31,9 +32,14 @@ function App() {
     setHide_Left(!Hide_Left);
   };
 
+  const location = window.location;
+
   return (
     <Router>
-      <main className='flex p-0 m-0 bg-primary-bg font-inter'>
+      <Routes>
+        <Route path={ROUTES.LANDINGPAGE} element={<LandingPage />} />
+      </Routes>
+      <main className={` p-0 m-0 bg-primary-bg font-[Roboto] ${location.pathname === ROUTES.LANDINGPAGE ? 'hidden' : 'flex'}`}>
         <MainLeft toggleHideLeft={toggleHideLeft} Hide_Left={Hide_Left} />
         <Routes>
           <Route path={ROUTES.HOME} element={<MainRight toggleHideLeft={toggleHideLeft} Hide_Left={Hide_Left} />} />

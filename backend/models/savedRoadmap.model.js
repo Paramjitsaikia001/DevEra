@@ -7,7 +7,7 @@ const savedRoadmapSchema = new Schema(
             required:true
         },
         roadmapRoute:{
-            type:Schema.types.ObjectId,
+            type:String,
             required:true
         }
     },

@@ -23,6 +23,7 @@ import DataScience from './components/DevelopmentRoutes/DataScience/roadmap';
 import BigData from './components/DevelopmentRoutes/BigData/roadmap';
 import IoT from './components/DevelopmentRoutes/IoT/roadmap';
 import Profile from './components/pages/Profile';
+import AdditionalDetails from './components/forms/setAdditionalDetails';
 import { ROUTES } from './constants/routes';
 
 function App() {
@@ -49,6 +50,7 @@ function App() {
           <Route path={ROUTES.ABOUT_US} element={<Contact />} />
           <Route path={ROUTES.AI_CHAT} element={<AiChatPage />} />
           <Route path={ROUTES.REGISTER} element={<Registation />} />
+          <Route path={ROUTES.ADDITIONALDETAILS} element={<AdditionalDetails />} />
 
           <Route path={ROUTES.APP_DEV} element={<AppDev />} />
           <Route path={ROUTES.AI_ML} element={<AiML />} />
@@ -63,6 +65,7 @@ function App() {
           <Route path={ROUTES.DATASCIENCE} element={<DataScience />} />
           <Route path={ROUTES.BIGDATA} element={<BigData />} />
           <Route path={ROUTES.IOT} element={<IoT />} />
+          
         </Routes>
       </main>
     </Router>

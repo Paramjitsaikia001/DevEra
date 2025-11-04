@@ -9,7 +9,7 @@ const userSchema = new Schema(
             unique: true,
             required: true,
             lowercase: true,
-            trim: tru, e,
+            trim: true,
             index: true
         },
         email: {
@@ -17,7 +17,7 @@ const userSchema = new Schema(
             unique: true,
             required: true,
             lowercase: true,
-            trim: tru, e,
+            trim: true,
             index: true,
         },
         isEmailVerified: {
@@ -60,20 +60,28 @@ const userSchema = new Schema(
             default: 'Developer'
         },
         reviews: {
-            type: Schema.types.ObjectId,
+            type: Schema.Types.ObjectId,
             ref: "Reviews"
         },
         activity: {
-            type: Schema.types.ObjectId,
+            type: Schema.Types.ObjectId,
             ref: "Activity"
         },
         savedRoadmap: {
-            type: Schema.types.ObjectId,
+            type: Schema.Types.ObjectId,
             ref: "Saved"
         },
         joinedDate: {
             type: Date,
             default: Date.now()
+        },
+        profilePicture: {
+            type: String,
+            default: "http://localhost:3000/traintoexcellency/Frontend-build/profileAndCover/profile1.png"
+        },
+        coverPicture: {
+            type: String,
+            default: "http://localhost:3000/traintoexcellency/Frontend-build/profileAndCover/cover1.jpg"
         },
         refreshToken:{
             type:String

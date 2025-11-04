@@ -1,13 +1,12 @@
 import express from 'express'
 import cors from 'cors'
-import dotenv from 'dotenv'
 import cookieParser from 'cookie-parser';
 const app = express();  
-dotenv.config();
+
 
 app.use(cors(
     {
-        origin: process.env.CORS_ORIGIN,
+        origin: process.env.CORS_ORIGIN || 'http://localhost:3000',
         credentials:true
         
     }
@@ -21,8 +20,18 @@ app.use(cookieParser())
 
 
 import router from './routes/roadmaproutes.js';
-app.use("/api/development",router)
+import authRouter from './routes/auth.routes.js';
+import { healthCheckRouter } from './routes/healthCheck.routes.js';
 
+app.use("/api/v1/healthcheck",healthCheckRouter);
+
+//auth routes
+app.use("/api/v1/auth",authRouter);
+
+
+
+
+app.use("/api/v1/development",router);
 
 
 export default app;

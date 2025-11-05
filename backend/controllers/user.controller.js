@@ -16,6 +16,32 @@ import ApiError from "../utills/apiError.js";
 import asyncHandler from "../utills/asyncHandler.js";
 import apiResponse from "../utills/apiResponse.js";
 import generateOTP from "../utills/generateOTP.js";
+import ApiResponse from "../utills/apiResponse.js";
+
+
+
+
+//generating access token and refresh token for a user
+const generateAccessAndRefreshToken = async (userId) => {
+  try {
+    const user = await User.findById(userId)
+    const accessToken = user.generateAccessToken()
+    const refreshToken = user.generateRefreshToken()
+
+    user.refreshToken = refreshToken
+    await user.save({
+      validateBeforeSave: false
+    })
+
+    return { accessToken, refreshToken }
+  } catch (err) {
+    throw new ApiError(500, "Something wrong in generating the acess token and refresh token")
+  }
+}
+
+
+
+
 
 
 const sendOTP = asyncHandler(async (req, res) => {
@@ -98,7 +124,7 @@ const verifyOTP = asyncHandler(async (req, res) => {
     { upsert: true, new: true }
   );
 
-  
+
 
   res.status(200).json(
     new apiResponse(200, "OTP verified successfully. Proceed to registration.")
@@ -107,14 +133,14 @@ const verifyOTP = asyncHandler(async (req, res) => {
 })
 
 //i'm going to make the register user in several steps like in the fist step -user verify the email  then it click continue button -> second step - user fill personal details like name and set a userName and password then -> third step - user set the role,bio,github , linkedin, portfolio -> forth step - user select the profile picture and cover picture from the stored images -> final user is registered successfully
-const getUserDetails = asyncHandler(async (req, res) => {
+const register = asyncHandler(async (req, res) => {
   //get the email,name,userName,password, from req.body
   //check if the email is verified or not
   //check if the userName is unique or not 
   //check the password is strong or not
   //check if the confirm password match with password or not
 
-  const {email, fullName, userName, password, confirmPassword } = req.body;
+  const { email, fullName, userName, password, confirmPassword } = req.body;
 
   if (
     [email, fullName, userName, password, confirmPassword].some(field => !field)
@@ -122,7 +148,7 @@ const getUserDetails = asyncHandler(async (req, res) => {
     throw new ApiError(400, "All fields are required");
   }
 
-   const existingEmail = await User.findOne({ email: email.toLowerCase().trim() });
+  const existingEmail = await User.findOne({ email: email.toLowerCase().trim() });
   if (existingEmail && existingEmail.isEmailVerified) {
     throw new ApiError(400, "Email is already verified. Please login instead.");
   }
@@ -166,10 +192,93 @@ const getUserDetails = asyncHandler(async (req, res) => {
   if (!createUser) {
     throw new ApiError(500, "failed to register ,please try again later")
   }
-  
+
   return res.status(201).json(
     new apiResponse(201, "User details is got successfully")
   )
 })
 
-export { sendOTP, verifyOTP, getUserDetails };
+
+
+//login controlleer
+
+const login = asyncHandler(async (req, res) => {
+  //getting email,password,username from the req.body
+  //check is the username and email is empty
+  //check if the username or email is match someone
+  //check the password
+  //generate access token and refresh token
+  //store in cookies
+
+  const { email, userName, password } = req.body
+
+  if (!(email || userName)) {
+    throw new ApiError(400, "username or email is required")
+  }
+
+  const user = await User.findOne({email
+  })
+
+  if (!user) {
+    throw new ApiError(404, "user not exists")
+  }
+
+
+  const passwordValid = await user.isPasswordCorrect(password)
+
+  if (!passwordValid) {
+    throw new ApiError(401, "invalid user credential")
+  }
+
+  const {accessToken,refreshToken} = await generateAccessAndRefreshToken(user._id)
+console.log(accessToken,refreshToken);
+
+  const logginUser = await User.findById(user._id).select("-password -refreshToken")
+
+  const options={
+    httpOnly:true,
+    secure:true
+  }
+
+  // return res.status(200).cookie("refreshToken",refreshToken,options).cookie("accessToken",accessToken,options).json(
+  //   new ApiResponse(
+  //     200,
+  //     {
+  //       user:refreshToken,accessToken,logginUser
+  //     },
+  //     "User log in successful"
+  //   )
+  // )
+
+  return res
+  .status(200)
+  .cookie("accessToken", accessToken, options)
+  .cookie("refreshToken", refreshToken, options)
+  .json(
+    new ApiResponse(
+      200,
+      {
+        user: logginUser,     // send the sanitized user
+        accessToken,          // plain string token
+        refreshToken          // plain string token
+      },
+      "User login successful"
+    )
+  );
+
+})
+
+
+const getCurrentUser = asyncHandler(async(req, res) => {
+    return res
+    .status(200)
+    .json(new ApiResponse(
+        200,
+        req.user,
+        "User fetched successfully"
+    ))
+})
+
+
+
+export { sendOTP, verifyOTP, register,login,getCurrentUser };

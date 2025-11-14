@@ -698,7 +698,7 @@ const Roadmaps = [
         title: "Blockchain Development",
         description: "Blockchain is a decentralized, digital ledger technology that records transactions across multiple computers. It ensures transparency, security, and immutability, making it ideal for applications like cryptocurrencies, smart contracts, and supply chain management.",
 
-        roadmap: [
+        roadmapSteps: [
             {
                 id: 0,
                 name: "Prereqs (Foundations)",

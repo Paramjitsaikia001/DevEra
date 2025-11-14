@@ -186,11 +186,13 @@ export default function Development() {
                         </h4>
                     </div>
                     <div className="development-container max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 py-4 border-t-2">
-                        {developmentCards.map((card, index) => (
+                        {developmentCards.map((card) => (
                             <div
-                                key={index}
+                                key={card.id}
                                 className="relative group bg-white rounded-xl flex flex-col justify-between shadow-xl overflow-hidden transform transition-all duration-500 hover:scale-105 hover:shadow-2xl cursor-pointer"
-                                onClick={() => routerhander(card.route)}
+                                onClick={() => routerhander(card.route)
+                                }
+                                
                             >
                                 {/* heading  */}
                                 <div className='p-6'>
@@ -199,7 +201,10 @@ export default function Development() {
                                 </div>
                                 <div className="p-6 flex items-center gap-5 justify-between">
                                     {/* Icon */}
-                                    <span className="material-symbols-outlined text-[2.5rem] font-light cursor-pointer text-indigo-600">
+                                    <span
+                                    onMouseEnter={()=>console.log(card.id)
+                                }
+                                    className="material-symbols-outlined text-[2.5rem] font-light cursor-pointer text-indigo-600">
                                         bookmark
                                     </span>
                                     {/* Button */}

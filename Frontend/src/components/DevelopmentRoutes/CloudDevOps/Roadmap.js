@@ -19,93 +19,9 @@ import SREPage from "../CloudDevOps/SRE";
 import FinOpsPage from "../CloudDevOps/FinOps";
 import CertificationsPage from "../CloudDevOps/Certifications";
 import Fullresource from "../CloudDevOps/Fullresource";
+import Development from "../../../hooks/developments.hooks";
 
-const roadmap = [
-  {
-    id: 0,
-    name: "Master Linux & Bash",
-    handler: "handleLinux",
-    des: "Become an expert with the Linux command line. Learn file system navigation, permissions, and shell scripting for automation.",
-  },
-  {
-    id: 1,
-    name: "Learn a Programming Language",
-    handler: "handleProgramming",
-    des: "Master Python or Go for automation, scripting, and API interactions. These languages are core to DevOps practices.",
-  },
-  {
-    id: 2,
-    name: "Understand Core Concepts",
-    handler: "handleCoreConcepts",
-    des: "Grasp fundamental concepts of networking (DNS, OSI), security (firewalls), and operating systems.",
-  },
-  {
-    id: 3,
-    name: "Version Control with Git",
-    handler: "handleGit",
-    des: "Learn Git for collaborative development. Practice essential commands like clone, commit, pull, push, and branching.",
-  },
-  {
-    id: 4,
-    name: "Cloud Fundamentals (AWS/Azure/GCP)",
-    handler: "handleCloudFundamentals",
-    des: "Get started with one major cloud provider. Learn IaaS, PaaS, SaaS, and the core services like EC2/VMs, S3/Storage, and VPCs.",
-  },
-  {
-    id: 5,
-    name: "Infrastructure as Code (IaC)",
-    handler: "handleIaC",
-    des: "Automate infrastructure provisioning. Learn Terraform or a cloud-native tool like AWS CloudFormation or Azure Bicep.",
-  },
-  {
-    id: 6,
-    name: "Containerization & Orchestration",
-    handler: "handleContainers",
-    des: "Master Docker for creating and managing containers, then learn Kubernetes to orchestrate and scale them in production.",
-  },
-  {
-    id: 7,
-    name: "CI/CD Pipeline",
-    handler: "handleCICD",
-    des: "Build automated pipelines for continuous integration and delivery using tools like Jenkins, GitLab CI/CD, or GitHub Actions.",
-  },
-  {
-    id: 8,
-    name: "Configuration Management",
-    handler: "handleConfigManagement",
-    des: "Automate server configuration and software deployment. Learn Ansible for its simplicity and power.",
-  },
-  {
-    id: 9,
-    name: "Monitoring & Logging",
-    handler: "handleMonitoring",
-    des: "Implement monitoring with Prometheus and Grafana. Set up centralized logging with the ELK stack or a cloud-native solution.",
-  },
-  {
-    id: 10,
-    name: "Advanced Cloud Architecture",
-    handler: "handleAdvancedCloud",
-    des: "Explore advanced topics like serverless computing, microservices, and advanced networking configurations.",
-  },
-  {
-    id: 11,
-    name: "Site Reliability Engineering (SRE)",
-    handler: "handleSRE",
-    des: "Adopt SRE principles. Focus on reliability, scalability, and efficiency. Learn about SLOs, SLIs, and error budgets.",
-  },
-  {
-    id: 12,
-    name: "FinOps & Governance",
-    handler: "handleFinOps",
-    des: "Learn to manage and optimize cloud costs. Implement governance policies to ensure security and compliance.",
-  },
-  {
-    id: 13,
-    name: "Certifications",
-    handler: "handleCertifications",
-    des: "Validate your skills with professional certifications like AWS Certified DevOps Engineer - Professional or Microsoft Certified: DevOps Engineer Expert.",
-  },
-];
+
 
 export default function DevOps() {
   const [activeId, setActiveId] = useState(null);
@@ -147,6 +63,15 @@ export default function DevOps() {
     handleFullResource: () => setFullResource(!showFullResource),
   };
 
+    const { data: roadmap, loading, error } = Development()
+
+    const CloudRoadmap = roadmap?.[9]?.roadmapSteps
+    if (loading) {
+        return <h1>loading</h1>
+    }
+    if (error) {
+        return <h2 className='text-white'>Something went wrong!</h2>
+    }
   return (
     <section className="flex flex-col items-center justify-center h-full lg:w-[80%] w-[100%] gap-3 overflow-hidden pt-[5rem]">
       {/* Modals */}
@@ -182,7 +107,7 @@ export default function DevOps() {
       <div className="conater relative w-full h-full">
         <div className="divider h-full items-center bg-white w-1 rounded-full absolute left-2 sm:left-[50%]"></div>
         <div className="flex flex-col justify-center w-full">
-          {roadmap.map((item) => (
+          {CloudRoadmap.map((item) => (
             <div
               key={item.id}
               className={`flex items-center w-full my-4 ${

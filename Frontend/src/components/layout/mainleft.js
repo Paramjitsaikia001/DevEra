@@ -5,8 +5,10 @@ import Logo from '../ui/Logo';
 export default function Mainleft({ toggleHideLeft, Hide_Left }) {
     const location = useLocation();
     const isRegisterPage = location.pathname === '/traintoexcellency/Frontend-build/Register';
+    const isLoginPage = location.pathname === '/traintoexcellency/Frontend-build/login';
+    const isAdditionalDetailsPage = location.pathname === '/traintoexcellency/Frontend-build/Register/additional-details';
 
-    if (isRegisterPage) {
+    if ((isRegisterPage || isAdditionalDetailsPage ) || isLoginPage) {
         return null;
     }
 
@@ -34,8 +36,8 @@ export default function Mainleft({ toggleHideLeft, Hide_Left }) {
                         </Link>
 
                         {/* search  */}
-                        <Link to="/traintoexcellency/Frontend-build/search">
-                            <li className={`text-white ${location.pathname === '/traintoexcellency/Frontend-build/search' ? 'bg-[#314969]' : ''}  lg:list-none lg:gap-3 flex items-center lg:flex-row flex-col  md:py-2 px-3 hover:bg-[#314969] rounded-xl `}>
+                        <Link to="/traintoexcellency/Frontend-build/explore">
+                            <li className={`text-white ${location.pathname === '/traintoexcellency/Frontend-build/explore' ? 'bg-[#314969]' : ''}  lg:list-none lg:gap-3 flex items-center lg:flex-row flex-col  md:py-2 px-3 hover:bg-[#314969] rounded-xl `}>
                                 <span className={`${location.pathname === '/traintoexcellency/Frontend-build/' ? 'text-[#00ffea]' : ''}    material-symbols-outlined text-4xl`}>search</span>
                                 <span className='lg:block md:hidden'>Search</span>
                             </li>

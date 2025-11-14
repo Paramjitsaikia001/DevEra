@@ -1,9 +1,15 @@
-import app from "./app.js";
 import dotenv from "dotenv";
-const PORT=8000
-dotenv.config();
 
+
+import {app} from "./app.js";
+const PORT=8000
+
+dotenv.config();
 import connectDB from "./db/index.js";
+
+
+// console.log(process.env.CORS_ORIGIN);
+// console.log(process.env.EMAIL_SERVICE);
 
 connectDB()
 .then(

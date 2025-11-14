@@ -21,111 +21,9 @@ import CloudPage from "../BackendDev/CloudPage";
 import SystemDesignPage from "../BackendDev/SystemDesignPage";
 import CareerPrepPage from "../BackendDev/CareerPrepPage";
 import Fullresource from "./FullResource";
+import Development from "../../../hooks/developments.hooks"
 
-const backendRoadmap = [
-  {
-    id: 1,
-    name: "Node.js Fundamentals",
-    handler: "nodepagehandler",
-    des: "Understand Node.js runtime, event loop, callbacks, promises, async/await, streams, buffers, and built-in modules (fs, path, crypto)."
-  },
-  {
-    id: 2,
-    name: "Package Managers (npm, pnpm, yarn)",
-    handler: "packagepagehandler",
-    des: "Learn how to manage dependencies, scripts, semantic versioning, and monorepos with npm, pnpm, and yarn."
-  },
-  {
-    id: 3,
-    name: "Web Frameworks (Express, Fastify, NestJS)",
-    handler: "expresspagehandler",
-    des: "Master Express for building REST APIs. Learn Fastify for performance and NestJS for enterprise-level modular apps with TypeScript."
-  },
-  {
-    id: 4,
-    name: "Databases: SQL (PostgreSQL/MySQL)",
-    handler: "sqlpagehandler",
-    des: "Learn relational database design, normalization, indexing, joins, stored procedures, and transactions."
-  },
-  {
-    id: 5,
-    name: "Databases: NoSQL (MongoDB, Redis)",
-    handler: "nosqlpagehandler",
-    des: "Understand document databases, key-value stores, replication, sharding, and caching with Redis."
-  },
-  {
-    id: 6,
-    name: "ORMs & Query Builders",
-    handler: "ormpagehandler",
-    des: "Use Prisma, Sequelize, TypeORM, or Knex for database queries. Understand migrations, schema management, and relationships."
-  },
-  {
-    id: 7,
-    name: "Authentication & Authorization",
-    handler: "authpagehandler",
-    des: "Implement JWT, sessions, OAuth2, OpenID Connect, and RBAC/ABAC. Learn best practices for password hashing (bcrypt, argon2)."
-  },
-  {
-    id: 8,
-    name: "APIs (REST & GraphQL)",
-    handler: "apipagehandler",
-    des: "Design REST APIs with versioning, filtering, and pagination. Learn GraphQL with Apollo Server for flexible querying."
-  },
-  {
-    id: 9,
-    name: "Real-time Communication",
-    handler: "realtimepagehandler",
-    des: "Implement WebSockets with Socket.io, Server-Sent Events, or gRPC for chat apps, live dashboards, and notifications."
-  },
-  {
-    id: 10,
-    name: "Security Best Practices",
-    handler: "securitypagehandler",
-    des: "Protect against XSS, CSRF, SQL injection, DDoS, and implement Helmet.js, CORS, HTTPS, secure headers, and environment variables."
-  },
-  {
-    id: 11,
-    name: "Testing & Debugging",
-    handler: "testingpagehandler",
-    des: "Learn Jest, Mocha, and Vitest for unit testing. Use Supertest for API tests and Cypress/Playwright for end-to-end tests."
-  },
-  {
-    id: 12,
-    name: "Deployment & DevOps",
-    handler: "devopspagehandler",
-    des: "Learn Docker, containerization, CI/CD pipelines (GitHub Actions, GitLab CI), and hosting platforms like AWS, GCP, Vercel, and Render."
-  },
-  {
-    id: 13,
-    name: "Scalability & Performance",
-    handler: "scalabilitypagehandler",
-    des: "Understand caching (Redis, CDN), load balancing, clustering, horizontal vs vertical scaling, and job queues (BullMQ, RabbitMQ)."
-  },
-  {
-    id: 14,
-    name: "Monitoring & Logging",
-    handler: "monitoringpagehandler",
-    des: "Set up logging with Winston/Pino, monitoring with Grafana/Prometheus, tracing with OpenTelemetry, and error tracking with Sentry."
-  },
-  {
-    id: 15,
-    name: "Cloud & Infrastructure",
-    handler: "cloudpagehandler",
-    des: "Learn cloud fundamentals (AWS EC2, S3, RDS, Lambda). Explore IaC tools like Terraform and Kubernetes for orchestration."
-  },
-  {
-    id: 16,
-    name: "System Design & Architecture",
-    handler: "systemdesignpagehandler",
-    des: "Learn system design concepts: microservices, monoliths, event-driven architecture, CAP theorem, CQRS, and API gateways."
-  },
-  {
-    id: 17,
-    name: "Career & Job Prep",
-    handler: "careerpagehandler",
-    des: "Build a portfolio with full-stack apps, contribute to open source, prepare for coding/system design interviews, and practice problem-solving on LeetCode."
-  }
-];
+
 
 export default function BackendRoadmap() {
   const [activeId, setActiveId] = useState(null);
@@ -171,6 +69,16 @@ export default function BackendRoadmap() {
     fullresourcehandler: () => setFullResource(!showfullresource)
   };
 
+
+  const { data: roadmap, loading, error } = Development()
+
+    const BackendRoadmap = roadmap?.[4]?.roadmapSteps
+    if (loading) {
+        return <h1>loading</h1>
+    }
+    if (error) {
+        return <h2 className='text-white'>Something went wrong!</h2>
+    }
   return (
     <section className="flex flex-col items-center justify-center h-full lg:w-[80%] w-[100%] gap-3 overflow-hidden">
       {/* Conditional renders for detail pages */}
@@ -212,7 +120,7 @@ export default function BackendRoadmap() {
 
                 <div className="flex flex-col justify-center w-full">
 
-                    {backendRoadmap.map((item) => {
+                    {BackendRoadmap.map((item) => {
 
 
                         return (

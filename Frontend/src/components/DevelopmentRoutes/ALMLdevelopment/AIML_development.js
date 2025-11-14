@@ -9,57 +9,10 @@ import NLPPage from "./NeuralandProcess";
 import ComputerVisionPage from "./ComputerVission";
 import EthicsAIPage from "./ERAI";
 import Fullresource from "./FullResource";
+import Development from "../../../hooks/developments.hooks";
 
-const roadmap = [
-    {
-        id: 1,
-        name: "Python",
-        handler: "handlePythonPage",
-        des: "Learn Python syntax, OOP, and essential libraries like NumPy & Pandas for data handling."
-    },
-    {
-        id: 2,
-        name: "Mathematical Knowledge",
-        handler: "handleMathematical",
-        des: "Master Linear Algebra, Probability, Statistics, and Calculus to understand ML algorithms."
-    },
-    {
-        id: 3,
-        name: "Machine Learning Libraries & Algorithms",
-        handler: "handleMLLinandAlgPage",
-        des: "Use Scikit-learn, XGBoost, and LightGBM to implement ML models like regression, classification, and clustering."
-    },
-    {
-        id: 4,
-        name: "Data Manipulation & Visualization",
-        handler: "handleDataManiAndVisu",
-        des: "Use Pandas for data handling and Matplotlib/Seaborn for visualizing trends and insights."
-    },
-    {
-        id: 5,
-        name: "Neural Networks & Deep Learning",
-        handler: "handleNeuralNetworks",
-        des: "Learn deep learning concepts like CNNs, RNNs, and Transformers using TensorFlow and PyTorch for NLP and CV applications."
-    },
-    {
-        id: 6,
-        name: "Natural Language Processing (NLP)",
-        handler: "NLPhandler",
-        des: "Dive into NLP for tasks like text classification, sentiment analysis, and language modeling."
-    },
-    {
-        id: 7,
-        name: "Computer Vision",
-        handler: "computervisionHandler",
-        des: "Explore computer vision for image classification, object detection, and facial recognition."
-    },
-    {
-        id: 8,
-        name: "Ethics and Responsible AI",
-        handler: "EthicsAIHandler",
-        des: "Understand AI fairness, bias detection, and ethical considerations for responsible AI development."
-    }
-];
+
+
 
 export default function AiMl() {
     const [activeId, setActiveId] = useState(null);
@@ -98,6 +51,16 @@ export default function AiMl() {
         fullresourcehandler
     };
 
+
+        const {data:roadmap,loading,error} = Development()
+        // console.log("Roadmap data:", roadmap?.[0]?.roadmapSteps);
+        const AIMLRoadmap=roadmap?.[0]?.roadmapSteps
+        if(loading){
+            return <h1>loading</h1>
+        }
+         if (error) {
+            return <h2 className='text-white'>Something went wrong!</h2>
+        }
     return (
         <section className="flex flex-col items-center justify-center h-full lg:w-[80%] w-[100%] gap-3 overflow-hidden pt-[5rem]">
             {/* Modals */}
@@ -129,7 +92,7 @@ export default function AiMl() {
             <div className="conater relative w-full h-full">
                 <div className="divider h-full items-center bg-white w-1 rounded-full absolute left-2 sm:left-[50%]"></div>
                 <div className="flex flex-col justify-center w-full">
-                    {roadmap.map((item) => (
+                    {AIMLRoadmap.map((item) => (
                         <div
                             key={item.id}
                             className={`flex items-center w-full my-4 ${item.id % 2 === 0 ? "sm:justify-end pl-4 pr-4" : "sm:justify-start pl-4 pr-4"}`}

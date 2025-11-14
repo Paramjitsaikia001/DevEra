@@ -24,6 +24,7 @@ import BigData from './components/DevelopmentRoutes/BigData/roadmap';
 import IoT from './components/DevelopmentRoutes/IoT/roadmap';
 import Profile from './components/pages/Profile';
 import AdditionalDetails from './components/forms/setAdditionalDetails';
+import Login from './components/forms/Login';
 import { ROUTES } from './constants/routes';
 
 function App() {
@@ -50,6 +51,7 @@ function App() {
           <Route path={ROUTES.ABOUT_US} element={<Contact />} />
           <Route path={ROUTES.AI_CHAT} element={<AiChatPage />} />
           <Route path={ROUTES.REGISTER} element={<Registation />} />
+          <Route path={ROUTES.LOGIN} element={<Login />} />
           <Route path={ROUTES.ADDITIONALDETAILS} element={<AdditionalDetails />} />
 
           <Route path={ROUTES.APP_DEV} element={<AppDev />} />

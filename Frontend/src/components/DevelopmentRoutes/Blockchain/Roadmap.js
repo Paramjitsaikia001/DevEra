@@ -19,105 +19,9 @@ import DevOpsPage from "../Blockchain/DevOps";
 import PortfolioPage from "../Blockchain/Portfolio";
 import CareerPage from "../Blockchain/Career";
 import Fullresource from "../Blockchain/Fullresource";
+import Development from "../../../hooks/developments.hooks";
 
-const roadmap = [
-  {
-    id: 0,
-    name: "Prereqs (Foundations)",
-    handler: "handlePrereqs",
-    des: "Learn basics of cryptography, blockchain mental models, and environment setup (Node.js, Git, pnpm).",
-  },
-  {
-    id: 1,
-    name: "Tooling Setup",
-    handler: "handleTooling",
-    des: "Install MetaMask, connect to testnets, and use frameworks like Hardhat & Foundry. Explore viem, wagmi, and OpenZeppelin.",
-  },
-  {
-    id: 2,
-    name: "Solidity Foundations",
-    handler: "handleSolidity",
-    des: "Learn types, mappings, events, visibility, storage vs memory, and payable functions with gas optimization.",
-  },
-  {
-    id: 3,
-    name: "Testing & Quality",
-    handler: "handleTesting",
-    des: "Write unit and fuzz tests using Hardhat/Foundry. Add gas reports, coverage, and CI/CD pipelines with GitHub Actions.",
-  },
-  {
-    id: 4,
-    name: "Frontend Integration",
-    handler: "handleFrontend",
-    des: "Connect wallets via wagmi + RainbowKit. Read/write smart contracts with viem, ethers, and manage ABIs and configs.",
-  },
-  {
-    id: 5,
-    name: "Token Standards",
-    handler: "handleTokens",
-    des: "Build ERC-20, ERC-721, and ERC-1155 with permits, royalties, and role-based access control for real-world assets.",
-  },
-  {
-    id: 6,
-    name: "Upgrades & Access Control",
-    handler: "handleUpgrades",
-    des: "Implement proxy patterns, initializers, role-based permissions, timelocks, and multisigs for upgrade safety.",
-  },
-  {
-    id: 7,
-    name: "Data & Indexing",
-    handler: "handleData",
-    des: "Design event schemas, build subgraphs with The Graph, and use IPFS/Arweave for decentralized storage.",
-  },
-  {
-    id: 8,
-    name: "Oracles & Automation",
-    handler: "handleOracles",
-    des: "Integrate Chainlink price feeds, VRF for randomness, and automation tools like Keepers for periodic execution.",
-  },
-  {
-    id: 9,
-    name: "DeFi Primitives",
-    handler: "handleDefi",
-    des: "Understand AMMs, lending/borrowing, liquidations, and yield farming with liquidity mining and vesting.",
-  },
-  {
-    id: 10,
-    name: "L2s & Cross-chain",
-    handler: "handleL2",
-    des: "Learn rollups (Optimistic vs ZK), deploy on Optimism/Arbitrum, and explore bridge & message passing mechanisms.",
-  },
-  {
-    id: 11,
-    name: "Security Deep Dive",
-    handler: "handleSecurity",
-    des: "Master reentrancy, MEV, and oracle attacks. Practice fuzzing, invariants, and CTFs like Ethernaut & Damn Vulnerable DeFi.",
-  },
-  {
-    id: 12,
-    name: "Advanced Paths",
-    handler: "handleAdvanced",
-    des: "Pick Solana, Polkadot, StarkNet, or ZK paths. Learn ecosystem languages, PDAs, ZK proofs, or account abstraction.",
-  },
-  {
-    id: 13,
-    name: "DevOps & Operations",
-    handler: "handleDevOps",
-    des: "Secure keys, monitor with Tenderly/Etherscan, set alerts, and design incident response with multisig operations.",
-  },
-  {
-    id: 14,
-    name: "Portfolio Buildout",
-    handler: "handlePortfolio",
-    des: "Ship projects: tokens, NFTs, AMM, and an advanced-path app. Deploy to testnets & L2s, document with diagrams/tests.",
-  },
-  {
-    id: 15,
-    name: "Career Prep & Project ideas",
-    handler: "handleCareer",
-    des: "Contribute to open-source, join hackathons, and target roles like Solidity dev, protocol engineer, or security researcher.",
-  },
-];
+
 
 export default function Blockchain() {
   const [activeId, setActiveId] = useState(null);
@@ -162,6 +66,16 @@ export default function Blockchain() {
     handleFullResource: () => setFullResource(!showFullResource),
   };
 
+
+    const { data: roadmap, loading, error } = Development()
+
+    const BlockchainRoadmap = roadmap?.[8]?.roadmapSteps
+    if (loading) {
+        return <h1>loading</h1>
+    }
+    if (error) {
+        return <h2 className='text-white'>Something went wrong!</h2>
+    }
   return (
     <section className="flex flex-col items-center justify-center h-full lg:w-[80%] w-[100%] gap-3 overflow-hidden pt-[5rem]">
       {/* Modals */}
@@ -199,7 +113,7 @@ export default function Blockchain() {
       <div className="conater relative w-full h-full">
         <div className="divider h-full items-center bg-white w-1 rounded-full absolute left-2 sm:left-[50%]"></div>
         <div className="flex flex-col justify-center w-full">
-          {roadmap.map((item) => (
+          {BlockchainRoadmap.map((item) => (
             <div
               key={item.id}
               className={`flex items-center w-full my-4 ${

@@ -8,7 +8,7 @@ export const buttonStyles = {
 };
 
 export const inputStyles = {
-    primary: 'p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary-blue',
+    primary: "h-18 outline-none pl-2 text-xl w-1/2 bg-white/20 border-2 border-white/40 rounded-lg  placeholder-white/40 text-white/80 font-[500] ",
     search: 'text-white w-[25vw] border-none py-1 px-3 bg-secondary-light rounded-sm items-center',
     review: 'outline-none w-[50%] border-none bg-transparent text-white'
 };

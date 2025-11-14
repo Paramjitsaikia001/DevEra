@@ -17,93 +17,9 @@ import IndustrialIoTPage from "../IoT/IndustrialIoT";
 import ProjectsPage from "../IoT/Projects";
 import CareerPage from "../IoT/Career";
 import Fullresource from "../IoT/Fullresource";
+import Development from "../../../hooks/developments.hooks";
 
-const roadmap = [
-  {
-    id: 0,
-    name: "Foundations",
-    handler: "handleFoundations",
-    des: "Learn C/C++, Python, and electronics basics. Master Linux, Git, and networking to build a solid base for embedded and backend development.",
-  },
-  {
-    id: 1,
-    name: "Microcontrollers & Hardware",
-    handler: "handleMicrocontrollers",
-    des: "Get hands-on with Arduino, ESP32, or STM32. Learn about GPIO, PWM, and other essential hardware interfaces.",
-  },
-  {
-    id: 2,
-    name: "Sensors & Actuators",
-    handler: "handleSensors",
-    des: "Work with common sensors (like temperature, motion) to collect data and actuators (like motors, relays) to interact with the physical world.",
-  },
-  {
-    id: 3,
-    name: "Communication Protocols",
-    handler: "handleProtocols",
-    des: "Understand how devices communicate. Learn short-range protocols like Bluetooth and long-range ones like Wi-Fi and LoRaWAN.",
-  },
-  {
-    id: 4,
-    name: "Networking & IoT Connectivity",
-    handler: "handleNetworking",
-    des: "Grasp how devices connect to the internet. Learn about IP addressing, TCP vs UDP, and how to set up an MQTT broker for messaging.",
-  },
-  {
-    id: 5,
-    name: "Embedded OS & RTOS",
-    handler: "handleEmbeddedOS",
-    des: "Learn about operating systems for constrained devices, like FreeRTOS or Zephyr, for scheduling and multitasking.",
-  },
-  {
-    id: 6,
-    name: "IoT Cloud Platforms",
-    handler: "handleCloudPlatforms",
-    des: "Connect your devices to the cloud. Learn about services like AWS IoT Core and Azure IoT Hub for provisioning and state management.",
-  },
-  {
-    id: 7,
-    name: "Data Processing & Analytics",
-    handler: "handleDataProcessing",
-    des: "Process and store the data you collect. Learn about stream processing and time-series databases for storing sensor data.",
-  },
-  {
-    id: 8,
-    name: "Edge Computing",
-    handler: "handleEdgeComputing",
-    des: "Run ML models directly on your devices. Learn about frameworks like TensorFlow Lite and the role of edge gateways.",
-  },
-  {
-    id: 9,
-    name: "Security",
-    handler: "handleSecurity",
-    des: "Secure your devices and data. Learn about encryption, secure authentication, and managing firmware updates over the air.",
-  },
-  {
-    id: 10,
-    name: "IoT Application Development",
-    handler: "handleApplication",
-    des: "Build applications to interact with your devices. Learn to create mobile apps or web dashboards for device control and data visualization.",
-  },
-  {
-    id: 11,
-    name: "Industrial IoT (IIoT)",
-    handler: "handleIndustrialIoT",
-    des: "Explore the industrial side of IoT. Learn about SCADA systems, Modbus, and use cases like predictive maintenance.",
-  },
-  {
-    id: 12,
-    name: "Projects (Portfolio)",
-    handler: "handleProjects",
-    des: "Build end-to-end projects like smart home systems or environmental monitors. This is crucial for showcasing your skills.",
-  },
-  {
-    id: 13,
-    name: "Career Scaling",
-    handler: "handleCareer",
-    des: "Learn how to deploy and manage thousands of devices. Explore IoT standards, 5G IoT, and digital twins for professional growth.",
-  },
-];
+
 
 export default function IoT() {
   const [activeId, setActiveId] = useState(null);
@@ -145,6 +61,16 @@ export default function IoT() {
     handleFullResource: () => setFullResource(!showFullResource),
   };
 
+
+    const { data: roadmap, loading, error } = Development()
+
+    const iOTRoadmap = roadmap?.[11]?.roadmapSteps
+    if (loading) {
+        return <h1>loading</h1>
+    }
+    if (error) {
+        return <h2 className='text-white'>Something went wrong!</h2>
+    }
   return (
     <section className="flex flex-col items-center justify-center h-full lg:w-[80%] w-[100%] gap-3 overflow-hidden">
       {/* Modals */}
@@ -180,7 +106,7 @@ export default function IoT() {
       <div className="conater relative w-full h-full">
         <div className="divider h-full items-center bg-white w-1 rounded-full absolute left-2 sm:left-[50%]"></div>
         <div className="flex flex-col justify-center w-full">
-          {roadmap.map((item) => (
+          {iOTRoadmap.map((item) => (
             <div
               key={item.id}
               className={`flex items-center w-full my-4 ${

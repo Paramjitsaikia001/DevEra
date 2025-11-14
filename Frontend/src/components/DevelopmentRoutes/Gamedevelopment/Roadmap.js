@@ -14,63 +14,9 @@ import DSAPage from '../Gamedevelopment/GamedDSA';
 import ProgrammingPage from '../Gamedevelopment/Programming';
 import PublishingPage from '../Gamedevelopment/Publishing';
 import MathPage from '../Gamedevelopment/Math';
+import Development from '../../../hooks/developments.hooks';
 
-const roadmap = [
-  {
-    id: 0,
-    name: "Master Basic Programming",
-    handler: "handleProgramming",
-    des: "Start with a solid foundation in programming. Learn C/C++ or C# to grasp fundamental concepts like variables, functions, and logic. This is the bedrock of game development.",
-  },
-  {
-    id: 1,
-    name: "Choose a Game Engine",
-    handler: "handleGameEngines",
-    des: "Select a game engine to simplify development. Unity (C#) and Unreal Engine (C++) are the two most popular choices. They handle complex tasks, allowing you to focus on design.",
-  },
-  {
-    id: 2,
-    name: "Learn Data Structures & Algorithms",
-    handler: "handleDSA",
-    des: "Understand how to write efficient code. Mastering DSAs like arrays, queues, and stacks is crucial for optimizing game performance and creating complex, lag-free experiences.",
-  },
-  {
-    id: 3,
-    name: "Version Control with Git",
-    handler: "handleGit",
-    des: "Collaborate effectively on projects. Learn Git and GitHub to manage your code, track changes, and work seamlessly with other developers and designers.",
-  },
-  {
-    id: 4,
-    name: "Understand Game Physics & Math",
-    handler: "handleMath",
-    des: "Dive into the math and physics behind games. Study 2D/3D coordinate systems, vectors, and kinematics to simulate realistic movement, gravity, and object interactions.",
-  },
-  {
-    id: 5,
-    name: "Graphics Processing",
-    handler: "handleGraphics",
-    des: "Learn the basics of how graphics are rendered. Explore concepts like shaders, OpenGL, or CUDA to create visually stunning effects and optimize rendering performance.",
-  },
-  {
-    id: 6,
-    name: "Networking for Multiplayer",
-    handler: "handleNetworking",
-    des: "If you want to build multiplayer games, you must understand networking. Learn how to handle data synchronization, client-server architecture, and packet transmission.",
-  },
-  {
-    id: 7,
-    name: "Artificial Intelligence (AI)",
-    handler: "handleAI",
-    des: "Bring characters to life. Study fundamental AI algorithms like pathfinding (A* algorithm) to create intelligent enemies, NPCs, and dynamic game environments.",
-  },
-  {
-    id: 8,
-    name: "Game Publishing & Marketing",
-    handler: "handlePublishing",
-    des: "Learn how to get your game to players. Understand the process of publishing on platforms like Steam, Google Play, or the Epic Games Store, and the basics of marketing your game.",
-  },
-];
+
 
 export default function GameDev() {
   const [activeId, setActiveId] = useState(null);
@@ -100,6 +46,17 @@ export default function GameDev() {
     handlePublishing: () => setShowPublishing(!showPublishing),
     handleFullResource: () => setFullResource(!showFullResource),
   };
+
+
+    const { data: roadmap, loading, error } = Development()
+  
+      const GamedevRoadmap = roadmap?.[6]?.roadmapSteps
+      if (loading) {
+          return <h1>loading</h1>
+      }
+      if (error) {
+          return <h2 className='text-white'>Something went wrong!</h2>
+      }
 
   return (
     <section className="flex flex-col items-center justify-center h-full lg:w-[80%] w-[100%] gap-3 overflow-hidden pt-[5rem]">
@@ -131,7 +88,7 @@ export default function GameDev() {
       <div className="conater relative w-full h-full">
         <div className="divider h-full items-center bg-white w-1 rounded-full absolute left-2 sm:left-[50%]"></div>
         <div className="flex flex-col justify-center w-full">
-          {roadmap.map((item) => (
+          {GamedevRoadmap.map((item) => (
             <div
               key={item.id}
               className={`flex items-center w-full my-4 ${

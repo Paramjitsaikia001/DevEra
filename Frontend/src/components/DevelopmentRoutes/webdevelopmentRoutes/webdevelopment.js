@@ -27,168 +27,175 @@ import FullResources from "./FullResources";
 import ReactContextAPI from "./reactContextAPI"
 import ReduxPage from "./reduxpage";
 import ZustandPage from "./ZustandPage";
+import Development from "../../../hooks/developments.hooks";
 
-const roadmap = [
-    {
-        id: 1,
-        name: "Code Editor",
-        handler: "codeeditorhandler",
-        des: "A code editor is a software application designed for editing source code. Popular editors include VS Code, Sublime Text, and Atom."
-    },
-    {
-        id: 2,
-        name: "HTML",
-        handler: "HTMLhandler",
-        des: "HTML (HyperText Markup Language) is the standard language for creating web pages and web applications."
-    },
-    {
-        id: 3,
-        name: "CSS",
-        handler: "CSShandler",
-        des: "CSS (Cascading Style Sheets) styles and layouts web pages for visual appeal and responsiveness."
-    },
-    {
-        id: 4,
-        name: "JavaScript",
-        handler: "JShandler",
-        des: "JavaScript adds interactivity to web pages. Learn ES6+ syntax, DOM manipulation, and event handling."
-    },
-    {
-        id: 5,
-        name: "Version Control Systems",
-        handler: "VCShandler",
-        des: "Version control systems like Git help manage code changes and collaboration. Learn Git and platforms like GitHub."
-    },
-    {
-        id: 6,
-        name: "Frontend Project Deployment",
-        handler: "FrontendProjectDeployhandler",
-        des: "Deploy frontend projects using platforms like GitHub Pages, Netlify, or Vercel."
-    },
-    {
-        id: 7,
-        name: "Package Manager",
-        handler: "PMhandler",
-        des: "Package managers like npm or yarn help manage dependencies in your project."
-    },
-    {
-        id: 8,
-        name: "Node.js",
-        handler: "NodeJShandler",
-        des: "Node.js is a runtime environment for executing JavaScript outside the browser, mainly for server-side development."
-    },
-    {
-        id: 9,
-        name: "Express.js",
-        handler: "Expresshandler",
-        des: "Express.js is a minimal and flexible Node.js web application framework for building APIs and web servers."
-    },
-    {
-        id: 10,
-        name: "Database Management",
-        handler: "DBMShandler",
-        des: "Learn how to manage databases for efficient data storage and retrieval."
-    },
-    {
-        id: 11,
-        name: "APIs",
-        handler: "APIhandler",
-        des: "APIs allow software systems to communicate and share data. Learn RESTful API concepts."
-    },
-    {
-        id: 12,
-        name: "Full Stack Project Deployment",
-        handler: "fullstackDeploymenthandler",
-        des: "Deploy full stack applications using cloud platforms and CI/CD pipelines."
-    },
-    {
-        id: 13,
-        name: "Project Build",
-        handler: "ProjectBuildhandler",
-        des: "Build, test, and deploy your application from ideation to production."
-    },
-    {
-        id: 14,
-        name: "Library and Framework",
-        handler: "LibraryFrameworkhandler",
-        des: "Learn about libraries and frameworks to speed up development and maintain code quality."
-    },
-    {
-        id: 15,
-        name: "React",
-        handler: "Reacthandler",
-        des: "React is a popular JavaScript library for building user interfaces."
-    },
-    {
-        id: 16,
-        name: "Angular",
-        handler: "Angularhandler",
-        des: "Angular is a powerful framework for building scalable web applications."
-    },
-    {
-        id: 17,
-        name: "Vue",
-        handler: "Vuehandler",
-        des: "Vue.js is a progressive JavaScript framework for building user interfaces."
-    },
-    {
-        id: 18,
-        name: "Next.js (SSR for React)",
-        handler: "NextForReactHandler",
-        des: "Next.js enables server-side rendering and static site generation for React apps."
-    },
-    {
-        id: 19,
-        name: "Nuxt.js (SSR for Vue)",
-        handler: "NuxtHandler",
-        des: "Nuxt.js enables server-side rendering and static site generation for Vue apps."
-    },
-    {
-        id: 20,
-        name: "Angular Universal (SSR for Angular)",
-        handler: "AngularUniversalHandler",
-        des: "Angular Universal enables server-side rendering for Angular apps."
-    },
-    {
-        id: 21,
-        name: "Bootstrap",
-        handler: "BootstrapHandler",
-        des: "Bootstrap is a popular CSS framework for building responsive web designs."
-    },
-    {
-        id: 22,
-        name: "Tailwind CSS",
-        handler: "TailwindcssHandler",
-        des: "Tailwind CSS is a utility-first CSS framework for rapid UI development."
-    },
-    {
-        id: 23,
-        name: "Material-UI",
-        handler: "MaterialUIHandler",
-        des: "Material-UI is a React component library that implements Google's Material Design."
-    },
-    {
-        id: 24,
-        name: "React Context API",
-        handler: "ReactContextAPIhandler",
-        des: "React Context API provides a way to manage state globally in React apps."
-    },
-    {
-        id: 25,
-        name: "Redux",
-        handler: "Reduxhandler",
-        des: "Redux is a state management library for JavaScript apps, commonly used with React."
-    },
-    {
-        id: 26,
-        name: "Zustand",
-        handler: "zustandhandler",
-        des: "Zustand is a small, fast, and scalable state management solution for React."
-    },
-];
+// const roadmap = [
+//     {
+//         id: 1,
+//         name: "Code Editor",
+//         handler: "codeeditorhandler",
+//         des: "A code editor is a software application designed for editing source code. Popular editors include VS Code, Sublime Text, and Atom."
+//     },
+//     {
+//         id: 2,
+//         name: "HTML",
+//         handler: "HTMLhandler",
+//         des: "HTML (HyperText Markup Language) is the standard language for creating web pages and web applications."
+//     },
+//     {
+//         id: 3,
+//         name: "CSS",
+//         handler: "CSShandler",
+//         des: "CSS (Cascading Style Sheets) styles and layouts web pages for visual appeal and responsiveness."
+//     },
+//     {
+//         id: 4,
+//         name: "JavaScript",
+//         handler: "JShandler",
+//         des: "JavaScript adds interactivity to web pages. Learn ES6+ syntax, DOM manipulation, and event handling."
+//     },
+//     {
+//         id: 5,
+//         name: "Version Control Systems",
+//         handler: "VCShandler",
+//         des: "Version control systems like Git help manage code changes and collaboration. Learn Git and platforms like GitHub."
+//     },
+//     {
+//         id: 6,
+//         name: "Frontend Project Deployment",
+//         handler: "FrontendProjectDeployhandler",
+//         des: "Deploy frontend projects using platforms like GitHub Pages, Netlify, or Vercel."
+//     },
+//     {
+//         id: 7,
+//         name: "Package Manager",
+//         handler: "PMhandler",
+//         des: "Package managers like npm or yarn help manage dependencies in your project."
+//     },
+//     {
+//         id: 8,
+//         name: "Node.js",
+//         handler: "NodeJShandler",
+//         des: "Node.js is a runtime environment for executing JavaScript outside the browser, mainly for server-side development."
+//     },
+//     {
+//         id: 9,
+//         name: "Express.js",
+//         handler: "Expresshandler",
+//         des: "Express.js is a minimal and flexible Node.js web application framework for building APIs and web servers."
+//     },
+//     {
+//         id: 10,
+//         name: "Database Management",
+//         handler: "DBMShandler",
+//         des: "Learn how to manage databases for efficient data storage and retrieval."
+//     },
+//     {
+//         id: 11,
+//         name: "APIs",
+//         handler: "APIhandler",
+//         des: "APIs allow software systems to communicate and share data. Learn RESTful API concepts."
+//     },
+//     {
+//         id: 12,
+//         name: "Full Stack Project Deployment",
+//         handler: "fullstackDeploymenthandler",
+//         des: "Deploy full stack applications using cloud platforms and CI/CD pipelines."
+//     },
+//     {
+//         id: 13,
+//         name: "Project Build",
+//         handler: "ProjectBuildhandler",
+//         des: "Build, test, and deploy your application from ideation to production."
+//     },
+//     {
+//         id: 14,
+//         name: "Library and Framework",
+//         handler: "LibraryFrameworkhandler",
+//         des: "Learn about libraries and frameworks to speed up development and maintain code quality."
+//     },
+//     {
+//         id: 15,
+//         name: "React",
+//         handler: "Reacthandler",
+//         des: "React is a popular JavaScript library for building user interfaces."
+//     },
+//     {
+//         id: 16,
+//         name: "Angular",
+//         handler: "Angularhandler",
+//         des: "Angular is a powerful framework for building scalable web applications."
+//     },
+//     {
+//         id: 17,
+//         name: "Vue",
+//         handler: "Vuehandler",
+//         des: "Vue.js is a progressive JavaScript framework for building user interfaces."
+//     },
+//     {
+//         id: 18,
+//         name: "Next.js (SSR for React)",
+//         handler: "NextForReactHandler",
+//         des: "Next.js enables server-side rendering and static site generation for React apps."
+//     },
+//     {
+//         id: 19,
+//         name: "Nuxt.js (SSR for Vue)",
+//         handler: "NuxtHandler",
+//         des: "Nuxt.js enables server-side rendering and static site generation for Vue apps."
+//     },
+//     {
+//         id: 20,
+//         name: "Angular Universal (SSR for Angular)",
+//         handler: "AngularUniversalHandler",
+//         des: "Angular Universal enables server-side rendering for Angular apps."
+//     },
+//     {
+//         id: 21,
+//         name: "Bootstrap",
+//         handler: "BootstrapHandler",
+//         des: "Bootstrap is a popular CSS framework for building responsive web designs."
+//     },
+//     {
+//         id: 22,
+//         name: "Tailwind CSS",
+//         handler: "TailwindcssHandler",
+//         des: "Tailwind CSS is a utility-first CSS framework for rapid UI development."
+//     },
+//     {
+//         id: 23,
+//         name: "Material-UI",
+//         handler: "MaterialUIHandler",
+//         des: "Material-UI is a React component library that implements Google's Material Design."
+//     },
+//     {
+//         id: 24,
+//         name: "React Context API",
+//         handler: "ReactContextAPIhandler",
+//         des: "React Context API provides a way to manage state globally in React apps."
+//     },
+//     {
+//         id: 25,
+//         name: "Redux",
+//         handler: "Reduxhandler",
+//         des: "Redux is a state management library for JavaScript apps, commonly used with React."
+//     },
+//     {
+//         id: 26,
+//         name: "Zustand",
+//         handler: "zustandhandler",
+//         des: "Zustand is a small, fast, and scalable state management solution for React."
+//     },
+// ];
+
+
 
 export default function WebDevelopment() {
     const [activeId, setActiveId] = useState(null);
+    
+    
+
+
 
     // Step modals
     const [showCodeEditor, setCodeEditor] = useState(false);
@@ -279,10 +286,34 @@ export default function WebDevelopment() {
         zustandhandler,
     };
 
+
+
+
+    const {data:roadmap,loading,error} = Development()
+    console.log("Roadmap data:", roadmap?.[1]?.roadmapSteps);
+    if(loading){
+        return <h1>loading</h1>
+    }
+     if (error) {
+        return <h2 className='text-white'>Something went wrong!</h2>
+    }
+
+const oneStepDone = () => {
+    const updatedRoadmap = Array.isArray(roadmap) ? [...roadmap] : [];
+    if (updatedRoadmap[1]?.roadmapSteps) {
+        console.log("All steps reset:", updatedRoadmap[1].roadmapSteps);
+        return <h1>array is fetched</h1>
+    } else {
+        console.warn("No roadmapSteps found to reset.");
+    }
+};
+
+    console.log("Roadmap data:", roadmap?.[1]?.roadmapSteps?.[0]?.isDone);
+
     return (
         <section className="flex flex-col items-center justify-center h-full lg:w-[80%] w-[100%] gap-3 overflow-hidden">
             {/* Modals */}
-            {showCodeEditor && <CodeEditor closeEditor={() => setCodeEditor(false)} />}
+            {showCodeEditor && <CodeEditor closeEditor={() => setCodeEditor(false)} Done={oneStepDone}/>}
             {showHTML && <Hyperpage closeHTML={() => setHTML(false)} />}
             {showCSS && <CSSpage closeCSS={() => setCSS(false)} />}
             {showJS && <Jspage closejs={() => setJS(false)} />}
@@ -332,7 +363,7 @@ export default function WebDevelopment() {
             <div className="conater relative w-full h-full">
                 <div className="divider h-full items-center bg-white w-1 rounded-full absolute left-2 sm:left-[50%]"></div>
                 <div className="flex flex-col justify-center w-full">
-                    {roadmap.map((item) => (
+                    {roadmap[1]?.roadmapSteps?.map((item) => (
                         <div
                             key={item.id}
                             className={`flex items-center w-full my-4  ${item.id % 2 === 0 ? "sm:justify-end pl-4 pr-4" : "sm:justify-start pl-4 pr-4"

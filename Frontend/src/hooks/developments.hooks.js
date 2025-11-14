@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import axios from "axios"
 
 export default function Development() {
-    const [data, setData] = useState([])
+    const [data, setData] = useState({roadmapSteps:[]})
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
 

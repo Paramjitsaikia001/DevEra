@@ -16,87 +16,9 @@ import DeploymentPage from "../APPdevelopment/DeploymentPage";
 import AdvancedTopicsPage from "../APPdevelopment/AdvancedTopicsPage";
 import ProjectIdeaPage from "../APPdevelopment/ProjectIdea"
 import FullresourcePage from "../APPdevelopment/Fullresource"
+import Development from "../../../hooks/developments.hooks"
 
-const roadmap = [
-  {
-    id: 1,
-    name: "Programming Foundations",
-    handler: "handleFoundations",
-    des: "Learn JavaScript/TypeScript for React Native or Dart for Flutter. Understand mobile basics like UI, navigation, lifecycle, and permissions."
-  },
-  {
-    id: 2,
-    name: "Core Frameworks",
-    handler: "handleFrameworks",
-    des: "Master React Native, Flutter, or alternatives like NativeScript/Ionic. Build cross-platform apps with a single codebase."
-  },
-  {
-    id: 3,
-    name: "UI & Styling",
-    handler: "handleUIStyling",
-    des: "Work with Flexbox, responsive layouts, Material Design, Cupertino widgets, and animations (Reanimated, Lottie)."
-  },
-  {
-    id: 4,
-    name: "State Management",
-    handler: "handleStateManagement",
-    des: "Use Redux Toolkit, Zustand, MobX, React Query (RN) or Provider, Riverpod, Bloc, GetX (Flutter). Add offline storage with SQLite, Realm, Hive."
-  },
-  {
-    id: 5,
-    name: "Navigation & Routing",
-    handler: "handleNavigation",
-    des: "Implement navigation with React Navigation or Flutter Navigator/GoRouter. Add deep linking and multi-level routing."
-  },
-  {
-    id: 6,
-    name: "APIs & Networking",
-    handler: "handleAPIsNetworking",
-    des: "Integrate REST/GraphQL APIs with Axios, Fetch, Apollo. Use WebSockets or Firebase for real-time features."
-  },
-  {
-    id: 7,
-    name: "Native Modules & Device Features",
-    handler: "handleNativeModules",
-    des: "Access camera, location, maps, sensors, notifications, and file storage with native modules or plugins."
-  },
-  {
-    id: 8,
-    name: "Authentication & Security",
-    handler: "handleAuthSecurity",
-    des: "Implement Firebase Auth, Auth0, or Supabase. Secure storage (Keychain, Keystore), biometrics, SSL pinning, and safe APIs."
-  },
-  {
-    id: 9,
-    name: "Testing & Debugging",
-    handler: "handleTestingDebugging",
-    des: "Write unit, integration, and E2E tests with Jest, Detox, Flutter Test. Debug with Flipper, React Native Debugger, Flutter DevTools."
-  },
-  {
-    id: 10,
-    name: "App Performance Optimization",
-    handler: "handlePerformance",
-    des: "Reduce bundle size, lazy load, optimize images, minimize re-renders/widget rebuilds, and use background services efficiently."
-  },
-  {
-    id: 11,
-    name: "Deployment & Distribution",
-    handler: "handleDeployment",
-    des: "Build APK/AAB for Android and IPA for iOS. Release via Google Play Console and Apple App Store. Use CI/CD with Fastlane, Bitrise, or GitHub Actions."
-  },
-  {
-    id: 12,
-    name: "Advanced Topics",
-    handler: "handleAdvancedTopics",
-    des: "Explore backend integration, payments, real-time chat, AI/ML, AR/VR, push notifications, analytics, and scaling strategies."
-  },
-  {
-    id: 13,
-    name:"Project ideas",
-    handler: "handleProjectIdeas",
-    des: "Build real-world projects like a social media app, e-commerce app, chat application, fitness tracker, or a news aggregator to apply your skills."
-  }
-];
+
 
 export default function CrossPlatformRoadmap() {
   const [activeId, setActiveId] = useState(null);
@@ -151,6 +73,16 @@ export default function CrossPlatformRoadmap() {
     handleFullResources
   };
 
+
+  const {data:roadmap,loading,error} = Development()
+        
+        const APPRoadmap=roadmap?.[5]?.roadmapSteps
+        if(loading){
+            return <h1>loading</h1>
+        }
+         if (error) {
+            return <h2 className='text-white'>Something went wrong!</h2>
+        }
   return (
     <section className="flex flex-col items-center justify-center h-full lg:w-[80%] w-[100%] gap-3 overflow-hidden pt-[5rem]">
       {/* Modals */}
@@ -187,7 +119,7 @@ export default function CrossPlatformRoadmap() {
       <div className="conater relative w-full h-full">
         <div className="divider h-full items-center bg-white w-1 rounded-full absolute left-2 sm:left-[50%]"></div>
         <div className="flex flex-col justify-center w-full">
-          {roadmap.map((item) => (
+          {APPRoadmap.map((item) => (
             <div
               key={item.id}
               className={`flex items-center w-full my-4 ${

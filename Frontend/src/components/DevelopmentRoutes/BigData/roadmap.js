@@ -18,99 +18,9 @@ import MLPage from "../BigData/MLPipelines";
 import CapstonePage from "../BigData/Capstone";
 import CareerPage from "../BigData/Career";
 import Fullresource from "../BigData/Fullresource";
+import Development from "../../../hooks/developments.hooks";
 
-const roadmap = [
-  {
-    id: 0,
-    name: "Foundations",
-    handler: "handleFoundations",
-    des: "Master Python, SQL, Linux, and Git. Practice writing SQL joins and Python ETL scripts to build a solid base.",
-  },
-  {
-    id: 1,
-    name: "Data Engineering Basics",
-    handler: "handleDataEngineering",
-    des: "Learn relational schemas, normalization, and data formats like Avro and Parquet. Understand how data is modeled and prepared for analysis.",
-  },
-  {
-    id: 2,
-    name: "Storage Fundamentals (Hadoop)",
-    handler: "handleStorage",
-    des: "Grasp how distributed file systems differ from traditional databases. Learn HDFS concepts and block storage.",
-  },
-  {
-    id: 3,
-    name: "Batch Processing (Hadoop)",
-    handler: "handleBatchProcessing",
-    des: "Understand batch jobs and when to use them. Learn Hadoop's MapReduce concepts by running a sample job.",
-  },
-  {
-    id: 4,
-    name: "Distributed Processing (Spark)",
-    handler: "handleDistributedProcessing",
-    des: "Master Spark's Core, DataFrame API, and Spark SQL. Learn about caching, joins, and partition tuning in PySpark.",
-  },
-  {
-    id: 5,
-    name: "Streaming & Messaging (Kafka)",
-    handler: "handleStreaming",
-    des: "Learn about real-time data flow with Apache Kafka. Understand topics, producers, and consumers to build a simple streaming pipeline.",
-  },
-  {
-    id: 6,
-    name: "Query Engines & Warehouses",
-    handler: "handleQueryEngines",
-    des: "Explore tools like Hive, Presto, and a cloud data warehouse (BigQuery, Redshift, Snowflake). Practice schema design for analytics.",
-  },
-  {
-    id: 7,
-    name: "Orchestration & Pipelines (Airflow)",
-    handler: "handleOrchestration",
-    des: "Automate and manage your data pipelines. Learn Apache Airflow to schedule and monitor complex workflows using DAGs.",
-  },
-  {
-    id: 8,
-    name: "Infrastructure & Deployment",
-    handler: "handleInfrastructure",
-    des: "Get hands-on with Docker, Kubernetes, and Terraform. Learn to deploy and manage your big data clusters reproducibly.",
-  },
-  {
-    id: 9,
-    name: "Cloud Managed Services",
-    handler: "handleCloudServices",
-    des: "Translate your open-source skills to managed cloud services (e.g., AWS EMR, GCP Dataproc). Understand cost and security best practices.",
-  },
-  {
-    id: 10,
-    name: "Data Governance & Security",
-    handler: "handleGovernance",
-    des: "Learn to secure your data. Focus on data catalogs, lineage, access controls, and compliance with regulations like GDPR.",
-  },
-  {
-    id: 11,
-    name: "Observability & Performance",
-    handler: "handleObservability",
-    des: "Monitor your pipelines. Learn about profiling, partition tuning, and managing logging and metrics to ensure reliability.",
-  },
-  {
-    id: 12,
-    name: "Machine Learning Pipelines",
-    handler: "handleML",
-    des: "Learn to integrate machine learning into your pipelines. Explore feature stores and tools for training and serving models in production.",
-  },
-  {
-    id: 13,
-    name: "Capstone Projects (Portfolio)",
-    handler: "handleCapstone",
-    des: "Build and publish 3 end-to-end projects. This is your portfolio to prove your skills and showcase your ability to solve real-world problems.",
-  },
-  {
-    id: 14,
-    name: "Career & Scaling Moves",
-    handler: "handleCareer",
-    des: "Learn cost optimization, multi-cluster architectures, and data product design. Add real-world monitoring and runbooks to your portfolio.",
-  },
-];
+
 
 export default function BigData() {
   const [activeId, setActiveId] = useState(null);
@@ -153,6 +63,15 @@ export default function BigData() {
     handleFullResource: () => setFullResource(!showFullResource),
   };
 
+    const { data: roadmap, loading, error } = Development()
+
+    const BigDataRoadmap = roadmap?.[12]?.roadmapSteps
+    if (loading) {
+        return <h1>loading</h1>
+    }
+    if (error) {
+        return <h2 className='text-white'>Something went wrong!</h2>
+    }
   return (
     <section className="flex flex-col items-center justify-center h-full lg:w-[80%] w-[100%] gap-3 overflow-hidden">
       {/* Modals */}
@@ -189,7 +108,7 @@ export default function BigData() {
       <div className="conater relative w-full h-full">
         <div className="divider h-full items-center bg-white w-1 rounded-full absolute left-2 sm:left-[50%]"></div>
         <div className="flex flex-col justify-center w-full">
-          {roadmap.map((item) => (
+          {BigDataRoadmap.map((item) => (
             <div
               key={item.id}
               className={`flex items-center w-full my-4 ${

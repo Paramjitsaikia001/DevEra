@@ -8,6 +8,7 @@ export const ROUTES = {
     ABOUT_US: '/traintoexcellency/Frontend-build/About-us',
     AI_CHAT: '/traintoexcellency/Frontend-build/ai-chat',
     REGISTER: '/traintoexcellency/Frontend-build/Register',
+    LOGIN:"/traintoexcellency/Frontend-build/login",
     ADDITIONALDETAILS:'/traintoexcellency/Frontend-build/Register/additional-details',
 
     // Development sub-routes

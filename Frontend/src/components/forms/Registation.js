@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Eye, EyeClosed } from 'lucide-react';
-import { buttonStyles, inputStyles, textStyles } from '../../utils/styles';
+import { textStyles,inputStyles } from '../../utils/styles';
 import SampleRoadmapImage from "../../assets/images/sampleroadmap.png"
 import Logo from '../ui/Logo';
+import { Link } from 'react-router-dom';
 const Registration = () => {
   const [userName, setUserName] = useState('');
   const [fullName, setFullName] = useState("")
@@ -48,10 +49,10 @@ const Registration = () => {
   }
   return (
     <section className='flex justify-center items-center w-[100%] h-[100vh]'>
-      <div className='flex w-[95%] h-[90vh] bg-primary-dark rounded-xl shadow-lg shadow-black/20'>
+      <div className='flex w-[95%] h-[90vh] bg-primary-dark rounded-[2rem] shadow-lg shadow-black/20'>
 
-        <div className="detailsofplatofoem relative w-[50%] flex-col h-full flex rounded-l-lg p-12 bg-cover" style={{ backgroundImage: `url(${SampleRoadmapImage})` }}>
-          <div className="divbackcover bg-primary-dark/80 absolute top-0 right-0  w-full h-full rounded-l-lg"></div>
+        <div className="detailsofplatofoem relative w-[60%] flex-col h-full flex rounded-l-[2rem] p-12 bg-cover" style={{ backgroundImage: `url(${SampleRoadmapImage})` }}>
+          <div className="divbackcover bg-gradient-to-br from-black to-black/30  absolute top-0 right-0  w-full h-full rounded-l-[2rem]"></div>
           <div className="logo z-10 bg-white w-fit px-3 rounded-md shadow-sm shadow-black">
 
             <Logo />
@@ -64,13 +65,13 @@ const Registration = () => {
           </div>
         </div>
 
-        <div className="registration-container flex flex-col bg-blue-500 justify-center items-center w-[50%] h-full rounded-r-lg">
+        <div className="registration-container flex flex-col  justify-center items-center w-[40%] h-full rounded-r-[2rem]">
           <div className="registration-header mb-4">
           </div>
           <div className="registration-form w-[80%] ">
             <form onSubmit={handleSubmit} className="flex flex-col gap-8 justify-center w-full items-center">
 
-              <div className="fullnameandusername flex w-full  gap-4 ">
+              <div className="fullnameandusername flex w-full  gap-4 h-14">
 
                 <input
                   type="text"
@@ -79,7 +80,8 @@ const Registration = () => {
                   placeholder="Full Name"
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
-                  className="h-18 outline-none pl-2 pt-6 pb-1 text-xl w-1/2 bg-transparent border-b-4 border-white  placeholder-black/40 text-black font-[500]  focus:border-primary-cyan transition-all duration-300 hover:bg-gradient-to-t from-white/50 to-transparent "
+                  // className="h-18 outline-none pl-2 text-xl w-1/2 bg-white/20 border-2 border-white/40 rounded-lg  placeholder-white/40 text-white/80 font-[500] "
+                  className={inputStyles.primary}
                 />
 
                 <input
@@ -89,15 +91,18 @@ const Registration = () => {
                   placeholder="Username"
                   value={userName}
                   onChange={(e) => setUserName(e.target.value)}
-                  className="h-18 outline-none px-2 pt-6 pb-1 text-xl w-1/2 bg-transparent border-b-4 border-white  placeholder-black/40 text-black font-[500]  focus:border-primary-cyan transition-all duration-300 hover:bg-gradient-to-t from-white/50 to-transparent "
+                  className={inputStyles.primary}
                 />
               </div>
 
-              <div className="passowordandconfirm flex w-full gap-4">
+              <div className="passowordandconfirm flex w-full gap-4 ">
 
 
 
-                <div className="password pt-6 px-4 w-1/2 flex items-center justify-center bg-transparent border-b-4 border-white  placeholder-black/40 text-black font-[500]  focus:border-primary-cyan transition-all duration-300 hover:bg-gradient-to-t from-white/50 to-transparent">
+                <div 
+                className={`
+                ${inputStyles.primary}
+                w-1/2 flex  justify-center px-2 gap-2 items-center`}>
 
                   <input
                     type={passwordType}
@@ -106,20 +111,23 @@ const Registration = () => {
                     placeholder="Password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="h-18 outline-none pt-2 text-xl  bg-transparent placeholder-black/40"
+                    className="h-14 w-[98%]  outline-none    text-xl bg-transparent  placeholder-white/40 text-white font-[500]"
 
                   />
                   <button
                     onClick={hideShowPassword}
-                    className='items-center justify-center pt-2'
+                    className='items-center justify-center'
                   >
-                    <Eye className={`${passwordType === "password" ? "hidden" : ""} text-white`} />
-                    <EyeClosed className={`${passwordType === "password" ? "" : "hidden"} text-white`} />
+                    <Eye className={`${passwordType === "password" ? "hidden" : ""} text-white/50`} />
+                    <EyeClosed className={`${passwordType === "password" ? "" : "hidden"} text-white/50`} />
                   </button>
                 </div>
 
 
-                <div className="confirmpassword pt-6 px-4 w-1/2 flex items-center justify-center bg-transparent border-b-4 border-white  placeholder-black/40 text-black font-[500]  focus:border-primary-cyan transition-all duration-300 hover:bg-gradient-to-t from-white/50 to-transparent">
+                <div 
+                className={`
+                ${inputStyles.primary}
+                w-1/2 flex  justify-center px-2 gap-2 items-center`}>
 
                   <input
                     type={ConfirmpasswordType}
@@ -128,21 +136,23 @@ const Registration = () => {
                     placeholder="Confirm Password"
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
-                    className="h-18 outline-none pt-2 text-xl  bg-transparent placeholder-black/40"
+                    className="h-18 w-[98%] outline-none  text-xl bg-transparent  placeholder-white/40 text-white font-[500]"
 
                   />
                   <button
                     onClick={hideShowConfirmPassword}
-                    className='items-center justify-center pt-2'
+                    className='items-center justify-center text-white/50'
                   >
-                    <Eye className={`${ConfirmpasswordType === "password" ? "hidden" : ""} text-white`} />
-                    <EyeClosed className={`${ConfirmpasswordType === "password" ? "" : "hidden"} text-white`} />
+                    <Eye className={`${ConfirmpasswordType === "password" ? "hidden" : ""} `} />
+                    <EyeClosed className={`${ConfirmpasswordType === "password" ? "" : "hidden"}`} />
                   </button>
                 </div>
               </div>
 
               <div className="emailandOTP w-full flex flex-col gap-8 ">
-                <div className="emailsendOTPBtn flex w-full gap-4 items-center justify-center ">
+                <div 
+                className={`
+                emailsendOTPBtn flex w-full gap-4 items-center h-14 justify-center `}>
 
                   <input
                     type="email"
@@ -151,11 +161,13 @@ const Registration = () => {
                     placeholder="Email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="h-18 outline-none px-4 pt-6 pb-1 text-xl w-[80%] bg-transparent border-b-4 border-white  placeholder-black/40 text-black font-[500]  focus:border-primary-cyan transition-all duration-300 hover:bg-gradient-to-t from-white/50 to-transparent "
+                    className={`
+                      ${inputStyles.primary}
+                      h-18 outline-none pl-2 text-xl w-[75%] bg-transparent border-2 border-white/50 rounded-lg  placeholder-white/40 text-white font-[500] h-full`}
                   />
                   <button
                     onClick={showOTPHandler}
-                    className="w-[20%] py-2 hover:bg-transparent border-2 rounded-full border-white  text-lg text-black font-semibold bg-white hover:text-black transition-colors duration-300"
+                    className="w-[25%] py-2 hover:bg-transparent border-2 rounded-full border-white/50  text-md text-black font-semibold bg-white hover:text-white transition-colors duration-300"
                   >Send OTP</button>
                 </div>
                 <div className={`${showOTPsection === true ? "" : "hidden"} otpsection flex gap-4 items-center justify-center transition-transform duration-500`}>
@@ -166,10 +178,12 @@ const Registration = () => {
                     value={otp}
                     placeholder='Enter OTP'
                     onChange={(e) => setOtp(e.target.value)}
-                    className="h-18 outline-none px-4 pt-6 pb-1 text-xl w-[60%] bg-transparent border-b-4 border-white  placeholder-black/40 text-black font-[500]  focus:border-primary-cyan transition-all duration-300 hover:bg-gradient-to-t from-white/50 to-transparent "
+                    className={`
+                      ${inputStyles.primary}
+                      h-18 outline-none pl-2 text-xl w-[70%] bg-transparent border-2 border-[#00d0ff] rounded-lg  placeholder-white/40 text-white font-[500] h-14`}
                   />
                   <button
-                    className="w-[40%] py-2 hover:bg-transparent border-2 rounded-full border-white  text-lg text-black font-semibold bg-white hover:text-black transition-colors duration-300"
+                    className="w-[40%] py-2 hover:bg-transparent border-2 rounded-full border-[#00d0ff] hover:border-white/50  text-lg text-white font-semibold bg-[#00d0ff]/30 transition-colors duration-300"
                   >
                     Verify Email
                   </button>
@@ -177,26 +191,34 @@ const Registration = () => {
               </div>
 
 
+              <div className="role flex w-full h-14 items-center font-extralight text-[#00ffee]  justify-end gap-1">
+                <span className='text-2xl  italic font-sans'>You're a </span>
+                <select
+                  name="role"
+                  id="role"
+                  value={role}
+                  onChange={(e) => setRole(e.target.value)}
+                  className="h-18 outline-none text-2xl  w-[40%] bg-transparent rounded-lg  placeholder-white/40 italic font-semibold h-full"
+                >
+                  <option value="Developer">Developer</option>
+                  <option value="Student" >Student</option>
+                  <option value="Educator">Educator</option>
+                </select>
+              </div>
 
-              <select
-                name="role"
-                id="role"
-                value={role}
-                onChange={(e) => setRole(e.target.value)}
-                className="h-18 outline-none px-4 pt-6 pb-1 text-xl w-full bg-transparent border-b-4 border-white  font-[500]  focus:border-primary-cyan transition-all duration-300 hover:bg-gradient-to-t from-white/50 to-transparent flex items-end"
-              >
-                <option value="" className='text-white'> Choose a Role</option>
-                <option value="Developer">Developer</option>
-                <option value="Student" >Student</option>
-                <option value="Educator">Educator</option>
-              </select>
-              <button type="submit" className={buttonStyles.secondary}>
+              <Link
+              to="/traintoexcellency/Frontend-build/Register/additional-details"
+              
+              type="submit"
+              className=" w-full flex items-center justify-center bg-[#00ffee]/20 rounded-full h-14 text-xl font-semibold text-white hover:shadow-sm hover:shadow-white/30 transition-transform duration-300 ">
                 Register
-              </button>
+              </Link>
             </form>
           </div>
           <div className="if-register mt-4">
-            <p className={textStyles.body}>Already registered? <span className='underline cursor-pointer'>Click here</span></p>
+            <p className={textStyles.body}>Already registered?
+               <Link to="/traintoexcellency/Frontend-build/login"
+            className='underline cursor-pointer text-[#00ffee]'>Click here</Link></p>
           </div>
         </div>
       </div>

@@ -12,52 +12,10 @@ import MLPage from "../DataScience/ML";
 import ProjectsPage from "../DataScience/Projects";
 import SpecializationPage from "../DataScience/Specialization";
 import Fullresource from "../DataScience/Fullresource";
+import Development from "../../../hooks/developments.hooks";
 
 
-const roadmap = [
-  {
-    id: 0,
-    name: "Master Python",
-    handler: "handleProgramming",
-    des: "Start with Python, the industry-standard language for data science. Learn the basics and essential libraries like NumPy and Pandas for data manipulation.",
-  },
-  {
-    id: 1,
-    name: "Understand Math & Stats",
-    handler: "handleMath",
-    des: "Grasp the foundational concepts of statistics, probability, and linear algebra. This conceptual knowledge is crucial for understanding how algorithms work.",
-  },
-  {
-    id: 2,
-    name: "Data Visualization & Analysis",
-    handler: "handleViz",
-    des: "Learn to clean, process, and analyze data. Master visualization tools like Matplotlib and Seaborn to tell stories with data through graphs and charts.",
-  },
-  {
-    id: 3,
-    name: "Learn SQL & Databases",
-    handler: "handleSQL",
-    des: "Understand how to work with databases. Learn SQL to query, manage, and extract data, as most real-world data is stored in relational databases.",
-  },
-  {
-    id: 4,
-    name: "Machine Learning & Deep Learning",
-    handler: "handleML",
-    des: "Dive into the core of data science. Learn various machine learning algorithms and deep learning concepts to build predictive models and analyze complex data.",
-  },
-  {
-    id: 5,
-    name: "Build Projects & Portfolio",
-    handler: "handleProjects",
-    des: "Apply your skills by building end-to-end data science projects. This is essential for gaining practical experience and demonstrating your abilities to employers.",
-  },
-  {
-    id: 6,
-    name: "Specialize & Learn Tools",
-    handler: "handleSpecialization",
-    des: "Choose a specialization like NLP or Computer Vision. Learn to use tools and frameworks for deploying and managing your models in production.",
-  },
-];
+
 
 export default function DataScience() {
   const [activeId, setActiveId] = useState(null);
@@ -85,6 +43,15 @@ export default function DataScience() {
     handleFullResource: () => setFullResource(!showFullResource),
   };
 
+    const { data: roadmap, loading, error } = Development()
+
+    const DSRoadmap = roadmap?.[10]?.roadmapSteps
+    if (loading) {
+        return <h1>loading</h1>
+    }
+    if (error) {
+        return <h2 className='text-white'>Something went wrong!</h2>
+    }
   return (
     <section className="flex flex-col items-center justify-center h-full lg:w-[80%] w-[100%] gap-3 overflow-hidden pt-[5rem]">
       {/* Modals */}
@@ -113,7 +80,7 @@ export default function DataScience() {
       <div className="conater relative w-full h-full">
         <div className="divider h-full items-center bg-white w-1 rounded-full absolute left-2 sm:left-[50%]"></div>
         <div className="flex flex-col justify-center w-full">
-          {roadmap.map((item) => (
+          {DSRoadmap.map((item) => (
             <div
               key={item.id}
               className={`flex items-center w-full my-4 ${

@@ -6,11 +6,12 @@ const app = express();
 
 app.use(cors(
     {
-        origin: process.env.CORS_ORIGIN,
+        origin: process.env.CORS_ORIGIN || "http://localhost:3000",
         credentials:true
         
     }
 ))
+
 
 
 app.use(express.json());
@@ -21,7 +22,9 @@ app.use(cookieParser())
 
 import router from './routes/roadmaproutes.js';
 import authRouter from './routes/auth.routes.js';
+import reviewRouter from "./routes/review.routes.js"
 import { healthCheckRouter } from './routes/healthCheck.routes.js';
+import ProfileandCoverrouter from "./routes/profileAndcover.routes.js"
 
 app.use("/api/v1/healthcheck",healthCheckRouter);
 
@@ -29,9 +32,11 @@ app.use("/api/v1/healthcheck",healthCheckRouter);
 app.use("/api/v1/auth",authRouter);
 
 
-
+app.use("/api/v1/reviews",reviewRouter)
 
 app.use("/api/v1/development",router);
 
+app.use("/api/v1/profileAndCover",ProfileandCoverrouter)
 
-export default app;
+
+export  {app};

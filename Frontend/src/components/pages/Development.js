@@ -5,7 +5,6 @@ import MobileNav from '../navigation/mobilenav'
 import { useNavigate, useLocation } from 'react-router-dom'
 import React from 'react'
 import { useEffect } from 'react'
-import { useState } from 'react'
 import DevelopmentHook from '../../hooks/developments.hooks.js'
 
 // const developmentCards = [
@@ -140,9 +139,6 @@ export default function Development() {
     const routerhander = (name) => {
         navigate(`/traintoexcellency/Frontend-build/development/${name}`);
     }
-    const backbutton = () => {
-        navigate('/traintoexcellency/Frontend-build/');
-    }
 
     useEffect(() => {
         window.scrollTo(0, 0); // Scroll to the top of the page when the route changes
@@ -160,15 +156,6 @@ export default function Development() {
     return (
         <section className="flex flex-col lg:w-[80%] w-[100%] h-[100%] gap-4">
             <div className='flex justify-center p-4'>
-                <button
-                    onClick={() => backbutton()}
-                    className='ml-4 my-2 bg-[#eeecec] text-black px-3 py-0 border-1 border-gray-700 rounded-[4px] flex items-center'
-                >
-                    <span class="material-symbols-outlined text-sm font-bold">
-                        arrow_back_ios
-                    </span>
-                    <span>Back</span>
-                </button>
 
                 <Header />
             </div>

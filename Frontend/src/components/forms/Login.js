@@ -1,20 +1,32 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Eye, EyeClosed } from 'lucide-react';
 import { inputStyles, textStyles } from '../../utils/styles';
 import SampleRoadmapImage from "../../assets/images/sampleroadmap.png"
 import Logo from '../ui/Logo';
 import { Link } from 'react-router-dom';
+
+import UserContext from '../../Context/user.context';
+
 const Login = () => {
+
+  const { login, loading, error, isAuthanticate } = useContext(UserContext)
+
   const [userName, setUserName] = useState('');
+  const [email,setEmail]=useState('')
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
   const [passwordType, setpasswordTtype] = useState("password")
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async(e) => {
     e.preventDefault();
     // Handle form submission here
-    setError('');
     // Submit the form data to your server or API
-    console.log(e)
+    try {
+      await login(email,userName,password)
+      window.location.href="/traintoexcellency/Frontend-build/profile"
+    } catch (error) {
+      console.log(error.message);
+      
+    }
   };
 
 
@@ -58,8 +70,8 @@ const Login = () => {
                   name="userName"
                   id="user-name"
                   placeholder="Username or email"
-                  value={userName}
-                  onChange={(e) => setUserName(e.target.value)}
+                  value={userName || email}
+                  onChange={(e) => setUserName(e.target.value) || setEmail(e.target.value)}
                   className={`
                     ${inputStyles.primary}
                     h-18 outline-none pl-2 text-xl w-full bg-transparent border-2 border-white/50 rounded-lg  placeholder-white/40 text-white font-[500] `}
@@ -104,18 +116,19 @@ const Login = () => {
 
 
 
-              <Link
-                to="/traintoexcellency/Frontend-build/Register/additional-details"
+              <button
+              onClick={handleSubmit}
+              disabled={loading}
 
                 type="submit"
                 className=" w-full flex items-center justify-center bg-[#00ffee]/20 rounded-full h-14 text-xl font-semibold text-white hover:shadow-sm hover:shadow-white/30 transition-transform duration-300 ">
-                Login
-              </Link>
+                {loading ? "Login....":"login"}
+              </button>
             </form>
           </div>
           <div className="if-register mt-4">
             <p className={textStyles.body}>New User?
-              <Link to="/traintoexcellency/Frontend-build/Register"
+              <Link to="/traintoexcellency/Frontend-build/register"
                 className='underline cursor-pointer text-[#00ffee]'>Click here</Link></p>
           </div>
         </div>

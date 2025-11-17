@@ -1,5 +1,4 @@
 import mongoose,{Schema} from "mongoose";
-import { use } from "react";
 
 const activitySchema=new Schema(
     {
@@ -7,7 +6,28 @@ const activitySchema=new Schema(
             type:Schema.Types.ObjectId,
             required:true
         },
-        recentRoadmapOpened:{
+          roadmapId:{
+            type:String,
+             enum: {
+                values: [
+                    "AIML",
+                    "webdev",
+                    "frontend-web-dev",
+                    "backend",
+                    "appdev",
+                    "gamedev",
+                    "cybersecurity",
+                    "blockchain",
+                    "devopscloud",
+                    "datascience",
+                    "iot",
+                    "bigdata"
+                ],
+                message: "Value is not a valid roadmapId"
+            },
+            required:true
+        },
+        roadmpStepsId:{
             type:String,
             required:true
         }

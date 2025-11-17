@@ -3,11 +3,15 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import MainLeft from './components/layout/mainleft';
 import MainRight from './components/layout/mainright';
 import Development from './components/pages/Development';
-import Language from './components/pages/Language';
+// import Language from './components/pages/Language';
 import Explore from './components/pages/explore';
 import Contact from './components/pages/Contact';
 import Registation from './components/forms/Registation';
 import LandingPage from './components/ui/LandingPage';
+import Profile from './components/pages/Profile';
+import AdditionalDetails from './components/forms/setAdditionalDetails';
+import Login from './components/forms/Login';
+import PersonalDetails from './components/forms/addpersonaldetails';
 
 import AiML from './components/DevelopmentRoutes/ALMLdevelopment/AIML_development';
 import Gamedev from './components/DevelopmentRoutes/Gamedevelopment/Roadmap';
@@ -22,9 +26,6 @@ import Cybersecurity from './components/DevelopmentRoutes/CyberSecurity/roadmap'
 import DataScience from './components/DevelopmentRoutes/DataScience/roadmap';
 import BigData from './components/DevelopmentRoutes/BigData/roadmap';
 import IoT from './components/DevelopmentRoutes/IoT/roadmap';
-import Profile from './components/pages/Profile';
-import AdditionalDetails from './components/forms/setAdditionalDetails';
-import Login from './components/forms/Login';
 import { ROUTES } from './constants/routes';
 
 function App() {
@@ -46,13 +47,14 @@ function App() {
         <Routes>
           <Route path={ROUTES.HOME} element={<MainRight toggleHideLeft={toggleHideLeft} Hide_Left={Hide_Left} />} />
           <Route path={ROUTES.DEVELOPMENT} element={<Development />} />
-          <Route path={ROUTES.LANGUAGE} element={<Language />} />
+          {/* <Route path={ROUTES.LANGUAGE} element={<Language />} /> */}
           <Route path={ROUTES.EXPLORE} element={<Explore />} />
           <Route path={ROUTES.ABOUT_US} element={<Contact />} />
           <Route path={ROUTES.AI_CHAT} element={<AiChatPage />} />
           <Route path={ROUTES.REGISTER} element={<Registation />} />
           <Route path={ROUTES.LOGIN} element={<Login />} />
           <Route path={ROUTES.ADDITIONALDETAILS} element={<AdditionalDetails />} />
+          <Route path={ROUTES.ADDPERSONALDETAILS} element={<PersonalDetails />} />
 
           <Route path={ROUTES.APP_DEV} element={<AppDev />} />
           <Route path={ROUTES.AI_ML} element={<AiML />} />

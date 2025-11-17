@@ -23,6 +23,7 @@ app.use(cookieParser())
 import router from './routes/roadmaproutes.js';
 import authRouter from './routes/auth.routes.js';
 import reviewRouter from "./routes/review.routes.js"
+import activityRouter from "./routes/activity.routes.js"
 import savedRoadmapRouter from "./routes/savedRoadmap.route.js"
 import searchRouter from "./routes/search.routes.js"
 import { healthCheckRouter } from './routes/healthCheck.routes.js';
@@ -35,6 +36,8 @@ app.use("/api/v1/auth",authRouter);
 
 
 app.use("/api/v1/reviews",reviewRouter)
+
+app.use("/api/v1/activity",activityRouter)
 
 app.use("/api/v1/saved-roadmap",savedRoadmapRouter)
 

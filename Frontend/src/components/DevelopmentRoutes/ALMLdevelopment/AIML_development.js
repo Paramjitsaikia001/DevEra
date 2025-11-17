@@ -61,10 +61,16 @@ export default function AiMl() {
          if (error) {
             return <h2 className='text-white'>Something went wrong!</h2>
         }
+
+        const isDone=(id)=>{
+            console.log(roadmap?.[0].title,roadmap?.[0].roadmapSteps[id].name ,"is varified" );
+            
+        }
     return (
         <section className="flex flex-col items-center justify-center h-full lg:w-[80%] w-[100%] gap-3 overflow-hidden pt-[5rem]">
             {/* Modals */}
-            {pythonpage && <PythonPage closePython={handlePythonPage} />}
+            {pythonpage && <PythonPage closePython={handlePythonPage} Done={()=>isDone(0)
+            } />}
             {Mathematical && <MathematicalPage closeMathematical={handleMathematical} />}
             {MLLinandAlgPage && <MLlibandalgPage closeMLLibandalg={handleMLLinandAlgPage} />}
             {DataManiAndVisu && <DataManiAndVisuPage closeDataManiAndVisu={handleDataManiAndVisu} />}

@@ -1,24 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Github, BriefcaseBusiness, GraduationCap, CalendarDays } from "lucide-react"
 import { Link } from "react-router-dom";
+
+import UserContext from "../../Context/user.context";
+
 export default function Profile() {
-    // Dummy user data
-    const user = {
-        fullName: "Paramjit Saikia",
-        username: "paramjit",
-        bio: "learing coding. wrting code and solvinig problem by using technology",
-        email: "paramjit@example.com",
-        github: "https://github.com/paramjit",
-        portfolio: "https://paramjit.dev",
-        joinDate: "Jan 2025",
-        role: "student",
-        isMentor: true,
-        savedRoadmaps: [
-            "Frontend Development",
-            "AI/ML Development",
-            "Web Development"
-        ]
-    };
+
+    const { user, loading, isAuthanticate, getCurrentUser } = useContext(UserContext)
+
+  const date = new Date(user?.createdAt);
+const month = date.toLocaleString('en-US', { month: 'short' });
+const year = date.getFullYear();
 
     const [isSavedRoadmaps, setSavedRoadmaps] = useState(true)
     const [isReviews, setReview] = useState(false)
@@ -32,7 +24,7 @@ export default function Profile() {
                 setActivity(!isActivity)
             }
 
-                setSavedRoadmaps(!isSavedRoadmaps)
+            setSavedRoadmaps(!isSavedRoadmaps)
         }
     }
 
@@ -44,7 +36,7 @@ export default function Profile() {
                 setActivity(!isActivity)
             }
 
-                setReview(!isReviews)
+            setReview(!isReviews)
         }
 
     }
@@ -56,12 +48,26 @@ export default function Profile() {
                 setReview(!isReviews)
             }
 
-                setActivity(!isActivity)
+            setActivity(!isActivity)
         }
     }
 
-    console.log(isSavedRoadmaps, isReviews,isActivity)
 
+
+    console.log(isSavedRoadmaps, isReviews, isActivity)
+    useEffect(() => {
+        if (!user) {
+            getCurrentUser()
+        }
+    }, [])
+
+    if (loading) {
+        return <p>fetching you details........</p>
+    }
+
+    if (!isAuthanticate) {
+        return <p>who are you?</p>
+    }
     return (
         <section className="flex flex-col lg:w-[80%] w-[100%] h-[100%]">
             <div className="w-full flex flex-col gap-8">
@@ -71,9 +77,17 @@ export default function Profile() {
 
                     <div className="relative pb-6">
                         <div className="header w-full relative">
-                            <div className="cover w-full h-[28vh] bg-red-400 ">
+                            <div className="cover w-full h-[36vh] bg-red-400 "
+                                style={{
+                                    backgroundImage: `url(${user?.coverPicture || "https://via.placeholder.com/1200x300"})`,
+                                }}
+                            >
                             </div>
-                            <div className="profilepic w-[10rem] h-[10rem] rounded-full bg-white absolute border-[5px] border-primary-bg -bottom-16 left-3">
+                            <div className="profilepic w-[10rem] h-[10rem] rounded-full bg-center bg-cover  absolute border-[5px] border-primary-bg -bottom-16 left-3"
+                                style={{
+                                    backgroundImage: `url(${user?.profilePicture || "https://via.placeholder.com/200"})`,
+                                }}
+                            >
 
                             </div>
                             <div className="profilepic text-white  rounded-full border-2 font-bold border-[#ffffff] py-2 px-3 absolute right-0 m-2 cursor-pointer">
@@ -85,7 +99,7 @@ export default function Profile() {
                         <div className="nameusername flex items-baseline gap-3">
                             <div className="names flex flex-col">
                                 <span className="font-extrabold text-3xl text-white">{user.fullName}</span>
-                                <span className="text-xl text-[#cdcdcd]">@{user.username}</span>
+                                <span className="text-xl text-[#cdcdcd]">@{user.userName}</span>
                             </div>
                             <div className="professionalDetail bg-black py-1 px-3 rounded-full transition-transform duration-300">
                                 <div className="student flex text-[#9590df] font-semibold gap-1 font-xl">
@@ -119,7 +133,7 @@ export default function Profile() {
                             </div>
                             <div className="joinedate flex gap-2 text-[#9590df] items-center ">
                                 <CalendarDays />
-                                <p className=" text-md font-[500] font-[Inter]">Joined {user.joinDate}</p>
+                                <p className=" text-md font-[500] font-[Inter]">Joined {month} {year}</p>
                             </div>
                         </div>
 

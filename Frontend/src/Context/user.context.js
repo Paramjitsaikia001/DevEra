@@ -52,37 +52,35 @@ export const UserProvider = ({ children }) => {
         }
     }
 
-   const verifyOTP = async (email, otp) => {
-  try {
-    const res = await Api.post("/auth/verify-otp", { email, otp });
-    return res.data.data.success;  // FIXED
-  } catch (error) {
-    setError(error?.response?.data?.message || "invalid OTP");
-    throw error;
-  }
-};
+    const verifyOTP = async (email, otp) => {
+        try {
+            const res = await Api.post("/auth/verify-otp", { email, otp });
+            return res.data.data.success;  // FIXED
+        } catch (error) {
+            setError(error?.response?.data?.message || "invalid OTP");
+            throw error;
+        }
+    };
 
-const register = async (email, fullName, userName, password, confirmPassword) => {
-  try {
-    const res = await Api.post("/auth/register", {
-      email,
-      fullName,
-      userName,
-      password,
-      confirmPassword,   // FIXED
-    });
+    const register = async (email, fullName, userName, password, confirmPassword) => {
+        try {
+            const res = await Api.post("/auth/register", {
+                email,
+                fullName,
+                userName,
+                password,
+                confirmPassword,   // FIXED
+            });
 
-    const registeredUser = res.data?.data;
-    setUserState(registeredUser);
-    return registeredUser;
+            const registeredUser = res.data?.data;
+            setUserState(registeredUser);
+            return registeredUser;
 
-  } catch (error) {
-    setError(error?.response?.data?.message || "registration failed");
-    throw error;
-  }
-};
-
-
+        } catch (error) {
+            setError(error?.response?.data?.message || "registration failed");
+            throw error;
+        }
+    };
 
     const login = async (email, userName, password) => {
         setLoading(true)
@@ -105,6 +103,75 @@ const register = async (email, fullName, userName, password, confirmPassword) =>
         }
     }
 
+    const logOut = async () => {
+        try {
+            await Api.post("/auth/logout")
+            setUserState(null)
+            isAuthanticate(false)
+        } catch (error) {
+            console.log(error);
+
+        }
+    }
+
+    const addImages = async (profilePicture, coverPicture) => {
+        try {
+            await Api.put("/auth/update-details", { profilePicture, coverPicture })
+            console.log(profilePicture, coverPicture);
+
+        } catch (error) {
+            console.log(error);
+
+        }
+    }
+
+    const addDetails = async (github, Linkedin, portfolio, bio) => {
+        try {
+            await Api.put("/auth/update-details", { github, Linkedin, portfolio, bio })
+            console.log(github, Linkedin, portfolio, bio);
+
+        } catch (error) {
+            console.log(error);
+
+        }
+    }
+
+    //    const updateDetails=async(fullName,Role,profilePicture,coverPicture,github,Linkedin,portfolio,bio)=>{
+    //     try {
+    //         await Api.put("/auth/update-details",{fullName,Role,profilePicture,coverPicture,github,Linkedin,portfolio,bio})
+    //         console.log("all updated");
+
+    //     } catch (error) {
+    //         console.log(error);
+
+    //     }
+    // }
+    const updateDetails = async (fields) => {
+        try {
+            const payload = {};
+
+            Object.keys(fields).forEach((key) => {
+                if (fields[key] !== "" && fields[key] !== undefined && fields[key] !== null) {
+                    payload[key] = fields[key];
+                }
+            });
+
+            await Api.put("/auth/update-details", payload);
+
+            console.log("Updated fields:", payload);
+
+            // Update context user state with new data
+            setUserState((prev) => ({
+                ...prev,
+                ...payload
+            }));
+
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+
     useEffect(() => {
         getCurrentUser()
     }, [])
@@ -115,8 +182,12 @@ const register = async (email, fullName, userName, password, confirmPassword) =>
             user,
             isAuthanticate,
             login,
+            logOut,
             getCurrentUser,
             loading,
+            addDetails,
+            addImages,
+            updateDetails,
             register,
             sendOTP,
             verifyOTP,

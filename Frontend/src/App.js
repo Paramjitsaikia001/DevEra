@@ -12,6 +12,7 @@ import Profile from './components/pages/Profile';
 import AdditionalDetails from './components/forms/setAdditionalDetails';
 import Login from './components/forms/Login';
 import PersonalDetails from './components/forms/addpersonaldetails';
+import UpdateDetails from './components/pages/updateDetails';
 
 import AiML from './components/DevelopmentRoutes/ALMLdevelopment/AIML_development';
 import Gamedev from './components/DevelopmentRoutes/Gamedevelopment/Roadmap';
@@ -55,6 +56,7 @@ function App() {
           <Route path={ROUTES.LOGIN} element={<Login />} />
           <Route path={ROUTES.ADDITIONALDETAILS} element={<AdditionalDetails />} />
           <Route path={ROUTES.ADDPERSONALDETAILS} element={<PersonalDetails />} />
+          <Route path={ROUTES.UPDATEDETAILS} element={<UpdateDetails />} />
 
           <Route path={ROUTES.APP_DEV} element={<AppDev />} />
           <Route path={ROUTES.AI_ML} element={<AiML />} />

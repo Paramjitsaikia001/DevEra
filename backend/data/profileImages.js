@@ -25,12 +25,12 @@ const CoverImages = [
     {
         id: 2,
         tittle: "cover image 2",
-        url: "http://localhost:3000/traintoexcellency/Frontend-build/profileAndCover/cover1.jpg"
+        url: "http://localhost:3000/traintoexcellency/Frontend-build/profileAndCover/cover2.jpg"
     },
     {
         id: 3,
         tittle: "cover image 3",
-        url: "http://localhost:3000/traintoexcellency/Frontend-build/profileAndCover/cover1.jpg"
+        url: "http://localhost:3000/traintoexcellency/Frontend-build/profileAndCover/cover3.jpg"
     },
 ]
 

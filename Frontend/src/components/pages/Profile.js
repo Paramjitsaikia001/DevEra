@@ -90,9 +90,11 @@ const year = date.getFullYear();
                             >
 
                             </div>
-                            <div className="profilepic text-white  rounded-full border-2 font-bold border-[#ffffff] py-2 px-3 absolute right-0 m-2 cursor-pointer">
+                            <Link
+                            to="/traintoexcellency/Frontend-build/update-details"
+                            className="profilepic text-white  rounded-full border-2 font-bold border-[#ffffff] py-2 px-3 absolute right-0 m-2 cursor-pointer">
                                 <p>Edit profile</p>
-                            </div>
+                            </Link>
                         </div>
                     </div>
                     <div className="flex flex-col gap-4 mt-10 px-8 relative">
@@ -106,7 +108,7 @@ const year = date.getFullYear();
                                     <div className="intro flex gap-1">
 
                                         <GraduationCap />
-                                        <p>Student</p>
+                                        <p>{user.Role}</p>
                                     </div>
                                 </div>
                             </div>

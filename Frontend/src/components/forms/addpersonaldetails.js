@@ -2,7 +2,14 @@ import React, { useState } from 'react';
 import {  inputStyles } from '../../utils/styles';
 import Logo from '../ui/Logo';
 import { Link } from 'react-router-dom';
+import UserContext from '../../Context/user.context';
+import { useContext } from 'react';
 const PersonalDetails = () => {
+
+
+
+    const {addDetails} =useContext(UserContext)
+
     const [bio, setbio] = useState('');
     const [github, setgithub] = useState("")
     const [linkedin, setlinkedin] = useState('');
@@ -15,6 +22,13 @@ const PersonalDetails = () => {
     };
 
 
+    const addDetailsHandler=async()=>{
+    try {
+      await addDetails({github,Linkedin:linkedin,portfolio:Portfolio,bio})
+    } catch (error) {
+      
+    }
+  }
 
 
 
@@ -89,10 +103,10 @@ const PersonalDetails = () => {
                     <Link
                         to="/traintoexcellency/Frontend-build/Register/additional-details"
                         className="px-4 py-2 bg-gray-200 text-gray-950 rounded-sm">Back</Link>
-                    <Link
-                        to="/traintoexcellency/Frontend-build/home"
+                    <button
+                        onClick={addDetailsHandler}
 
-                        className="px-4 py-2 bg-blue-500 text-white rounded-sm">Let's start</Link>
+                        className="px-4 py-2 bg-blue-500 text-white rounded-sm">Let's start</button>
                 </div>
             </div>
         </section>

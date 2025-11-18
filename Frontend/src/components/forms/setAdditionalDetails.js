@@ -2,10 +2,14 @@ import React, { useState } from 'react'
 import ProfileAndcover from '../../hooks/profileAndcover';
 import { CircleCheckBig } from 'lucide-react';
 import { Link } from 'react-router-dom';
-
+import { useContext } from 'react';
+import UserContext from '../../Context/user.context';
 const AdditionalDetails = () => {
-  const [selectedProfile, setSelectedProfile] = useState(null);
-  const [selectedCover, setSelectedCover] = useState(null);
+
+  const {addImages}=useContext(UserContext)
+
+  const [selectedProfile, setSelectedProfile] = useState("");
+  const [selectedCover, setSelectedCover] = useState("");
   console.log(selectedCover);
 
 
@@ -14,6 +18,14 @@ const AdditionalDetails = () => {
 
   if (loading) {
     return <h1>loading</h1>
+  }
+
+  const addImagesHandler=async()=>{
+    try {
+      await addImages(selectedProfile,selectedCover)
+    } catch (error) {
+      
+    }
   }
 
   return (
@@ -29,16 +41,16 @@ const AdditionalDetails = () => {
             <div className="flex flex-col gap-10 mb-6">
               {profileOptions.map((profilepic) => (
                 <div
-                  onClick={() => setSelectedProfile(profilepic.id)}
+                  onClick={() => setSelectedProfile(profilepic.url)}
                   className={`relative flex transition-transform duration-300  rounded-full images w-40 h-40`}>
                   <img
                     key={profilepic.id}
                     src={profilepic.url}
                     alt={profilepic.tittle}
                     className={`w-full h-full rounded-full object-cover cursor-pointer `}
-                    onClick={() => setSelectedProfile(profilepic.id)}
+                    onClick={() => setSelectedProfile(profilepic.url)}
                   />
-                  <div className={`bg-black/50 top-0 text-white flex text-4xl font-bold rounded-full absolute w-full object-cover h-full z-20 ${selectedProfile === profilepic.id ? "" : "hidden"}`}>
+                  <div className={`bg-black/50 top-0 text-white flex text-4xl font-bold rounded-full absolute w-full object-cover h-full z-20 ${selectedProfile === profilepic.url ? "" : "hidden"}`}>
                     <CircleCheckBig className='text-white font-bold w-8 h-8 m-2' strokeWidth={3.5} /> </div>
                 </div>
               ))}
@@ -53,7 +65,7 @@ const AdditionalDetails = () => {
             <div className="w-full h-full justify-center items-center flex flex-col gap-12">
               {coverOptions.map((coverImage) => (
                 <div
-                  onClick={() => setSelectedCover(coverImage.id)}
+                  onClick={() => setSelectedCover(coverImage.url)}
                   className={`relative flex transition-transform duration-300  rounded-xl images w-[70%] h-40`}>
 
                   <img
@@ -65,7 +77,7 @@ const AdditionalDetails = () => {
 
 
                   />
-                  <div className={`bg-black/50 top-0 text-white flex text-4xl font-bold rounded-xl absolute w-full object-cover h-full z-20 ${selectedCover === coverImage.id ? "" : "hidden"}`}>
+                  <div className={`bg-black/50 top-0 text-white flex text-4xl font-bold rounded-xl absolute w-full object-cover h-full z-20 ${selectedCover === coverImage.url ? "" : "hidden"}`}>
                     <CircleCheckBig className='text-white font-bold w-8 h-8 m-2' strokeWidth={3.5} /> </div>
                 </div>
               ))}
@@ -83,10 +95,10 @@ const AdditionalDetails = () => {
               to="/traintoexcellency/Frontend-build/Register/personal-details"
 
               className="px-4 py-2 bg-blue-500 text-white rounded-sm">Skip & Next</Link>
-            <Link
-            to="/traintoexcellency/Frontend-build/Register/personal-details"
+            <button
+            onClick={addImagesHandler}
 
-              className="px-4 py-2 bg-gray-200 text-gray-950 rounded-sm">Done</Link>
+              className="px-4 py-2 bg-gray-200 text-gray-950 rounded-sm">Done</button>
           </div>
         </div>
       </div>

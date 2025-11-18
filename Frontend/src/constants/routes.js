@@ -11,6 +11,7 @@ export const ROUTES = {
     LOGIN:"/traintoexcellency/Frontend-build/login",
     ADDITIONALDETAILS:'/traintoexcellency/Frontend-build/Register/additional-details',
     ADDPERSONALDETAILS:"/traintoexcellency/Frontend-build/Register/personal-details",
+    UPDATEDETAILS:"/traintoexcellency/Frontend-build/update-details",
 
     // Development sub-routes
     APP_DEV: '/traintoexcellency/Frontend-build/development/appdev',

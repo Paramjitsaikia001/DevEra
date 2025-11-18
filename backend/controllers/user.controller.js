@@ -1,11 +1,4 @@
-//user registration controller -> first input the email then send otp -> vertifying the email -> then put all user data 
-//user login controller
-//get current user
-//updating user details 
-//get the reviews of the user
-//find the activity of the user
-//update the profile picture and cover picture of the user
-//savedroadmaps of the user
+
 import { OTP } from "../models/otp.model.js";
 import { User } from "../models/user.model.js";
 import { EmailVerification } from "../models/verifiedemail.model.js";
@@ -39,10 +32,6 @@ const generateAccessAndRefreshToken = async (userId) => {
     throw new ApiError(500, "Something wrong in generating the acess token and refresh token")
   }
 }
-
-
-
-
 
 
 const sendOTP = asyncHandler(async (req, res) => {
@@ -90,20 +79,20 @@ const sendOTP = asyncHandler(async (req, res) => {
 })
 
 const verifyOTP = asyncHandler(async (req, res) => {
-  
+
   const { email, otp } = req.body;
-  
+
   if (!email || !otp) {
     throw new ApiError(400, "Email and OTP are required");
   }
-  
+
   const normalizedEmail = email.toLowerCase().trim();
-  
+
   const record = await OTP.findOne({ email: normalizedEmail });
   if (!record) {
     throw new ApiError(400, "OTP expired or not found");
   }
-  
+
   if (record.otp !== otp) {
     throw new ApiError(400, "Invalid OTP");
   }
@@ -122,7 +111,6 @@ const verifyOTP = asyncHandler(async (req, res) => {
   );
 });
 
-//i'm going to make the register user in several steps like in the fist step -user verify the email  then it click continue button -> second step - user fill personal details like name and set a userName and password then -> third step - user set the role,bio,github , linkedin, portfolio -> forth step - user select the profile picture and cover picture from the stored images -> final user is registered successfully
 const register = asyncHandler(async (req, res) => {
   const { email, fullName, userName, password, confirmPassword } = req.body;
 
@@ -167,47 +155,37 @@ const register = asyncHandler(async (req, res) => {
 
   await EmailVerification.deleteOne({ email: normalizedEmail });
 
- // generate tokens for auto-login after registration
-const { accessToken, refreshToken } = await generateAccessAndRefreshToken(newUser._id);
+  // generate tokens for auto-login after registration
+  const { accessToken, refreshToken } = await generateAccessAndRefreshToken(newUser._id);
 
-// remove password + refreshToken
-const safeUser = await User.findById(newUser._id).select("-password -refreshToken");
+  // remove password + refreshToken
+  const safeUser = await User.findById(newUser._id).select("-password -refreshToken");
 
-// cookie options
-const options = {
-  httpOnly: true,
-  secure: true,
-  sameSite: "none"
-};
+  // cookie options
+  const options = {
+    httpOnly: true,
+    secure: true,
+    sameSite: "none"
+  };
 
-return res
-  .status(201)
-  .cookie("accessToken", accessToken, options)
-  .cookie("refreshToken", refreshToken, options)
-  .json(
-    new ApiResponse(
-      201,
-      {
-        user: safeUser,
-        accessToken,
-        refreshToken
-      },
-      "User registered & logged in successfully"
-    )
-  );
+  return res
+    .status(201)
+    .cookie("accessToken", accessToken, options)
+    .cookie("refreshToken", refreshToken, options)
+    .json(
+      new ApiResponse(
+        201,
+        {
+          user: safeUser,
+          accessToken,
+          refreshToken
+        },
+        "User registered & logged in successfully"
+      )
+    );
 });
 
-
-
-//login controlleer
-
 const login = asyncHandler(async (req, res) => {
-  //getting email,password,username from the req.body
-  //check is the username and email is empty
-  //check if the username or email is match someone
-  //check the password
-  //generate access token and refresh token
-  //store in cookies
 
   const { email, userName, password } = req.body
 
@@ -269,6 +247,35 @@ const login = asyncHandler(async (req, res) => {
 })
 
 
+const logoutUser = asyncHandler(async (req, res) => {
+  await User.findByIdAndUpdate(
+    req.user._id,
+    {
+      $unset: {
+        refreshToken: 1
+      },
+    },
+    {
+      new: true
+    }
+  )
+
+  const options = {
+    httpOnly: true,
+    secure: true,
+    sameSite: "none"
+  }
+
+  res.status(200).clearCookie("accessToken", options).clearCookie("refreshToken", options).json(
+    new apiResponse(
+      200,
+      {},
+      "usr logged out successfully"
+    )
+  )
+})
+
+
 const getCurrentUser = asyncHandler(async (req, res) => {
   return res
     .status(200)
@@ -279,6 +286,38 @@ const getCurrentUser = asyncHandler(async (req, res) => {
     ))
 })
 
+const updateUserdetails = asyncHandler(async (req, res) => {
+  const { fullName, bio, github, portfolio, Linkedin, profilePicture,Role,coverPicture } = req.body
+
+  const user = await User.findByIdAndUpdate(
+    req.user._id,
+    {
+      $set: {
+        fullName: fullName,
+        bio: bio,
+        github: github,
+        portfolio: portfolio,
+        Linkedin: Linkedin,
+        profilePicture: profilePicture,
+        coverPicture: coverPicture,
+        Role:Role
+      }
+    },
+    {
+      new: true
+    }
+  ).select("-password")
+
+  res.status(200).json(
+    new ApiResponse(
+      200,
+      user,
+      "user details updated successfully"
+
+    )
+  )
+
+})
 
 
-export { sendOTP, verifyOTP, register, login, getCurrentUser };
+export { sendOTP, verifyOTP, register, login, getCurrentUser, logoutUser ,updateUserdetails};

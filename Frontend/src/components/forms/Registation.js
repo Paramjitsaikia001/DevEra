@@ -1,25 +1,36 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Eye, EyeClosed } from 'lucide-react';
-import { textStyles,inputStyles } from '../../utils/styles';
+import { textStyles, inputStyles } from '../../utils/styles';
 import SampleRoadmapImage from "../../assets/images/sampleroadmap.png"
 import Logo from '../ui/Logo';
 import { Link } from 'react-router-dom';
+import UserContext from '../../Context/user.context';
 const Registration = () => {
+
+  const { register, verifyOTP, sendOTP } = useContext(UserContext)
+
   const [userName, setUserName] = useState('');
   const [fullName, setFullName] = useState("")
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [role, setRole] = useState('');
-  const [error, setError] = useState('');
   const [passwordType, setpasswordTtype] = useState("password")
   const [ConfirmpasswordType, setConfirmpasswordTtype] = useState("password")
   const [otp, setOtp] = useState("")
   const [showOTPsection, setShowotpsection] = useState(false)
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(password,confirmPassword);
+    
     // Handle form submission here
-    setError('');
+    try {
+      await register(email, fullName, userName, password, confirmPassword)
+      window.location.href = "/traintoexcellency/Frontend-build/Register/additional-details"
+    } catch (error) {
+      console.log(error.message);
+    }
+
     // Submit the form data to your server or API
     console.log(e)
   };
@@ -37,15 +48,27 @@ const Registration = () => {
 
   const hideShowConfirmPassword = () => {
     if (ConfirmpasswordType === "password") {
-
       setConfirmpasswordTtype("text")
     } else {
       setConfirmpasswordTtype("password")
     }
   }
 
-  const showOTPHandler = () => {
+  const showOTPHandler = async () => {
     setShowotpsection(!showOTPsection)
+    try {
+      await sendOTP(email)
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const otpVerification = async () => {
+    try {
+      await verifyOTP(email, otp)
+    } catch (error) {
+console.log(error);
+    }
   }
   return (
     <section className='flex justify-center items-center w-[100%] h-[100vh]'>
@@ -99,8 +122,8 @@ const Registration = () => {
 
 
 
-                <div 
-                className={`
+                <div
+                  className={`
                 ${inputStyles.primary}
                 w-1/2 flex  justify-center px-2 gap-2 items-center`}>
 
@@ -115,6 +138,7 @@ const Registration = () => {
 
                   />
                   <button
+                   type='button'
                     onClick={hideShowPassword}
                     className='items-center justify-center'
                   >
@@ -124,8 +148,8 @@ const Registration = () => {
                 </div>
 
 
-                <div 
-                className={`
+                <div
+                  className={`
                 ${inputStyles.primary}
                 w-1/2 flex  justify-center px-2 gap-2 items-center`}>
 
@@ -140,6 +164,7 @@ const Registration = () => {
 
                   />
                   <button
+                   type='button'
                     onClick={hideShowConfirmPassword}
                     className='items-center justify-center text-white/50'
                   >
@@ -150,8 +175,8 @@ const Registration = () => {
               </div>
 
               <div className="emailandOTP w-full flex flex-col gap-8 ">
-                <div 
-                className={`
+                <div
+                  className={`
                 emailsendOTPBtn flex w-full gap-4 items-center h-14 justify-center `}>
 
                   <input
@@ -166,6 +191,7 @@ const Registration = () => {
                       h-18 outline-none pl-2 text-xl w-[75%] bg-transparent border-2 border-white/50 rounded-lg  placeholder-white/40 text-white font-[500] h-full`}
                   />
                   <button
+                  type='button'
                     onClick={showOTPHandler}
                     className="w-[25%] py-2 hover:bg-transparent border-2 rounded-full border-white/50  text-md text-black font-semibold bg-white hover:text-white transition-colors duration-300"
                   >Send OTP</button>
@@ -183,6 +209,8 @@ const Registration = () => {
                       h-18 outline-none pl-2 text-xl w-[70%] bg-transparent border-2 border-[#00d0ff] rounded-lg  placeholder-white/40 text-white font-[500] h-14`}
                   />
                   <button
+                    type='button'
+                    onClick={otpVerification}
                     className="w-[40%] py-2 hover:bg-transparent border-2 rounded-full border-[#00d0ff] hover:border-white/50  text-lg text-white font-semibold bg-[#00d0ff]/30 transition-colors duration-300"
                   >
                     Verify Email
@@ -206,19 +234,18 @@ const Registration = () => {
                 </select>
               </div>
 
-              <Link
-              to="/traintoexcellency/Frontend-build/Register/additional-details"
-              
-              type="submit"
-              className=" w-full flex items-center justify-center bg-[#00ffee]/20 rounded-full h-14 text-xl font-semibold text-white hover:shadow-sm hover:shadow-white/30 transition-transform duration-300 ">
+              <button
+                type="submit"
+                onClick={handleSubmit}
+                className=" w-full flex items-center justify-center bg-[#00ffee]/20 rounded-full h-14 text-xl font-semibold text-white hover:shadow-sm hover:shadow-white/30 transition-transform duration-300 ">
                 Register
-              </Link>
+              </button>
             </form>
           </div>
           <div className="if-register mt-4">
             <p className={textStyles.body}>Already registered?
-               <Link to="/traintoexcellency/Frontend-build/login"
-            className='underline cursor-pointer text-[#00ffee]'>Click here</Link></p>
+              <Link to="/traintoexcellency/Frontend-build/login"
+                className='underline cursor-pointer text-[#00ffee]'>Click here</Link></p>
           </div>
         </div>
       </div>

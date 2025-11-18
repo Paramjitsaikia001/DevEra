@@ -10,7 +10,7 @@ export const ROUTES = {
     REGISTER: '/traintoexcellency/Frontend-build/Register',
     LOGIN:"/traintoexcellency/Frontend-build/login",
     ADDITIONALDETAILS:'/traintoexcellency/Frontend-build/Register/additional-details',
-    ADDPERSONALDETAILS:"/traintoexcellency/Frontend-build/personal-details",
+    ADDPERSONALDETAILS:"/traintoexcellency/Frontend-build/Register/personal-details",
 
     // Development sub-routes
     APP_DEV: '/traintoexcellency/Frontend-build/development/appdev',

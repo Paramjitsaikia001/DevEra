@@ -8,6 +8,7 @@
 //savedroadmaps of the user
 import { OTP } from "../models/otp.model.js";
 import { User } from "../models/user.model.js";
+import { EmailVerification } from "../models/verifiedemail.model.js";
 // import { SavedRoadmap } from "../models/savedRoadmap.model.js";
 // import { Activity } from "../models/activity.model.js";
 // import { Reviews } from "../models/reviews.model.js";
@@ -89,114 +90,112 @@ const sendOTP = asyncHandler(async (req, res) => {
 })
 
 const verifyOTP = asyncHandler(async (req, res) => {
-  //get the email and otp from req.body
-  //check if the email and otp are empty
-  //check if the email is valid format
-  //check if the otp is valid format
-  //check if the otp is expired
-  //check if the otp is correct
+  
   const { email, otp } = req.body;
-
+  
   if (!email || !otp) {
     throw new ApiError(400, "Email and OTP are required");
   }
-
-  const existingEmail = await User.findOne({ email: email.toLowerCase().trim() });
-  if (existingEmail && existingEmail.isEmailVerified) {
-    throw new ApiError(400, "Email is already verified. Please login instead.");
-  }
-  //find the otp in the OTP collection
-  const record = await OTP.findOne({ email: email.toLowerCase().trim() });
+  
+  const normalizedEmail = email.toLowerCase().trim();
+  
+  const record = await OTP.findOne({ email: normalizedEmail });
   if (!record) {
-    throw new ApiError(400, "OTP is expired or not found");
+    throw new ApiError(400, "OTP expired or not found");
   }
-
+  
   if (record.otp !== otp) {
     throw new ApiError(400, "Invalid OTP");
   }
-  await OTP.deleteOne({ email: email.toLowerCase().trim() });
+  console.log("otp verification is ........");
 
-  // mark the email as verified (create user if it doesn't exist)
-  const normalizedEmail = email.toLowerCase().trim();
-  await User.findOneAndUpdate(
+  await EmailVerification.findOneAndUpdate(
     { email: normalizedEmail },
-    { $set: { email: normalizedEmail, isEmailVerified: true } },
-    { upsert: true, new: true }
+    { verified: true },
+    { upsert: true }
   );
+  await OTP.deleteOne({ email: normalizedEmail });
 
 
-
-  res.status(200).json(
-    new apiResponse(200, "OTP verified successfully. Proceed to registration.")
-  )
-
-})
+  return res.status(200).json(
+    new apiResponse(200, { success: true }, "OTP verified successfully. Proceed to registration.")
+  );
+});
 
 //i'm going to make the register user in several steps like in the fist step -user verify the email  then it click continue button -> second step - user fill personal details like name and set a userName and password then -> third step - user set the role,bio,github , linkedin, portfolio -> forth step - user select the profile picture and cover picture from the stored images -> final user is registered successfully
 const register = asyncHandler(async (req, res) => {
-  //get the email,name,userName,password, from req.body
-  //check if the email is verified or not
-  //check if the userName is unique or not 
-  //check the password is strong or not
-  //check if the confirm password match with password or not
-
   const { email, fullName, userName, password, confirmPassword } = req.body;
 
-  if (
-    [email, fullName, userName, password, confirmPassword].some(field => !field)
-  ) {
+  if ([email, fullName, userName, password, confirmPassword].some(f => !f)) {
     throw new ApiError(400, "All fields are required");
   }
 
-  const existingEmail = await User.findOne({ email: email.toLowerCase().trim() });
-  if (existingEmail && existingEmail.isEmailVerified) {
-    throw new ApiError(400, "Email is already verified. Please login instead.");
+  const normalizedEmail = email.toLowerCase().trim();
+
+  const emailVerified = await EmailVerification.findOne({ email: normalizedEmail });
+
+  if (!emailVerified || !emailVerified.verified) {
+    throw new ApiError(400, "Email not verified. Please verify OTP first.");
   }
 
-
-  //validate userName
   const userNameRegex = /^[a-z_][a-z0-9_]*$/;
   if (!userNameRegex.test(userName)) {
-    throw new ApiError(400, "Invalid userName format. userName should start with a letter or underscore and contain only letters, numbers, and underscores.")
-  }
-  //check if userName is unique
-  const existinguserName = await User.findOne(
-    { userName: userName.trim() }
-  );
-
-  if (existinguserName) {
-    throw new ApiError(400, "userName is already taken, Please enter a unique userName.");
+    throw new ApiError(400, "Invalid userName format. userName should start with a letter or underscore and contain only letters, numbers, and underscores.");
   }
 
-  //validate password
+  const existingUserName = await User.findOne({ userName: userName.trim() });
+  if (existingUserName) {
+    throw new ApiError(400, "Username already taken");
+  }
+
   if (password.length < 8) {
-    throw new ApiError(400, "Password must be at least 8 characters long.");
+    throw new ApiError(400, "Password must be at least 8 characters long");
   }
 
-  //validate confirm password
   if (password !== confirmPassword) {
     throw new ApiError(400, "Password and Confirm Password do not match.");
   }
 
-  const normalizedEmail = email.toLowerCase().trim();
-
-  const Newuser = await User.create({
+  const newUser = await User.create({
     email: normalizedEmail,
     fullName,
-    userName: userName.toLowerCase().trim(),
+    userName,
     password,
-  })
+    isEmailVerified: true
+  });
 
-  const createUser = await User.findById(Newuser._id).select("-password -refreshToken")
 
-  if (!createUser) {
-    throw new ApiError(500, "failed to register ,please try again later")
-  }
+  await EmailVerification.deleteOne({ email: normalizedEmail });
 
-  return res.status(201).json(
-    new apiResponse(201, "User details is got successfully")
-  )
-})
+ // generate tokens for auto-login after registration
+const { accessToken, refreshToken } = await generateAccessAndRefreshToken(newUser._id);
+
+// remove password + refreshToken
+const safeUser = await User.findById(newUser._id).select("-password -refreshToken");
+
+// cookie options
+const options = {
+  httpOnly: true,
+  secure: true,
+  sameSite: "none"
+};
+
+return res
+  .status(201)
+  .cookie("accessToken", accessToken, options)
+  .cookie("refreshToken", refreshToken, options)
+  .json(
+    new ApiResponse(
+      201,
+      {
+        user: safeUser,
+        accessToken,
+        refreshToken
+      },
+      "User registered & logged in successfully"
+    )
+  );
+});
 
 
 
@@ -216,7 +215,8 @@ const login = asyncHandler(async (req, res) => {
     throw new ApiError(400, "username or email is required")
   }
 
-  const user = await User.findOne({email
+  const user = await User.findOne({
+    $or: [{ email }, { userName }]
   })
 
   if (!user) {
@@ -230,14 +230,14 @@ const login = asyncHandler(async (req, res) => {
     throw new ApiError(401, "invalid user credential")
   }
 
-  const {accessToken,refreshToken} = await generateAccessAndRefreshToken(user._id)
-console.log(accessToken,refreshToken);
+  const { accessToken, refreshToken } = await generateAccessAndRefreshToken(user._id)
+  console.log(accessToken, refreshToken);
 
   const logginUser = await User.findById(user._id).select("-password -refreshToken")
 
-  const options={
-    httpOnly:true,
-    secure:true
+  const options = {
+    httpOnly: true,
+    secure: true
   }
 
   // return res.status(200).cookie("refreshToken",refreshToken,options).cookie("accessToken",accessToken,options).json(
@@ -251,34 +251,34 @@ console.log(accessToken,refreshToken);
   // )
 
   return res
-  .status(200)
-  .cookie("accessToken", accessToken, options)
-  .cookie("refreshToken", refreshToken, options)
-  .json(
-    new ApiResponse(
-      200,
-      {
-        user: logginUser,     // send the sanitized user
-        accessToken,          // plain string token
-        refreshToken          // plain string token
-      },
-      "User login successful"
-    )
-  );
+    .status(200)
+    .cookie("accessToken", accessToken, options)
+    .cookie("refreshToken", refreshToken, options)
+    .json(
+      new ApiResponse(
+        200,
+        {
+          user: logginUser,     // send the sanitized user
+          accessToken,          // plain string token
+          refreshToken          // plain string token
+        },
+        "User login successful"
+      )
+    );
 
 })
 
 
-const getCurrentUser = asyncHandler(async(req, res) => {
-    return res
+const getCurrentUser = asyncHandler(async (req, res) => {
+  return res
     .status(200)
     .json(new ApiResponse(
-        200,
-        req.user,
-        "User fetched successfully"
+      200,
+      req.user,
+      "User fetched successfully"
     ))
 })
 
 
 
-export { sendOTP, verifyOTP, register,login,getCurrentUser };
+export { sendOTP, verifyOTP, register, login, getCurrentUser };

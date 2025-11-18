@@ -14,9 +14,6 @@ export default function Mainleft({ toggleHideLeft, Hide_Left }) {
     }
 
     return (
-        <>
-            {(isRegisterPage || isAdditionalDetailsPage || isLoginPage || isPersonalDetailsPage) ? 
-
 
                 <section className={`
             md:h-[100vh] md:sticky md:top-0 md:items-center justify-between md:p-0 md:m-0 md:bg-[#0A1123]
@@ -132,8 +129,6 @@ export default function Mainleft({ toggleHideLeft, Hide_Left }) {
                     </section>
                 </section>
 
-                :""
-            }
-        </>
+            
     );
 }

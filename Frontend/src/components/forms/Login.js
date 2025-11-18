@@ -9,7 +9,7 @@ import UserContext from '../../Context/user.context';
 
 const Login = () => {
 
-  const { login, loading, error, isAuthanticate } = useContext(UserContext)
+  const { login, loading,  } = useContext(UserContext)
 
   const [userName, setUserName] = useState('');
   const [email,setEmail]=useState('')

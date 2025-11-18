@@ -134,13 +134,10 @@ export default function LandingPage() {
                             <path d="M3 18h18" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" opacity="0.6" />
                         </svg>
                     </div>
-                    <span className="font-semibold text-lg">DevEra</span>
+                    <span className="font-semibold text-lg">Dt</span>
                 </div>
 
                 <nav className="flex gap-4 items-center text-sm text-slate-300">
-                    <a className="hover:text-white transition" href="#features">Features</a>
-                    <a className="hover:text-white transition" href="#pricing">Pricing</a>
-                    <a className="hover:text-white transition" href="#contact">Contact</a>
                     <a
                         href="#get-started"
                         className="ml-2 inline-flex items-center gap-2 rounded-full bg-white/6 px-3 py-2 text-slate-100 hover:bg-white/10 transition"

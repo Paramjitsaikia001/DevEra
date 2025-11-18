@@ -10,7 +10,6 @@ const userSchema = new Schema(
             required: true,
             lowercase: true,
             trim: true,
-            index: true
         },
         email: {
             type: String,
@@ -18,7 +17,7 @@ const userSchema = new Schema(
             required: true,
             lowercase: true,
             trim: true,
-            index: true,
+
         },
         isEmailVerified: {
             type: Boolean,
@@ -28,7 +27,7 @@ const userSchema = new Schema(
             type: String,
             unique: false,
             required: true,
-            index: true,
+
         },
         password: {
             type: String,
@@ -37,22 +36,22 @@ const userSchema = new Schema(
         bio: {
             type: String,
             required: false,
-            index: true,
+
         },
         github: {
             type: String,
             required: false,
-            index: true,
+
         },
         portfolio: {
             type: String,
             required: false,
-            index: true,
+
         },
         Linkedin: {
             type: String,
             required: false,
-            index: true,
+
         },
         Role: {
             type: String,
@@ -83,10 +82,10 @@ const userSchema = new Schema(
             type: String,
             default: "http://localhost:3000/traintoexcellency/Frontend-build/profileAndCover/cover1.jpg"
         },
-        refreshToken:{
-            type:String
+        refreshToken: {
+            type: String
         }
-        
+
 
     },
     {
@@ -108,7 +107,7 @@ userSchema.methods.isPasswordCorrect = async function (password) {
 }
 
 //generating the access token -
-userSchema.methods.generateAccessToken =function () {
+userSchema.methods.generateAccessToken = function () {
     return jwt.sign(
         {
 
@@ -137,4 +136,4 @@ userSchema.methods.generateRefreshToken = function () {
     )
 }
 
-export const User=mongoose.model("User",userSchema)
+export const User = mongoose.model("User", userSchema)

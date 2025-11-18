@@ -40,7 +40,50 @@ export const UserProvider = ({ children }) => {
     }
 
 
-    //login user
+    //send otp for register user
+    const sendOTP = async (email) => {
+
+        try {
+            const res = await Api.post("/auth/send-otp", { email })
+            console.log(res.data.data);
+        } catch (error) {
+            setError(error?.response?.data?.message || "failed to send OTP")
+            throw error
+        }
+    }
+
+   const verifyOTP = async (email, otp) => {
+  try {
+    const res = await Api.post("/auth/verify-otp", { email, otp });
+    return res.data.data.success;  // FIXED
+  } catch (error) {
+    setError(error?.response?.data?.message || "invalid OTP");
+    throw error;
+  }
+};
+
+const register = async (email, fullName, userName, password, confirmPassword) => {
+  try {
+    const res = await Api.post("/auth/register", {
+      email,
+      fullName,
+      userName,
+      password,
+      confirmPassword,   // FIXED
+    });
+
+    const registeredUser = res.data?.data;
+    setUserState(registeredUser);
+    return registeredUser;
+
+  } catch (error) {
+    setError(error?.response?.data?.message || "registration failed");
+    throw error;
+  }
+};
+
+
+
     const login = async (email, userName, password) => {
         setLoading(true)
         setError(null)
@@ -74,6 +117,9 @@ export const UserProvider = ({ children }) => {
             login,
             getCurrentUser,
             loading,
+            register,
+            sendOTP,
+            verifyOTP,
             error,
             setUser: setUserState
         }}>

@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import ProfileImage from "../../assets/images/appLogo.png"
 import ProfileAndcover from '../../hooks/profileAndcover';
 import { CircleCheckBig } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -76,12 +75,19 @@ const AdditionalDetails = () => {
 
         <div className="flex gap-4 w-full justify-between px-8">
           <Link
-            to="/traintoexcellency/Frontend-build/home"
-           className="px-4 py-2 bg-gray-200 text-gray-950 rounded-sm">Skip</Link>
-          <Link
-          to="/traintoexcellency/Frontend-build/home"
-          
-          className="px-4 py-2 bg-blue-500 text-white rounded-sm">Next</Link>
+            to="/traintoexcellency/Frontend-build/Register"
+            className="px-4 py-2 bg-blue-500 text-white rounded-sm">Back</Link>
+          <div className="flex gap-2">
+
+            <Link
+              to="/traintoexcellency/Frontend-build/Register/personal-details"
+
+              className="px-4 py-2 bg-blue-500 text-white rounded-sm">Skip & Next</Link>
+            <Link
+            to="/traintoexcellency/Frontend-build/Register/personal-details"
+
+              className="px-4 py-2 bg-gray-200 text-gray-950 rounded-sm">Done</Link>
+          </div>
         </div>
       </div>
     </div>

@@ -6,7 +6,7 @@ import { Router } from "express";
 const router = Router()
 
 router.post("/create-activity",verifyJWT,createActivity)
-router.post("/get-user-activity",verifyJWT,getUserActivity)
+router.get("/get-user-activity",verifyJWT,getUserActivity)
 router.post("/delete-activity",verifyJWT,deleteActivity)
 
 export default router

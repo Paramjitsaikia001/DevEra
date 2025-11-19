@@ -40,7 +40,7 @@ const addReviews = asyncHandler(async (req, res) => {
 })
 
 const getAllReviews = asyncHandler(async (req, res) => {
-    const reviews = await Review.find().populate("userId", "name email").populate("roadmapId", "title route")
+    const reviews = await Review.find().populate("userId", "fullName profilePicture email").populate("roadmapId", "title route")
     if (!reviews || reviews.length == 0) {
         throw new ApiError(404, "reviews are not found")
     }
@@ -79,7 +79,7 @@ const getReviewsbyRoadmapId = asyncHandler(async (req, res) => {
     const roadmapId = req.params.id
 console.log("roadmap id",req.params.id);
 
-    const reviews = await Review.find({ roadmapId }).populate("userId", "name email")
+    const reviews = await Review.find({ roadmapId }).populate("userId", "fullName email")
 
     if (!reviews || reviews.length == 0) {
         throw new ApiError(404, "No reviews are found in this roadmap id ")

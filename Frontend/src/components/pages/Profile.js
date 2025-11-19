@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Github, BriefcaseBusiness, GraduationCap, CalendarDays } from "lucide-react"
+import { Github, BriefcaseBusiness, GraduationCap, CalendarDays, Linkedin } from "lucide-react"
 import { Link } from "react-router-dom";
 
 import UserContext from "../../Context/user.context";
@@ -77,7 +77,7 @@ const year = date.getFullYear();
 
                     <div className="relative pb-6">
                         <div className="header w-full relative">
-                            <div className="cover w-full h-[36vh] bg-red-400 "
+                            <div className="cover bg-cover bg-center w-full h-[36vh] bg-red-400 "
                                 style={{
                                     backgroundImage: `url(${user?.coverPicture || "https://via.placeholder.com/1200x300"})`,
                                 }}
@@ -92,7 +92,7 @@ const year = date.getFullYear();
                             </div>
                             <Link
                             to="/traintoexcellency/Frontend-build/update-details"
-                            className="profilepic text-white  rounded-full border-2 font-bold border-[#ffffff] py-2 px-3 absolute right-0 m-2 cursor-pointer">
+                            className="text-center profilepic text-white/80 text-md rounded-full border-2 font-bold border-white/20 py-2 px-5 absolute right-0 m-2 cursor-pointer">
                                 <p>Edit profile</p>
                             </Link>
                         </div>
@@ -101,7 +101,7 @@ const year = date.getFullYear();
                         <div className="nameusername flex items-baseline gap-3">
                             <div className="names flex flex-col">
                                 <span className="font-extrabold text-3xl text-white">{user.fullName}</span>
-                                <span className="text-xl text-[#cdcdcd]">@{user.userName}</span>
+                                <span className="text-xl font-medium text-white/60 italic ">@{user.userName}</span>
                             </div>
                             <div className="professionalDetail bg-black py-1 px-3 rounded-full transition-transform duration-300">
                                 <div className="student flex text-[#9590df] font-semibold gap-1 font-xl">
@@ -113,29 +113,47 @@ const year = date.getFullYear();
                                 </div>
                             </div>
                         </div>
-                        <div className="bio text-white w-[30vw]">
+                        <div className="bio text-white text-lg font-mono w-[30vw]">
                             <p>{user.bio}</p>
                         </div>
-                        <div className="linksandjoineddate flex flex-col gap-3">
+                        <div className="linksandjoineddate flex flex-col gap-6">
 
                             <div className="linkes flex gap-3 ">
+{
+    user.github ?
 
-                                <span className="flex bg-[#fff] w-fit py-2 px-3 rounded-md gap-2 cursor-pointer hover:text-white hover:bg-black transition-colors duration-200">
-                                    <Github />
-                                    <a href={user.github} target="_blank" rel="noopener noreferrer" className="text-blue-600 ">
+                                <span className="group flex items-center justify-center bg-[#fff] w-fit py-2 px-3 rounded-md gap-2 cursor-pointer hover:text-white hover:bg-black transition-colors duration-200">
+                                    <Github className="group-hover:fill-white"/>
+                                    <a href={user.github} target="_blank" rel="noopener noreferrer" className="text-black group-hover:text-white">
                                         Github
                                     </a>
                                 </span>
-                                <span className="flex bg-[#fff] w-fit py-2 px-3 rounded-md gap-2 cursor-pointer hover:text-white hover:bg-black transition-colors duration-200">
-                                    <BriefcaseBusiness />
-                                    <a href={user.portfolio} target="_blank" rel="noopener noreferrer" className="text-blue-600">
-                                        Personal Portfolio
+                                :""
+}
+                                { user.portfolio ?
+
+                                <span className="group items-center justify-center flex bg-[#fff] w-fit py-2 px-3 rounded-md gap-2 cursor-pointer hover:text-white hover:bg-black transition-colors duration-200">
+                                    <BriefcaseBusiness className="group-hover:fill-white"/>
+                                    <a href={user.portfolio} target="_blank" rel="noopener noreferrer" className="text-black group-hover:text-white">
+                                        Portfolio
                                     </a>
                                 </span>
+                                :""
+                                }
+                                { user.Linkedin ?
+
+                                <span className="group items-center justify-center flex bg-[#fff] w-fit py-2 px-3 rounded-md gap-2 cursor-pointer hover:text-white hover:bg-black transition-colors duration-200">
+                                    <Linkedin className="group-hover:fill-white"/>
+                                    <a href={user.Linkedin} target="_blank" rel="noopener noreferrer" className="text-black group-hover:text-white">
+                                        Linkedin
+                                    </a>
+                                </span>
+                                :""
+                                }
                             </div>
-                            <div className="joinedate flex gap-2 text-[#9590df] items-center ">
+                            <div className="joinedate flex  gap-2 text-white/60 items-center ">
                                 <CalendarDays />
-                                <p className=" text-md font-[500] font-[Inter]">Joined {month} {year}</p>
+                                <p className=" text-md font-semibold font-[Inter]">Joined {month} {year}</p>
                             </div>
                         </div>
 

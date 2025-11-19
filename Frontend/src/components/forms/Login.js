@@ -100,6 +100,7 @@ const Login = () => {
 
                   />
                   <button
+                  type='button'
                     onClick={hideShowPassword}
                     className='items-center justify-center text-white/40'
                   >

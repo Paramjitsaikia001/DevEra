@@ -8,6 +8,6 @@ const router = Router()
 
 router.post("/",verifyJWT,saveRoadmap)
 router.post("/delete-savedRoadmap",verifyJWT,deleteSavedRoadmap)
-router.post("/get-savedRoadmap-user",verifyJWT,getSavedRoadmapsOfUser)
+router.get("/get-savedRoadmap-user",verifyJWT,getSavedRoadmapsOfUser)
 
 export default router

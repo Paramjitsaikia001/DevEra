@@ -1,10 +1,14 @@
 import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-
+import Logo from "./Logo";
+import Development from "../../hooks/developments.hooks";
+import { useNavigate } from "react-router-dom";
 gsap.registerPlugin(ScrollTrigger);
 
 export default function LandingPage() {
+const navigate=useNavigate()
+
     const heroRef = useRef(null);
     const ctaRef = useRef(null);
     const cardsRef = useRef([]);
@@ -82,9 +86,18 @@ export default function LandingPage() {
     const setCardRef = (el, i) => {
         if (el) cardsRef.current[i] = el;
     };
+  const { data: developemntID, loading, error } = Development()
+ const developments = Array.isArray(developemntID)
+    ? developemntID
+    : Array.isArray(developemntID?.data)
+      ? developemntID.data
+      : Array.isArray(developemntID?.results)
+        ? developemntID.results
+        : [];
+
 
     return (
-        <div className="min-h-screen bg-gradient-to-b from-slate-900 via-neutral-900 to-slate-950 text-slate-100 antialiased">
+        <div className="min-h-screen overflow-x-hidden  w-screen bg-gradient-to-b from-slate-900 via-neutral-900 to-slate-950 text-slate-100 antialiased">
             {/* Decorative animated blob */}
             <div
                 ref={blobRef}
@@ -125,53 +138,44 @@ export default function LandingPage() {
                 </svg>
             </div>
 
-            <header className="max-w-7xl mx-auto px-6 py-6 flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-violet-500 to-cyan-400 flex items-center justify-center ring-1 ring-white/10">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden>
-                            <path d="M3 12h18" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" />
-                            <path d="M3 6h18" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" opacity="0.4" />
-                            <path d="M3 18h18" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" opacity="0.6" />
-                        </svg>
-                    </div>
-                    <span className="font-semibold text-lg">Dt</span>
+            <header className="max-w-7xl mx-auto px-6 py-8 flex items-center justify-between">
+
+                <div className="logo z-10 bg-white w-fit px-3 rounded-md shadow-sm shadow-black">
+                    <Logo />
                 </div>
 
-                <nav className="flex gap-4 items-center text-sm text-slate-300">
+                <nav className="flex gap-4 items-center text-lg justify-center  text-slate-300">
                     <a
-                        href="#get-started"
-                        className="ml-2 inline-flex items-center gap-2 rounded-full bg-white/6 px-3 py-2 text-slate-100 hover:bg-white/10 transition"
+                        href="http://localhost:3000/traintoexcellency/Frontend-build/Register"
+                        className="ml-2 inline-flex items-center gap-2 rounded-full bg-white/6 px-6 py-2 text-slate-100 hover:bg-white/20 border-2 border-white/10 transition"
                     >
                         Get Started
                     </a>
                 </nav>
             </header>
 
-            <main className="max-w-7xl mx-auto px-6 py-12 md:py-24">
+            <main className="max-w-7xl mx-auto  py-12">
                 <section
                     ref={heroRef}
-                    className="grid md:grid-cols-2 gap-12 items-center"
+                    className=" p-12 h-[80vh] rounded-t-2xl gap-12 items-center  bg-gradient-to-b from-white to-transparent"
                     aria-labelledby="hero-heading"
                 >
-                    <div>
-                        <p className="uppercase tracking-wider text-sm text-cyan-300 mb-3 animate-in">Build faster • Ship smarter</p>
-                        <h1 id="hero-heading" className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight text-slate-100 animate-in">
-                            Modern developer experiences for teams who move fast
+                    <div className="flex flex-col gap-4 items-center pt-28 justify-center">
+                        <p className="uppercase tracking-wider text-sm text-primary-dark mb-3 animate-in">Choose • Follow • Build</p>
+                        <h1 id="hero-heading" className="text-4xl text-cyan-800 sm:text-5xl lg:text-[5rem] font-extrabold leading-tight  animate-in text-center">
+                            Choose your Roadmap
+                            <br />
+                            and Start Your Journey
                         </h1>
-                        <p className="mt-6 text-slate-300 max-w-xl animate-in">
-                            DevEra brings together tools you actually use — analytics, feature flags, and realtime insights — into
-                            one lightweight, privacy-first platform. Ship confidently with instant feedback and delightful developer
-                            ergonomics.
-                        </p>
 
-                        <div className="mt-8 flex gap-4 items-center animate-in">
+                        <div className="mt-8 flex gap-4 pt-16 items-center animate-in">
                             <a
                                 ref={ctaRef}
                                 id="get-started"
                                 href="#dev-era"
                                 className="inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-violet-500 to-cyan-400 px-5 py-3 font-medium text-slate-900 shadow-lg hover:scale-[1.02] transform transition"
                             >
-                                Try DevEra — Free
+                                Try DevTrack
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden>
                                     <path d="M5 12h14" stroke="#111827" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
                                     <path d="M13 5l6 7-6 7" stroke="#111827" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
@@ -193,154 +197,56 @@ export default function LandingPage() {
                         </div>
                     </div>
 
-                    <div className="relative">
-                        <div className="rounded-2xl bg-gradient-to-br from-slate-800/60 to-slate-900/60 ring-1 ring-white/6 p-6 backdrop-blur-sm shadow-xl">
-                            <div className="flex items-center justify-between mb-4">
-                                <div>
-                                    <div className="text-xs text-slate-300">Realtime</div>
-                                    <div className="text-2xl font-semibold text-white">API Latency</div>
-                                </div>
-                                <div className="text-right">
-                                    <div className="text-xs text-slate-300">Now</div>
-                                    <div className="text-lg font-medium text-green-400">24ms</div>
-                                </div>
-                            </div>
+                </section>
 
-                            <div className="h-48 bg-gradient-to-tr from-indigo-900 to-cyan-900 rounded-md overflow-hidden">
-                                {/* lightweight chart placeholder */}
-                                <svg className="w-full h-full" viewBox="0 0 600 200" preserveAspectRatio="none">
-                                    <polyline
-                                        points="0,140 60,120 120,90 180,105 240,60 300,80 360,50 420,70 480,35 540,55 600,40"
-                                        fill="none"
-                                        stroke="url(#lineGrad)"
-                                        strokeWidth="4"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        opacity="0.95"
-                                    />
-                                    <defs>
-                                        <linearGradient id="lineGrad" x1="0" x2="1">
-                                            <stop offset="0" stopColor="#7c3aed" />
-                                            <stop offset="1" stopColor="#06b6d4" />
-                                        </linearGradient>
-                                    </defs>
-                                </svg>
-                            </div>
-
-                            <div className="mt-4 flex gap-3 text-xs text-slate-300">
-                                <div className="px-3 py-2 rounded bg-white/3">Uptime 99.99%</div>
-                                <div className="px-3 py-2 rounded bg-white/3">Events / sec 1.2k</div>
-                            </div>
-                        </div>
-
-                        <div className="mt-4 text-xs text-slate-400">Preview of live dashboard</div>
+                <section id="features" className="mt-20 h-svh flex flex-col justify-center">
+                    <h2 className="text-2xl font-extralight mb-6">What you get</h2>
+                    <div className="flex flex-col h-fit">
+                        <h1 className="roadmp text-[11rem] font-extrabold leading-none mb-[-1rem]">
+                            Roadmap
+                        </h1>
+                        <p className="roadmp italic text-3xl styleScript px-2 leading-none my-[0.5rem]">
+                            with
+                        </p>
+                        <h1 className="bg-gradient-to-tr from-primary-blue bg-clip-text text-transparent to-white roadmp text-[11rem] font-extrabold leading-none mt-[-1rem]">
+                            Free Resources
+                        </h1>
                     </div>
                 </section>
 
-                <section id="features" className="mt-20">
-                    <h2 className="text-2xl font-semibold mb-6">What you get</h2>
-                    <div className="grid md:grid-cols-3 gap-6">
-                        {[
-                            {
-                                title: "Feature Flags",
-                                desc: "Roll out quickly with safe targeting and instant rollback.",
-                                icon: (
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden>
-                                        <path d="M5 3v18" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" />
-                                        <path d="M6 5c3.5-1.2 6 0 9 0s5.5-1.2 9 0v12c-3.5 1.2-6 0-9 0s-5.5 1.2-9 0V5z" stroke="#fff" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" opacity="0.9" />
-                                    </svg>
-                                ),
-                            },
-                            {
-                                title: "Observability",
-                                desc: "Get instant insights into releases, errors and performance.",
-                                icon: (
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden>
-                                        <circle cx="12" cy="12" r="9" stroke="#fff" strokeWidth="1.2" opacity="0.95" />
-                                        <path d="M8 12l2 2 4-4" stroke="#06b6d4" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-                                    </svg>
-                                ),
-                            },
-                            {
-                                title: "Integrations",
-                                desc: "Connect easily with CI, Slack, and your stack via our APIs.",
-                                icon: (
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden>
-                                        <path d="M3 12h18" stroke="#fff" strokeWidth="1.2" strokeLinecap="round" />
-                                        <path d="M12 3v18" stroke="#fff" strokeWidth="1.2" strokeLinecap="round" />
-                                    </svg>
-                                ),
-                            },
-                        ].map((f, i) => (
-                            <article
-                                key={f.title}
-                                ref={(el) => setCardRef(el, i)}
-                                className="rounded-2xl p-6 bg-gradient-to-b from-slate-800/50 to-slate-900/50 ring-1 ring-white/4 shadow-sm"
-                            >
-                                <div className="flex items-center gap-4">
-                                    <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-violet-500 to-cyan-400 flex items-center justify-center text-slate-900">
-                                        {f.icon}
-                                    </div>
-                                    <div>
-                                        <h3 className="font-semibold text-white">{f.title}</h3>
-                                        <p className="mt-1 text-sm text-slate-300">{f.desc}</p>
-                                    </div>
+                <section id="roadmapDemo" className="mt-32 w-full">
+                    <h2 className="text-2xl font-extralight mb-6 w-full">Roadmaps</h2>
+                    <div className="h-[90vh] w-[100%]">
+
+
+                        <div className="p-6 h-full w-full flex flex-col items-start  justify-center rounded-2xl bg-gradient-to-br from-violet-700 to-cyan-700 ring-1 ring-white/6 shadow-lg text-white">
+                            {developments?.map((items) => (
+                                <div key={items.id} className="pl-4 transition-all duration-200 developements hover:text-white/80 hover:text-[4rem] text-5xl text-white/30 font-extrabold cursor-pointer [-webkit-text-stroke:_2px_rgb(255 255 255 / 0.9)">
+                                    {items.title}
                                 </div>
-                            </article>
-                        ))}
+                            ))}
+                        </div>
+
+
                     </div>
                 </section>
 
-                <section id="pricing" className="mt-20">
-                    <h2 className="text-2xl font-semibold mb-6">Simple pricing</h2>
-                    <div className="grid md:grid-cols-3 gap-6">
-                        <div className="p-6 rounded-2xl bg-slate-800/40 ring-1 ring-white/4">
-                            <div className="text-sm text-slate-300">Starter</div>
-                            <div className="mt-3 flex items-baseline gap-2">
-                                <span className="text-3xl font-extrabold text-white">$0</span>
-                                <span className="text-sm text-slate-400">/ month</span>
-                            </div>
-                            <p className="mt-3 text-slate-300 text-sm">Community tier for small projects.</p>
-                            <a className="mt-4 inline-block rounded-full bg-white/6 px-4 py-2 text-sm text-slate-100 hover:bg-white/10 transition" href="#start-free">
-                                Start free
-                            </a>
-                        </div>
-
-                        <div className="p-6 rounded-2xl bg-gradient-to-br from-violet-700 to-cyan-700 ring-1 ring-white/6 shadow-lg text-white">
-                            <div className="text-sm opacity-95">Pro</div>
-                            <div className="mt-3 flex items-baseline gap-2">
-                                <span className="text-3xl font-extrabold">$29</span>
-                                <span className="text-sm opacity-90">/ month</span>
-                            </div>
-                            <p className="mt-3 text-sm opacity-90">For teams, includes SSO, premium support.</p>
-                            <a className="mt-4 inline-block rounded-full bg-white px-4 py-2 text-sm text-slate-900 font-medium hover:brightness-105 transition" href="#pro">
-                                Get Pro
-                            </a>
-                        </div>
-
-                        <div className="p-6 rounded-2xl bg-slate-800/40 ring-1 ring-white/4">
-                            <div className="text-sm text-slate-300">Enterprise</div>
-                            <div className="mt-3 text-sm text-slate-300">Custom pricing</div>
-                            <p className="mt-3 text-slate-300 text-sm">Advanced controls and SLAs for large orgs.</p>
-                            <a className="mt-4 inline-block rounded-full border border-white/10 px-4 py-2 text-sm text-slate-100 hover:bg-white/6 transition" href="#contact">
-                                Contact sales
-                            </a>
-                        </div>
-                    </div>
-                </section>
-
-                <section id="contact" className="mt-20 lp-footer">
+                <section id="about us" className="mt-20 lp-footer">
                     <div className="rounded-2xl p-6 bg-slate-900/40 ring-1 ring-white/4 flex flex-col md:flex-row items-center justify-between gap-4">
                         <div>
-                            <h4 className="text-lg font-semibold">Ready to ship better?</h4>
-                            <p className="text-slate-300 mt-1">Start your free trial and see how DevEra fits into your workflow.</p>
+                            <h4 className="text-lg font-semibold">Do you wanna who build this ?</h4>
+                            <p className="text-slate-300 mt-1">Do you heard the name <a 
+                            href="https://paramjitsaikia001.github.io/PRMJTS/"
+                            target="_blanet"
+                            className="font-semibold text-cyan-300 transition-all duration-400 cursor-pointer hover:underline hover:bg-slate-100/20 hover:px-2 hover:py-1">Paramjit Saikia</a>.</p>
+                         
                         </div>
                         <div className="flex gap-3">
                             <a href="#pricing" className="rounded-full bg-gradient-to-r from-violet-500 to-cyan-400 px-4 py-2 text-slate-900 font-medium hover:scale-[1.02] transition">
-                                Start free
+                                Register
                             </a>
                             <a href="#contact" className="rounded-full px-4 py-2 border border-white/6 text-sm text-slate-300 hover:bg-white/4 transition">
-                                Contact sales
+                                Log in
                             </a>
                         </div>
                     </div>
@@ -352,7 +258,7 @@ export default function LandingPage() {
                     <div className="flex items-center gap-3">
                         <div className="w-8 h-8 rounded bg-white/5 flex items-center justify-center text-slate-100">D</div>
                         <div>
-                            <div className="font-semibold text-slate-100">DevEra</div>
+                            <div className="font-semibold text-slate-100">DevTrack</div>
                             <div className="text-xs text-slate-400">© {new Date().getFullYear()} DevEra, Inc</div>
                         </div>
                     </div>

@@ -11,10 +11,18 @@ export default function Development() {
         const fetchData = async () => {
             try {
                 const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/development/`)
+               
                 setData(response.data)
+                
+                
+                
             } catch (error) {
+            
+                
                 setError(error)
             } finally {
+                
+                
                 setLoading(false)
             }
         }

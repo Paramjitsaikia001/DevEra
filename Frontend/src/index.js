@@ -4,12 +4,22 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { UserProvider } from './Context/user.context';
+import { ActivityProvider } from "./Context/activity.context"
+import { ReviewProvider } from './Context/review.context';
+import { SaveRoadmapProvider } from "./Context/savedRoadmap.context"
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+
     <UserProvider>
-      <App />
+      <ReviewProvider>
+        <ActivityProvider>
+          <SaveRoadmapProvider>
+            <App />
+          </SaveRoadmapProvider>
+        </ActivityProvider>
+      </ReviewProvider>
     </UserProvider>
   </React.StrictMode>
 );

@@ -136,16 +136,7 @@ export const UserProvider = ({ children }) => {
         }
     }
 
-    //    const updateDetails=async(fullName,Role,profilePicture,coverPicture,github,Linkedin,portfolio,bio)=>{
-    //     try {
-    //         await Api.put("/auth/update-details",{fullName,Role,profilePicture,coverPicture,github,Linkedin,portfolio,bio})
-    //         console.log("all updated");
 
-    //     } catch (error) {
-    //         console.log(error);
-
-    //     }
-    // }
     const updateDetails = async (fields) => {
         try {
             const payload = {};

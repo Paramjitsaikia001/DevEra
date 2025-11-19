@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import MainLeft from './components/layout/mainleft';
 import MainRight from './components/layout/mainright';
@@ -28,9 +28,11 @@ import DataScience from './components/DevelopmentRoutes/DataScience/roadmap';
 import BigData from './components/DevelopmentRoutes/BigData/roadmap';
 import IoT from './components/DevelopmentRoutes/IoT/roadmap';
 import { ROUTES } from './constants/routes';
+import UserContext from './Context/user.context';
 
 function App() {
   const [Hide_Left, setHide_Left] = useState(false);
+  const {isAuthanticate} = useContext(UserContext)
 
   const toggleHideLeft = () => {
     setHide_Left(!Hide_Left);
@@ -40,9 +42,18 @@ function App() {
 
   return (
     <Router>
+      {isAuthanticate?"":
+      
       <Routes>
         <Route path={ROUTES.LANDINGPAGE} element={<LandingPage />} />
+         <Route path={ROUTES.REGISTER} element={<Registation />} />
+          <Route path={ROUTES.LOGIN} element={<Login />} />
+          <Route path={ROUTES.ADDITIONALDETAILS} element={<AdditionalDetails />} />
+          <Route path={ROUTES.ADDPERSONALDETAILS} element={<PersonalDetails />} />
       </Routes>
+      }
+      { isAuthanticate ?
+
       <main className={` p-0 m-0 bg-primary-bg font-[Roboto] ${location.pathname === ROUTES.LANDINGPAGE ? 'hidden' : 'flex'}`}>
         <MainLeft toggleHideLeft={toggleHideLeft} Hide_Left={Hide_Left} />
         <Routes>
@@ -52,10 +63,7 @@ function App() {
           <Route path={ROUTES.EXPLORE} element={<Explore />} />
           <Route path={ROUTES.ABOUT_US} element={<Contact />} />
           <Route path={ROUTES.AI_CHAT} element={<AiChatPage />} />
-          <Route path={ROUTES.REGISTER} element={<Registation />} />
-          <Route path={ROUTES.LOGIN} element={<Login />} />
-          <Route path={ROUTES.ADDITIONALDETAILS} element={<AdditionalDetails />} />
-          <Route path={ROUTES.ADDPERSONALDETAILS} element={<PersonalDetails />} />
+         
           <Route path={ROUTES.UPDATEDETAILS} element={<UpdateDetails />} />
 
           <Route path={ROUTES.APP_DEV} element={<AppDev />} />
@@ -74,6 +82,8 @@ function App() {
           
         </Routes>
       </main>
+      :""
+      }
     </Router>
   );
 }

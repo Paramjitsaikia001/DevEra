@@ -14,7 +14,7 @@ export default function CodeEditor({ closeHTML, Done }) {
         }
     }
     return (
-        <section className={`transition-transform duration-300  ease-in-out fixed right-0 md:${isFullScreen} top-0 bottom-0 overflow-y-scroll scrollbar scrollbar-thumb-scrollbarThumb scrollbar-track-scrollbarTrack scrollbar-bg-scrollbarBg inset-0 bg-[#0e1542] flex justify-center items-center z-50 m-0 h-[100%] pt-6`} style={{boxShadow: "0 0 10px 0px #000000"}}>
+        <section className={`transition-transform duration-300  ease-in-out fixed right-0 ${isFullScreen} top-0 bottom-0 overflow-y-scroll scrollbar scrollbar-thumb-scrollbarThumb scrollbar-track-scrollbarTrack scrollbar-bg-scrollbarBg inset-0 bg-[#0e1542] flex justify-center items-center z-50 m-0 h-[100%] pt-6`} style={{boxShadow: "0 0 10px 0px #000000"}}>
             <div className="bg-[#0e1542] text-white pb-0 px-4  h-[100%]">
                 <div className='flex pb-4 justify-between items-center w-[100%]'>
                     {isFullScreen === "left-[60%]" ? (

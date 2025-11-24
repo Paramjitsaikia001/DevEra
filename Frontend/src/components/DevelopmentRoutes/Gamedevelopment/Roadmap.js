@@ -50,7 +50,7 @@ export default function GameDev() {
 
     const { data: roadmap, loading, error } = Development()
   
-      const GamedevRoadmap = roadmap?.[6]?.roadmapSteps
+      const GamedevRoadmap = roadmap?.[5]?.roadmapSteps
       if (loading) {
           return <h1>loading</h1>
       }
@@ -59,7 +59,7 @@ export default function GameDev() {
       }
 
   return (
-    <section className="flex flex-col items-center justify-center h-full lg:w-[80%] w-[100%] gap-3 overflow-hidden pt-[5rem]">
+    <section className="flex flex-col items-center justify-center h-full lg:w-[80%] w-[100%] gap-3 overflow-hidden ">
       {/* Modals */}
       {showProgramming && <ProgrammingPage closeProgramming={handlers.handleProgramming} />}
       {showGameEngines && <GameEnginesPage closeGameEngines={handlers.handleGameEngines} />}

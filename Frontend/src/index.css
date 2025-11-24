@@ -27,9 +27,14 @@ code {
     monospace;
 }
 
-/* width */
-::-webkit-scrollbar {
-  width: 8px;
+/* Hide scrollbar until scrolling */
+.scrollbar-hidden::-webkit-scrollbar {
+  width: 0px;
+}
+
+/* Show scrollbar on scroll */
+.scrollbar-show::-webkit-scrollbar {
+  width: 4px;
 }
 
 /* Track */
@@ -123,4 +128,10 @@ code {
     'wght' 100,
     'GRAD' 0,
     'opsz' 24;
+}
+
+
+.toaster{
+  background-color: black;
+  color: white;
 }

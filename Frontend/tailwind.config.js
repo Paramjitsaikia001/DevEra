@@ -10,11 +10,11 @@ module.exports = {
         scrollbarThumb: '#292C28',
         scrollbarBg: '#292C28', // Customize background color for scrollbar here
         primary: {
-          blue: '#2356fd',
+          blue: '#051250',
           cyan: '#00ffea',
           purple: '#8387C4',
-          dark: '#0A1123',
-          bg: '#3b3b6d'
+          dark: '#021526',
+          bg: '#03346E'
         },
         secondary: {
           gray: '#31ffff',

@@ -19,7 +19,7 @@ import CapstonePage from "../BigData/Capstone";
 import CareerPage from "../BigData/Career";
 import Fullresource from "../BigData/Fullresource";
 import Development from "../../../hooks/developments.hooks";
-
+import Reviews from "../../forms/Review";
 
 
 export default function BigData() {
@@ -65,7 +65,7 @@ export default function BigData() {
 
     const { data: roadmap, loading, error } = Development()
 
-    const BigDataRoadmap = roadmap?.[12]?.roadmapSteps
+    const BigDataRoadmap = roadmap?.[11]?.roadmapSteps
     if (loading) {
         return <h1>loading</h1>
     }
@@ -161,6 +161,7 @@ export default function BigData() {
           <span className="material-symbols-outlined">text_snippet</span>
         </button>
       </div>
+      <Reviews/>
     </section>
   );
 }

@@ -4,7 +4,7 @@ import MainLeft from './components/layout/mainleft';
 import MainRight from './components/layout/mainright';
 import Development from './components/pages/Development';
 // import Language from './components/pages/Language';
-import Explore from './components/pages/explore';
+import Saved from './components/pages/Saved';
 import Contact from './components/pages/Contact';
 import Registation from './components/forms/Registation';
 import LandingPage from './components/ui/LandingPage';
@@ -13,6 +13,7 @@ import AdditionalDetails from './components/forms/setAdditionalDetails';
 import Login from './components/forms/Login';
 import PersonalDetails from './components/forms/addpersonaldetails';
 import UpdateDetails from './components/pages/updateDetails';
+import Notification from './components/pages/Notification';
 
 import AiML from './components/DevelopmentRoutes/ALMLdevelopment/AIML_development';
 import Gamedev from './components/DevelopmentRoutes/Gamedevelopment/Roadmap';
@@ -29,10 +30,11 @@ import BigData from './components/DevelopmentRoutes/BigData/roadmap';
 import IoT from './components/DevelopmentRoutes/IoT/roadmap';
 import { ROUTES } from './constants/routes';
 import UserContext from './Context/user.context';
+import { Toaster } from 'sonner';
 
 function App() {
   const [Hide_Left, setHide_Left] = useState(false);
-  const {isAuthanticate} = useContext(UserContext)
+  const { isAuthanticate } = useContext(UserContext)
 
   const toggleHideLeft = () => {
     setHide_Left(!Hide_Left);
@@ -42,47 +44,54 @@ function App() {
 
   return (
     <Router>
-      {isAuthanticate?"":
-      
-      <Routes>
-        <Route path={ROUTES.LANDINGPAGE} element={<LandingPage />} />
-         <Route path={ROUTES.REGISTER} element={<Registation />} />
-          <Route path={ROUTES.LOGIN} element={<Login />} />
-          <Route path={ROUTES.ADDITIONALDETAILS} element={<AdditionalDetails />} />
-          <Route path={ROUTES.ADDPERSONALDETAILS} element={<PersonalDetails />} />
-      </Routes>
-      }
-      { isAuthanticate ?
+      {isAuthanticate ? "" :
 
-      <main className={` p-0 m-0 bg-primary-bg font-[Roboto] ${location.pathname === ROUTES.LANDINGPAGE ? 'hidden' : 'flex'}`}>
-        <MainLeft toggleHideLeft={toggleHideLeft} Hide_Left={Hide_Left} />
         <Routes>
-          <Route path={ROUTES.HOME} element={<MainRight toggleHideLeft={toggleHideLeft} Hide_Left={Hide_Left} />} />
-          <Route path={ROUTES.DEVELOPMENT} element={<Development />} />
-          {/* <Route path={ROUTES.LANGUAGE} element={<Language />} /> */}
-          <Route path={ROUTES.EXPLORE} element={<Explore />} />
-          <Route path={ROUTES.ABOUT_US} element={<Contact />} />
-          <Route path={ROUTES.AI_CHAT} element={<AiChatPage />} />
-         
-          <Route path={ROUTES.UPDATEDETAILS} element={<UpdateDetails />} />
-
-          <Route path={ROUTES.APP_DEV} element={<AppDev />} />
-          <Route path={ROUTES.AI_ML} element={<AiML />} />
-          <Route path={ROUTES.GAME_DEV} element={<Gamedev />} />
-          <Route path={ROUTES.WEB_DEV} element={<Webdev />} />
-          <Route path={ROUTES.FRONTEND_DEV} element={<FrontendDev />} />
-          <Route path={ROUTES.BACKEND_DEV} element={<BackendRoadmap />} />
-          <Route path={ROUTES.BLOCKCHAIN_DEV} element={<BlockchainDev />} />
-          <Route path={ROUTES.PROFILE} element={<Profile />} />
-          <Route path={ROUTES.CLOUD_COMPUTING} element={<CloudComputing />} />
-          <Route path={ROUTES.CYBERSECURITY} element={<Cybersecurity />} />
-          <Route path={ROUTES.DATASCIENCE} element={<DataScience />} />
-          <Route path={ROUTES.BIGDATA} element={<BigData />} />
-          <Route path={ROUTES.IOT} element={<IoT />} />
-          
+          <Route path={ROUTES.LANDINGPAGE} element={<LandingPage />} />
+          <Route path={ROUTES.REGISTER} element={<Registation />} />
+          <Route path={ROUTES.LOGIN} element={<Login />} />
         </Routes>
-      </main>
-      :""
+      }
+      {isAuthanticate ?
+
+        <main className={` p-0 m-0 bg-primary-bg font-[Roboto] ${location.pathname === ROUTES.LANDINGPAGE ? 'hidden' : 'flex'}`}>
+          <Toaster
+            position="bottom-center"
+            richColors
+            toastOptions={{
+              style: { borderRadius: "8px" ,backgroundColor:"black",color:"white" },
+            }}
+          />
+          <MainLeft toggleHideLeft={toggleHideLeft} Hide_Left={Hide_Left} />
+          <Routes>
+            <Route path={ROUTES.HOME} element={<MainRight toggleHideLeft={toggleHideLeft} Hide_Left={Hide_Left} />} />
+            <Route path={ROUTES.DEVELOPMENT} element={<Development />} />
+            {/* <Route path={ROUTES.LANGUAGE} element={<Language />} /> */}
+            <Route path={ROUTES.SAVED} element={<Saved />} />
+            <Route path={ROUTES.ABOUT_US} element={<Contact />} />
+            <Route path={ROUTES.NOTFICATION} element={<Notification />} />
+
+            <Route path={ROUTES.UPDATEDETAILS} element={<UpdateDetails />} />
+            <Route path={ROUTES.ADDITIONALDETAILS} element={<AdditionalDetails />} />
+            <Route path={ROUTES.ADDPERSONALDETAILS} element={<PersonalDetails />} />
+
+            <Route path={ROUTES.APP_DEV} element={<AppDev />} />
+            <Route path={ROUTES.AI_ML} element={<AiML />} />
+            <Route path={ROUTES.GAME_DEV} element={<Gamedev />} />
+            <Route path={ROUTES.WEB_DEV} element={<Webdev />} />
+            <Route path={ROUTES.FRONTEND_DEV} element={<FrontendDev />} />
+            <Route path={ROUTES.BACKEND_DEV} element={<BackendRoadmap />} />
+            <Route path={ROUTES.BLOCKCHAIN_DEV} element={<BlockchainDev />} />
+            <Route path={ROUTES.PROFILE} element={<Profile />} />
+            <Route path={ROUTES.CLOUD_COMPUTING} element={<CloudComputing />} />
+            <Route path={ROUTES.CYBERSECURITY} element={<Cybersecurity />} />
+            <Route path={ROUTES.DATASCIENCE} element={<DataScience />} />
+            <Route path={ROUTES.BIGDATA} element={<BigData />} />
+            <Route path={ROUTES.IOT} element={<IoT />} />
+
+          </Routes>
+        </main>
+        : ""
       }
     </Router>
   );

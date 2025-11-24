@@ -7,6 +7,8 @@ import { UserProvider } from './Context/user.context';
 import { ActivityProvider } from "./Context/activity.context"
 import { ReviewProvider } from './Context/review.context';
 import { SaveRoadmapProvider } from "./Context/savedRoadmap.context"
+import { RoadmapDetailsProvider } from './Context/fetchRoadmap.context';
+import ScrollContainer from './Context/scrollbar.context';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -16,7 +18,11 @@ root.render(
       <ReviewProvider>
         <ActivityProvider>
           <SaveRoadmapProvider>
-            <App />
+            <RoadmapDetailsProvider>
+              <ScrollContainer>
+              <App />
+              </ScrollContainer>
+            </RoadmapDetailsProvider>
           </SaveRoadmapProvider>
         </ActivityProvider>
       </ReviewProvider>

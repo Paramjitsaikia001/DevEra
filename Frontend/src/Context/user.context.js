@@ -62,7 +62,7 @@ export const UserProvider = ({ children }) => {
         }
     };
 
-    const register = async (email, fullName, userName, password, confirmPassword) => {
+    const register = async (email, fullName, userName, password, confirmPassword, Role) => {
         try {
             const res = await Api.post("/auth/register", {
                 email,
@@ -70,6 +70,7 @@ export const UserProvider = ({ children }) => {
                 userName,
                 password,
                 confirmPassword,   // FIXED
+                Role
             });
 
             const registeredUser = res.data?.data;
@@ -117,7 +118,7 @@ export const UserProvider = ({ children }) => {
     const addImages = async (profilePicture, coverPicture) => {
         try {
             await Api.put("/auth/update-details", { profilePicture, coverPicture })
-            console.log(profilePicture, coverPicture);
+
 
         } catch (error) {
             console.log(error);
@@ -128,8 +129,7 @@ export const UserProvider = ({ children }) => {
     const addDetails = async (github, Linkedin, portfolio, bio) => {
         try {
             await Api.put("/auth/update-details", { github, Linkedin, portfolio, bio })
-            console.log(github, Linkedin, portfolio, bio);
-
+        
         } catch (error) {
             console.log(error);
 
@@ -149,7 +149,7 @@ export const UserProvider = ({ children }) => {
 
             await Api.put("/auth/update-details", payload);
 
-            console.log("Updated fields:", payload);
+        
 
             // Update context user state with new data
             setUserState((prev) => ({

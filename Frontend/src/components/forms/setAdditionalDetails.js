@@ -10,7 +10,7 @@ const AdditionalDetails = () => {
 
   const [selectedProfile, setSelectedProfile] = useState("");
   const [selectedCover, setSelectedCover] = useState("");
-  console.log(selectedCover);
+  console.log(selectedCover,selectedProfile);
 
 
 
@@ -23,7 +23,11 @@ const AdditionalDetails = () => {
   const addImagesHandler=async()=>{
     try {
       await addImages(selectedProfile,selectedCover)
+      window.location.href="/traintoexcellency/Frontend-build/Register/personal-details"
+      console.log("done");
+      
     } catch (error) {
+      console.log(error);
       
     }
   }

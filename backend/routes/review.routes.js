@@ -6,7 +6,7 @@ const router = Router()
 
 router.get("/",getAllReviews)
 router.post("/create-review",verifyJWT,addReviews)
-router.post("/get-reviews-user",verifyJWT,getReviewsbyUser)
+router.get("/get-reviews-user",verifyJWT,getReviewsbyUser)
 router.get("/get-reviews-roadmapid/:id",getReviewsbyRoadmapId)
 
 export default router

@@ -64,7 +64,7 @@ export default function IoT() {
 
     const { data: roadmap, loading, error } = Development()
 
-    const iOTRoadmap = roadmap?.[11]?.roadmapSteps
+    const iOTRoadmap = roadmap?.[10]?.roadmapSteps
     if (loading) {
         return <h1>loading</h1>
     }

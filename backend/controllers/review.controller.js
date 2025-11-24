@@ -60,7 +60,7 @@ const getReviewsbyUser = asyncHandler(async (req, res) => {
         throw new ApiError(401, "user is not autenticated to find the reviews")
     }
 
-    const review = await Review.find({ userId }).populate("roadmapId", "reviewMSG");
+    const review = await Review.find({ userId }).populate("userId", "fullName profilePicture email").populate("roadmapId", "title route");
 
     if (!review || review.length == 0) {
         throw new ApiError(404, "review is not found by user id")

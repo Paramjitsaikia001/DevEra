@@ -52,7 +52,7 @@ export default function Cybersecurity() {
 
     const { data: roadmap, loading, error } = Development()
 
-    const CyberSecurityRoadmap = roadmap?.[7]?.roadmapSteps
+    const CyberSecurityRoadmap = roadmap?.[6]?.roadmapSteps
     if (loading) {
         return <h1>loading</h1>
     }
@@ -60,7 +60,7 @@ export default function Cybersecurity() {
         return <h2 className='text-white'>Something went wrong!</h2>
     }
   return (
-    <section className="flex flex-col items-center justify-center h-full lg:w-[80%] w-[100%] gap-3 overflow-hidden pt-[5rem]">
+    <section className="flex flex-col items-center justify-center h-full lg:w-[80%] w-[100%] gap-3 overflow-hidden">
       {/* Modals */}
       {showBasics && <BasicsPage closeBasics={handlers.handleBasics} />}
       {showNetworking && <NetworkingPage closeNetworking={handlers.handleNetworking} />}

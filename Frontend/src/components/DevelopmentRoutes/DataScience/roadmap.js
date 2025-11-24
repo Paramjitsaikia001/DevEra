@@ -15,7 +15,7 @@ import Fullresource from "../DataScience/Fullresource";
 import Development from "../../../hooks/developments.hooks";
 
 
-
+import ReviewPage from "../../forms/Review"
 
 export default function DataScience() {
   const [activeId, setActiveId] = useState(null);
@@ -45,7 +45,7 @@ export default function DataScience() {
 
     const { data: roadmap, loading, error } = Development()
 
-    const DSRoadmap = roadmap?.[10]?.roadmapSteps
+    const DSRoadmap = roadmap?.[9]?.roadmapSteps
     if (loading) {
         return <h1>loading</h1>
     }
@@ -53,7 +53,7 @@ export default function DataScience() {
         return <h2 className='text-white'>Something went wrong!</h2>
     }
   return (
-    <section className="flex flex-col items-center justify-center h-full lg:w-[80%] w-[100%] gap-3 overflow-hidden pt-[5rem]">
+    <section className="flex flex-col items-center justify-center h-full lg:w-[80%] w-[100%] gap-3 overflow-hidden">
       {/* Modals */}
       {showProgramming && <ProgrammingPage closeProgramming={handlers.handleProgramming} />}
       {showMath && <MathPage closeMath={handlers.handleMath} />}
@@ -133,6 +133,8 @@ export default function DataScience() {
           <span className="material-symbols-outlined">text_snippet</span>
         </button>
       </div>
+
+<ReviewPage/>
     </section>
   );
 }

@@ -97,7 +97,7 @@ const navigate=useNavigate()
 
 
     return (
-        <div className="min-h-screen overflow-x-hidden  w-screen bg-gradient-to-b from-slate-900 via-neutral-900 to-slate-950 text-slate-100 antialiased">
+        <div className="min-h-screen overflow-x-hidden  w-full bg-gradient-to-b from-slate-900 via-neutral-900 to-slate-950 text-slate-100 antialiased">
             {/* Decorative animated blob */}
             <div
                 ref={blobRef}

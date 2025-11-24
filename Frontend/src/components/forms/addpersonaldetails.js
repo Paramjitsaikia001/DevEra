@@ -24,7 +24,8 @@ const PersonalDetails = () => {
 
     const addDetailsHandler=async()=>{
     try {
-      await addDetails({github,Linkedin:linkedin,portfolio:Portfolio,bio})
+      await addDetails(github,linkedin,Portfolio,bio)
+        window.location.href="/traintoexcellency/Frontend-build/home"
     } catch (error) {
       
     }
@@ -104,6 +105,7 @@ const PersonalDetails = () => {
                         to="/traintoexcellency/Frontend-build/Register/additional-details"
                         className="px-4 py-2 bg-gray-200 text-gray-950 rounded-sm">Back</Link>
                     <button
+                    type='button'
                         onClick={addDetailsHandler}
 
                         className="px-4 py-2 bg-blue-500 text-white rounded-sm">Let's start</button>

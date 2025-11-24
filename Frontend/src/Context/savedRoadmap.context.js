@@ -39,7 +39,8 @@ export const SaveRoadmapProvider = ({ children }) => {
         setError(null)
         try {
             const res = await Api.get("/saved-roadmap/get-savedRoadmap-user")
-            return res.data
+            
+            return res.data.data
         } catch (error) {
             setError(error.response?.data?.message || error.message);
         } finally {

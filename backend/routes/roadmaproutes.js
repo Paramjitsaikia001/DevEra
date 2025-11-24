@@ -14,4 +14,14 @@ router.get("/:route", (req, res) => {
     res.json(roadmap)
 })
 
+router.post("/route-details", (req, res) => {
+    const roadmaproute=req.body
+
+    
+     const roadmap = roadmaps.find(r => r.route === roadmaproute.roadmaproute)
+    if (!roadmap) return res.status(404).json({ message: 'roadmap is not find' })
+    res.json(roadmap)
+})
+
+
 export default router

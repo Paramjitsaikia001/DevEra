@@ -112,9 +112,9 @@ const verifyOTP = asyncHandler(async (req, res) => {
 });
 
 const register = asyncHandler(async (req, res) => {
-  const { email, fullName, userName, password, confirmPassword } = req.body;
+  const { email, fullName, userName, password, confirmPassword,Role } = req.body;
 
-  if ([email, fullName, userName, password, confirmPassword].some(f => !f)) {
+  if ([email, fullName, userName, password, confirmPassword,Role].some(f => !f)) {
     throw new ApiError(400, "All fields are required");
   }
 
@@ -149,6 +149,7 @@ const register = asyncHandler(async (req, res) => {
     fullName,
     userName,
     password,
+    Role,
     isEmailVerified: true
   });
 
@@ -209,7 +210,7 @@ const login = asyncHandler(async (req, res) => {
   }
 
   const { accessToken, refreshToken } = await generateAccessAndRefreshToken(user._id)
-  console.log(accessToken, refreshToken);
+
 
   const logginUser = await User.findById(user._id).select("-password -refreshToken")
 

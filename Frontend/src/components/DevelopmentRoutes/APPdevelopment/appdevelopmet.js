@@ -17,7 +17,7 @@ import AdvancedTopicsPage from "../APPdevelopment/AdvancedTopicsPage";
 import ProjectIdeaPage from "../APPdevelopment/ProjectIdea"
 import FullresourcePage from "../APPdevelopment/Fullresource"
 import Development from "../../../hooks/developments.hooks"
-
+import Reviews from "../../forms/Review";
 
 
 export default function CrossPlatformRoadmap() {
@@ -76,7 +76,7 @@ export default function CrossPlatformRoadmap() {
 
   const {data:roadmap,loading,error} = Development()
         
-        const APPRoadmap=roadmap?.[5]?.roadmapSteps
+        const APPRoadmap=roadmap?.[4]?.roadmapSteps
         if(loading){
             return <h1>loading</h1>
         }
@@ -84,7 +84,7 @@ export default function CrossPlatformRoadmap() {
             return <h2 className='text-white'>Something went wrong!</h2>
         }
   return (
-    <section className="flex flex-col items-center justify-center h-full lg:w-[80%] w-[100%] gap-3 overflow-hidden pt-[5rem]">
+    <section className="flex flex-col items-center justify-center h-full lg:w-[80%] w-[100%] gap-3 overflow-hidden">
       {/* Modals */}
       {showFoundations && <FoundationsPage closeFoundation={handleFoundations} />}
       {showFrameworks && <FrameworksPage closeFrameworks={handleFrameworks} />}
@@ -179,6 +179,7 @@ export default function CrossPlatformRoadmap() {
           <span className="material-symbols-outlined">text_snippet</span>
         </button>
       </div>
+      <Reviews/>
     </section>
   );
 }

@@ -27,7 +27,7 @@ export default function Reviews() {
       const res = await getAllReviews();
    
     
-console.log(res);
+
 
       if (res) {
         setReviews(res);
@@ -42,7 +42,7 @@ console.log(res);
     e.preventDefault();
     if (!reviewMsg || !roadmapId) return;
 
-    console.log(roadmapId)
+
     await addReviews({ reviewMSG: reviewMsg, roadmapId });
 
     setReviewMsg("");

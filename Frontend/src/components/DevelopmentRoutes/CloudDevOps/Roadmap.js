@@ -65,7 +65,7 @@ export default function DevOps() {
 
     const { data: roadmap, loading, error } = Development()
 
-    const CloudRoadmap = roadmap?.[9]?.roadmapSteps
+    const CloudRoadmap = roadmap?.[8]?.roadmapSteps
     if (loading) {
         return <h1>loading</h1>
     }
@@ -73,7 +73,7 @@ export default function DevOps() {
         return <h2 className='text-white'>Something went wrong!</h2>
     }
   return (
-    <section className="flex flex-col items-center justify-center h-full lg:w-[80%] w-[100%] gap-3 overflow-hidden pt-[5rem]">
+    <section className="flex flex-col items-center justify-center h-full lg:w-[80%] w-[100%] gap-3 overflow-hidden ">
       {/* Modals */}
       {showLinux && <LinuxPage closeLinux={handlers.handleLinux} />}
       {showProgramming && <ProgrammingPage closeProgramming={handlers.handleProgramming} />}

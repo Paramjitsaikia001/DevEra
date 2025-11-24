@@ -129,7 +129,9 @@ export default function FrontendRoadmap() {
 
     const { data: roadmap, loading, error } = Development()
 
-    const FrontendRoadmap = roadmap?.[3]?.roadmapSteps
+    const FrontendRoadmap = roadmap?.[2]?.roadmapSteps
+    console.log(roadmap[3]);
+    
     if (loading) {
         return <h1>loading</h1>
     }

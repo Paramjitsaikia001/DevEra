@@ -28,7 +28,7 @@ import ReactContextAPI from "./reactContextAPI"
 import ReduxPage from "./reduxpage";
 import ZustandPage from "./ZustandPage";
 import Development from "../../../hooks/developments.hooks";
-
+import Reviews from "../../forms/Review";
 // const roadmap = [
 //     {
 //         id: 1,
@@ -420,6 +420,7 @@ const oneStepDone = () => {
                     </span>
                 </button>
             </div>
+            <Reviews/>
         </section>
     );
 }

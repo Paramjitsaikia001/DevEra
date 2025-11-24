@@ -25,7 +25,7 @@ const Registration = () => {
     
     // Handle form submission here
     try {
-      await register(email, fullName, userName, password, confirmPassword)
+      await register(email, fullName, userName, password, confirmPassword, role)
       window.location.href = "/traintoexcellency/Frontend-build/Register/additional-details"
     } catch (error) {
       console.log(error.message);
@@ -230,7 +230,6 @@ console.log(error);
                 >
                   <option value="Developer">Developer</option>
                   <option value="Student" >Student</option>
-                  <option value="Educator">Educator</option>
                 </select>
               </div>
 

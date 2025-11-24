@@ -3,9 +3,12 @@ import TypingEffect from 'react-typing-effect'
 import Header from '../layout/Header'
 import MobileNav from '../navigation/mobilenav'
 import { useNavigate, useLocation } from 'react-router-dom'
-import React from 'react'
+import React, { useState } from 'react'
 import { useEffect } from 'react'
 import DevelopmentHook from '../../hooks/developments.hooks.js'
+import SavedRoadmapContext from '../../Context/savedRoadmap.context.js'
+import { Bookmark } from 'lucide-react';
+import { toast } from 'sonner';
 
 // const developmentCards = [
 //     {
@@ -125,10 +128,12 @@ import DevelopmentHook from '../../hooks/developments.hooks.js'
 //     }
 // ];
 
+
+
 export default function Development() {
 
+    const { savedRoadmap, deleteSavedRoadmap, getSavedRoadmapByUser } = React.useContext(SavedRoadmapContext);
 
-    
 
 
 
@@ -136,6 +141,7 @@ export default function Development() {
 
     const navigate = useNavigate();
     const location = useLocation();
+    const [savedMap, setSavedMap] = useState({});
     const routerhander = (name) => {
         navigate(`/traintoexcellency/Frontend-build/development/${name}`);
     }
@@ -144,6 +150,20 @@ export default function Development() {
         window.scrollTo(0, 0); // Scroll to the top of the page when the route changes
     }, [location]);
 
+    useEffect(() => {
+        const fetchSaved = async () => {
+            const saved = await getSavedRoadmapByUser();
+            const map = {};
+
+            saved?.forEach(item => {
+                map[item.roadmapRoute] = true;    // mark saved
+            });
+
+            setSavedMap(map);
+        };
+
+        fetchSaved();
+    }, []);
 
     //fetching the roadmap data from the backend
     const { data: developmentCards, loading, error } = DevelopmentHook();
@@ -153,6 +173,26 @@ export default function Development() {
     if (error) {
         return <h2 className='text-white'>Something went wrong!</h2>
     }
+
+
+    const roadmapsavedHandler = async (roadmapRoute) => {
+        if (savedMap[roadmapRoute]) {
+            // already saved → delete
+            const res = await deleteSavedRoadmap({ roadmapRoute });
+            if (res?.success) {
+                setSavedMap(prev => ({ ...prev, [roadmapRoute]: false }));
+                toast.success("Removed from saved roadmaps");
+            }
+        } else {
+            // not saved → save
+            const res = await savedRoadmap({ roadmapRoute });
+            if (res?.success) {
+                setSavedMap(prev => ({ ...prev, [roadmapRoute]: true }));
+            toast.success("Saved to your roadmaps");
+            }
+        }
+    };
+
     return (
         <section className="flex flex-col lg:w-[80%] w-[100%] h-[100%] gap-4">
             <div className='flex justify-center p-4'>
@@ -176,28 +216,28 @@ export default function Development() {
                         {developmentCards.map((card) => (
                             <div
                                 key={card.id}
-                                className="relative group bg-white rounded-xl flex flex-col justify-between shadow-xl overflow-hidden transform transition-all duration-500 hover:scale-105 hover:shadow-2xl cursor-pointer"
-                                onClick={() => routerhander(card.route)
-                                }
-                                
+                                className="relative group bg-white rounded-xl flex flex-col justify-between shadow-xl overflow-hidden transform transition-all duration-500 hover:scale-105 hover:shadow-2xl"
+                            // onClick={() => routerhander(card.route)
+                            // }
+
                             >
                                 {/* heading  */}
                                 <div className='p-6'>
-                                    <h3 className="text-xl font-bold text-gray-900 mb-4 uppercase tracking-tight">{card.title}</h3>
-                                    <p className="text-gray-600 text-sm leading-relaxed mb-6">{card.description}</p>
+                                    <h3 className="text-xl font-[900] text-gray-900 mb-4 uppercase tracking-tight">{card.title}</h3>
+                                    <p className="text-gray-600 text-md font-light leading-relaxed mb-6">{card.description}</p>
                                 </div>
                                 <div className="p-6 flex items-center gap-5 justify-between">
                                     {/* Icon */}
                                     <span
-                                    onMouseEnter={()=>console.log(card.id)
-                                }
-                                    className="material-symbols-outlined text-[2.5rem] font-light cursor-pointer text-indigo-600">
-                                        bookmark
+                                        onClick={() => roadmapsavedHandler(card.route)}
+                                        className={`text-[2.5rem] font-light cursor-pointer `}>
+
+                                        <Bookmark fill={savedMap[card.route] ? 'black' : 'none'}/>
                                     </span>
                                     {/* Button */}
                                     <button
                                         onClick={e => { e.stopPropagation(); routerhander(card.route); }}
-                                        className="w-full py-3 bg-indigo-600 text-white font-semibold rounded-lg shadow-md transition-colors duration-300 cursor-pointer"
+                                        className="w-full py-3 bg-primary-bg text-white font-semibold rounded-lg shadow-md transition-colors duration-300 cursor-pointer"
                                     >
                                         Show Track
                                     </button>
@@ -211,4 +251,4 @@ export default function Development() {
             <MobileNav />
         </section>
     )
-}
+} 

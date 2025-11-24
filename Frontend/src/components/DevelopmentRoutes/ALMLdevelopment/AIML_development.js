@@ -10,7 +10,7 @@ import ComputerVisionPage from "./ComputerVission";
 import EthicsAIPage from "./ERAI";
 import Fullresource from "./FullResource";
 import Development from "../../../hooks/developments.hooks";
-
+import Reviews from "../../forms/Review";
 
 
 
@@ -67,7 +67,7 @@ export default function AiMl() {
             
         }
     return (
-        <section className="flex flex-col items-center justify-center h-full lg:w-[80%] w-[100%] gap-3 overflow-hidden pt-[5rem]">
+        <section className="flex flex-col items-center justify-center h-full lg:w-[80%] w-[100%] gap-3 overflow-hidden">
             {/* Modals */}
             {pythonpage && <PythonPage closePython={handlePythonPage} Done={()=>isDone(0)
             } />}
@@ -144,6 +144,7 @@ export default function AiMl() {
                     </span>
                 </button>
             </div>
+            <Reviews/>
         </section>
     );
 }

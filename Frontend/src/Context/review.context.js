@@ -13,7 +13,7 @@ export const ReviewProvider = ({ children }) => {
         setError(null)
         try {
             const res = await Api.post("/reviews/create-review", { reviewMSG, roadmapId })
-            console.log(res.data);
+           
             
             return res.data
         } catch (error) {
@@ -36,11 +36,11 @@ export const ReviewProvider = ({ children }) => {
         }
     }
 
-    const getReviewsByUser = async ({ userId }) => {
+    const getReviewsByUser = async () => {
         setLoading(true)
         setError(null)
         try {
-            const res = await Api.post("/reviews/get-reviews-user", { userId })
+            const res = await Api.get("/reviews/get-reviews-user",)
             return res.data
         } catch (error) {
             console.log(error);
@@ -54,7 +54,7 @@ export const ReviewProvider = ({ children }) => {
         setError(null)
         try {
             const res = await Api.get("/reviews")
-            console.log(res.data.data);
+         
             
             return res.data.data
         } catch (error) {

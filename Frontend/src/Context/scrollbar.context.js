@@ -24,7 +24,7 @@ const ScrollContainer = ({ children }) => {
   return (
     <div
       ref={ref}
-      className={`${showBar ? "scrollbar-show" : "scrollbar-hidden"} overflow-y-scroll`}
+      className={`transition-transform duration-500 ${showBar ? "scrollbar-show" : "scrollbar-hidden"} overflow-y-scroll`}
       style={{ maxHeight: "100vh" }}
     >
       {children}

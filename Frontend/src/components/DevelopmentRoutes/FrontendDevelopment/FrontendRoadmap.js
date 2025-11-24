@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Header from "../../layout/Header";
 import HTMLPage from "../webdevelopmentRoutes/Htmlpage"
 import CSSPage from "../webdevelopmentRoutes/CSSpage"
@@ -21,8 +21,12 @@ import Continouslearn from "./Continous";
 import FullResource from "./FullResource";
 import Development from "../../../hooks/developments.hooks";
 
+import ActivityContext from "../../../Context/activity.context";
+import { toast } from "sonner";
+
 export default function FrontendRoadmap() {
     const [activeId, setActiveId] = useState(null);
+    const { createActivity } = useContext(ActivityContext);
 
     const [showhtmlpage, sethtmlpage] = useState(false);
     const [showcsspage, setcsspage] = useState(false)
@@ -125,49 +129,61 @@ export default function FrontendRoadmap() {
         fullresourcehandler
     }
 
-
-
     const { data: roadmap, loading, error } = Development()
 
-    const FrontendRoadmap = roadmap?.[2]?.roadmapSteps
-    console.log(roadmap[3]);
-    
+    const FrontendRoadmap = roadmap?.[2]?.roadmapSteps ?? []
+
     if (loading) {
         return <h1>loading</h1>
     }
     if (error) {
         return <h2 className='text-white'>Something went wrong!</h2>
     }
+
+    // AddActivity: record completed step via ActivityContext (indices match handlers order)
+    const AddActivity = async (id) => {
+        if (!FrontendRoadmap?.[id]) {
+            console.warn("AddActivity: invalid step id", id);
+            return;
+        }
+        try {
+            const stepName = FrontendRoadmap[id].name;
+            const roadmapId = roadmap?.[2]?.route ?? roadmap?.[2]?.title ?? "frontend";
+            await createActivity({
+                roadmpStepsId: stepName,
+                roadmapId: roadmapId
+            });
+            toast.success(`${stepName} completed successfully!`);
+        } catch (err) {
+            console.error("AddActivity error", err);
+            toast.error("Failed to record activity");
+        }
+    };
+
     return (
-
-
-
         <section className="flex flex-col items-center justify-center h-full lg:w-[80%] w-[100%] gap-3 overflow-hidden">
 
-
-            {showhtmlpage && <HTMLPage closeHTML={() => sethtmlpage(false)} />}
-            {showcsspage && <CSSPage closeCSS={() => setcsspage(false)} />}
-            {showjspage && <Jspage closejs={() => setjspage(false)} />}
-            {showversioncontrolpage && <VersionControl closeVCS={() => setversioncontrolpage(false)} />}
-            {showadvancejspage && <AdvancedJavaScriptPage closeAdvancedJavaScript={() => setadvancejspage(false)} />}
-            {showfrontendFWpage && <FrontendFrameworksPage closeFrontendFrameworks={() => setfrontendFWpage(false)} />}
-            {showcssFWpage && <CSSFrameworksPage closeCSSFrameworks={() => setcssFWpage(false)} />}
-            {showWebanimation && <WebAnimationPage closeWebAnimation={() => setWebanimation(false)} />}
-            {showbuildtoolspage && <BuildToolsPage closeBuildTools={() => setbuildtoolspage(false)} />}
-            {showstatemanagementpage && <StateManagementPage closeAdvancedState={() => setstatemanagementpage(false)} />}
-            {showtypescriptpage && <TypeScriptPage closeTypeScript={() => settypescriptpage(false)} />}
-            {showtestingpage && <TestingPage closeTesting={() => settestingpage(false)} />}
-            {showperformancepage && <PerformanceOptimizationPage closePerformance={() => setperformancepage(false)} />}
-            {show3dmodelingpage && <ThreeDModelingPage closeThreeDModeling={() => set3dmodelingpage(false)} />}
-            {showadframworks && <AdFrameworkPage closeAdvancedFrameworks={() => setadframworks(false)} />}
-            {showuiux && <UIUX closeUIUX={() => setuiux(false)} />}
-            {showjobprep && <Jobprep closePortfolio={() => setjobprep(false)} />}
-            {showcontinouslearn && <Continouslearn closeStayingUpdated={() => setcontinouslearn(false)} />}
+            {showhtmlpage && <HTMLPage closeHTML={() => sethtmlpage(false)} Done={() => AddActivity(0)} />}
+            {showcsspage && <CSSPage closeCSS={() => setcsspage(false)} Done={() => AddActivity(1)} />}
+            {showjspage && <Jspage closejs={() => setjspage(false)} Done={() => AddActivity(2)} />}
+            {showversioncontrolpage && <VersionControl closeVCS={() => setversioncontrolpage(false)} Done={() => AddActivity(3)} />}
+            {showadvancejspage && <AdvancedJavaScriptPage closeAdvancedJavaScript={() => setadvancejspage(false)} Done={() => AddActivity(4)} />}
+            {showfrontendFWpage && <FrontendFrameworksPage closeFrontendFrameworks={() => setfrontendFWpage(false)} Done={() => AddActivity(5)} />}
+            {showcssFWpage && <CSSFrameworksPage closeCSSFrameworks={() => setcssFWpage(false)} Done={() => AddActivity(6)} />}
+            {showWebanimation && <WebAnimationPage closeWebAnimation={() => setWebanimation(false)} Done={() => AddActivity(7)} />}
+            {showbuildtoolspage && <BuildToolsPage closeBuildTools={() => setbuildtoolspage(false)} Done={() => AddActivity(8)} />}
+            {showstatemanagementpage && <StateManagementPage closeAdvancedState={() => setstatemanagementpage(false)} Done={() => AddActivity(9)} />}
+            {showtypescriptpage && <TypeScriptPage closeTypeScript={() => settypescriptpage(false)} Done={() => AddActivity(10)} />}
+            {showtestingpage && <TestingPage closeTesting={() => settestingpage(false)} Done={() => AddActivity(11)} />}
+            {showperformancepage && <PerformanceOptimizationPage closePerformance={() => setperformancepage(false)} Done={() => AddActivity(12)} />}
+            {show3dmodelingpage && <ThreeDModelingPage closeThreeDModeling={() => set3dmodelingpage(false)} Done={() => AddActivity(13)} />}
+            {showadframworks && <AdFrameworkPage closeAdvancedFrameworks={() => setadframworks(false)} Done={() => AddActivity(14)} />}
+            {showuiux && <UIUX closeUIUX={() => setuiux(false)} Done={() => AddActivity(15)} />}
+            {showjobprep && <Jobprep closePortfolio={() => setjobprep(false)} Done={() => AddActivity(16)} />}
+            {showcontinouslearn && <Continouslearn closeStayingUpdated={() => setcontinouslearn(false)} Done={() => AddActivity(17)} />}
             {showfullresource && <FullResource closeFullResources={() => setfullresource(false)} />}
 
-
             <div className='flex justify-center p-4 w-[100%]'>
-
                 <Header />
             </div>
 
@@ -183,7 +199,6 @@ export default function FrontendRoadmap() {
                     </span>
                 </div>
             </div>
-
 
             {/* main content  */}
             <div className="conater relative w-full h-full">
@@ -256,4 +271,4 @@ export default function FrontendRoadmap() {
 
         </section>
     );
-} 
+}

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Header from "../../layout/Header";
 
 // Placeholder imports for each roadmap step page
@@ -19,10 +19,14 @@ import CareerPage from "../IoT/Career";
 import Fullresource from "../IoT/Fullresource";
 import Development from "../../../hooks/developments.hooks";
 
-
+import ActivityContext from "../../../Context/activity.context";
+import { toast } from "sonner";
 
 export default function IoT() {
   const [activeId, setActiveId] = useState(null);
+
+  // Activity context
+  const { createActivity } = useContext(ActivityContext);
 
   // Modal states for each step
   const [showFoundations, setShowFoundations] = useState(false);
@@ -40,7 +44,6 @@ export default function IoT() {
   const [showProjects, setShowProjects] = useState(false);
   const [showCareer, setShowCareer] = useState(false);
   const [showFullResource, setFullResource] = useState(false);
-
 
   // Handlers for each step
   const handlers = {
@@ -61,33 +64,53 @@ export default function IoT() {
     handleFullResource: () => setFullResource(!showFullResource),
   };
 
+  const { data: roadmap, loading, error } = Development();
 
-    const { data: roadmap, loading, error } = Development()
+  const iOTRoadmap = roadmap?.[10]?.roadmapSteps ?? [];
+  if (loading) {
+    return <h1>loading</h1>;
+  }
+  if (error) {
+    return <h2 className="text-white">Something went wrong!</h2>;
+  }
 
-    const iOTRoadmap = roadmap?.[10]?.roadmapSteps
-    if (loading) {
-        return <h1>loading</h1>
+  // AddActivity: record completed step via ActivityContext
+  const AddActivity = async (id) => {
+    try {
+      if (!iOTRoadmap?.[id]) {
+        console.warn("AddActivity: invalid step id", id);
+        return;
+      }
+      const stepName = iOTRoadmap[id].name;
+      const roadmapId = roadmap?.[10]?.route ?? roadmap?.[10]?.title ?? "iot";
+      await createActivity({
+        roadmpStepsId: stepName,
+        roadmapId: roadmapId,
+      });
+      toast.success(`${stepName} completed successfully!`);
+    } catch (err) {
+      console.error("AddActivity error", err);
+      toast.error("Failed to record activity");
     }
-    if (error) {
-        return <h2 className='text-white'>Something went wrong!</h2>
-    }
+  };
+
   return (
     <section className="flex flex-col items-center justify-center h-full lg:w-[80%] w-[100%] gap-3 overflow-hidden">
       {/* Modals */}
-      {showFoundations && <FoundationsPage closeFoundations={handlers.handleFoundations} />}
-      {showMicrocontrollers && <MicrocontrollersPage closeMicrocontrollers={handlers.handleMicrocontrollers} />}
-      {showSensors && <SensorsPage closeSensors={handlers.handleSensors} />}
-      {showProtocols && <ProtocolsPage closeProtocols={handlers.handleProtocols} />}
-      {showNetworking && <NetworkingPage closeNetworking={handlers.handleNetworking} />}
-      {showEmbeddedOS && <EmbeddedOSPage closeEmbeddedOS={handlers.handleEmbeddedOS} />}
-      {showCloudPlatforms && <CloudPlatformsPage closeCloudPlatforms={handlers.handleCloudPlatforms} />}
-      {showDataProcessing && <DataProcessingPage closeDataProcessing={handlers.handleDataProcessing} />}
-      {showEdgeComputing && <EdgeComputingPage closeEdgeComputing={handlers.handleEdgeComputing} />}
-      {showSecurity && <SecurityPage closeSecurity={handlers.handleSecurity} />}
-      {showApplication && <ApplicationPage closeApplication={handlers.handleApplication} />}
-      {showIndustrialIoT && <IndustrialIoTPage closeIndustrialIoT={handlers.handleIndustrialIoT} />}
-      {showProjects && <ProjectsPage closeProjects={handlers.handleProjects} />}
-      {showCareer && <CareerPage closeCareer={handlers.handleCareer} />}
+      {showFoundations && <FoundationsPage closeFoundations={handlers.handleFoundations} Done={() => AddActivity(0)} />}
+      {showMicrocontrollers && <MicrocontrollersPage closeMicrocontrollers={handlers.handleMicrocontrollers} Done={() => AddActivity(1)} />}
+      {showSensors && <SensorsPage closeSensors={handlers.handleSensors} Done={() => AddActivity(2)} />}
+      {showProtocols && <ProtocolsPage closeProtocols={handlers.handleProtocols} Done={() => AddActivity(3)} />}
+      {showNetworking && <NetworkingPage closeNetworking={handlers.handleNetworking} Done={() => AddActivity(4)} />}
+      {showEmbeddedOS && <EmbeddedOSPage closeEmbeddedOS={handlers.handleEmbeddedOS} Done={() => AddActivity(5)} />}
+      {showCloudPlatforms && <CloudPlatformsPage closeCloudPlatforms={handlers.handleCloudPlatforms} Done={() => AddActivity(6)} />}
+      {showDataProcessing && <DataProcessingPage closeDataProcessing={handlers.handleDataProcessing} Done={() => AddActivity(7)} />}
+      {showEdgeComputing && <EdgeComputingPage closeEdgeComputing={handlers.handleEdgeComputing} Done={() => AddActivity(8)} />}
+      {showSecurity && <SecurityPage closeSecurity={handlers.handleSecurity} Done={() => AddActivity(9)} />}
+      {showApplication && <ApplicationPage closeApplication={handlers.handleApplication} Done={() => AddActivity(10)} />}
+      {showIndustrialIoT && <IndustrialIoTPage closeIndustrialIoT={handlers.handleIndustrialIoT} Done={() => AddActivity(11)} />}
+      {showProjects && <ProjectsPage closeProjects={handlers.handleProjects} Done={() => AddActivity(12)} />}
+      {showCareer && <CareerPage closeCareer={handlers.handleCareer} Done={() => AddActivity(13)} />}
       {showFullResource && <Fullresource closeFullResources={handlers.handleFullResource} />}
 
       <div className="flex justify-center p-4 w-[100%]">
@@ -109,15 +132,13 @@ export default function IoT() {
           {iOTRoadmap.map((item) => (
             <div
               key={item.id}
-              className={`flex items-center w-full my-4 ${
-                item.id % 2 === 0 ? "sm:justify-end pl-4 pr-4" : "sm:justify-start pl-4 pr-4"
-              }`}
+              className={`flex items-center w-full my-4 ${item.id % 2 === 0 ? "sm:justify-end pl-4 pr-4" : "sm:justify-start pl-4 pr-4"
+                }`}
             >
               <div className={`w-[95%] sm:w-1/2 flex items-center h-fit sm:h-[8rem]`}>
                 <div
-                  className={`flex items-center w-full ${
-                    item.id % 2 === 0 ? "sm:justify-start" : "sm:justify-start sm:flex-row-reverse"
-                  }`}
+                  className={`flex items-center w-full ${item.id % 2 === 0 ? "sm:justify-start" : "sm:justify-start sm:flex-row-reverse"
+                    }`}
                 >
                   <div className="line w-[2rem] h-1 bg-white"></div>
                   <div
@@ -132,9 +153,8 @@ export default function IoT() {
                   >
                     <h4 className="text-lg text-center font-semibold text-gray-800">{item.name}</h4>
                     <div
-                      className={`overflow-hidden hidden sm:block transition-all duration-500 ease-in-out ${
-                        activeId === item.id ? "max-h-[500px] mt-2" : "max-h-0"
-                      }`}
+                      className={`overflow-hidden hidden sm:block transition-all duration-500 ease-in-out ${activeId === item.id ? "max-h-[500px] mt-2" : "max-h-0"
+                        }`}
                     >
                       <p className="text-sm text-gray-600 bg-white p-4 rounded-lg shadow-md">{item.des}</p>
                     </div>

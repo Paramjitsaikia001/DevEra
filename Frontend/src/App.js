@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import MainLeft from './components/layout/mainleft';
 import MainRight from './components/layout/mainright';
 import Development from './components/pages/Development';
@@ -20,7 +20,7 @@ import Gamedev from './components/DevelopmentRoutes/Gamedevelopment/Roadmap';
 import AppDev from './components/DevelopmentRoutes/APPdevelopment/appdevelopmet';
 import Webdev from './components/DevelopmentRoutes/webdevelopmentRoutes/webdevelopment';
 import FrontendDev from './components/DevelopmentRoutes/FrontendDevelopment/FrontendRoadmap';
-import AiChatPage from './components/ui/AiChatPage';
+import Activity from './components/pages/Activity';
 import BackendRoadmap from './components/DevelopmentRoutes/BackendDev/BackendRoadmap';
 import BlockchainDev from './components/DevelopmentRoutes/Blockchain/Roadmap';
 import CloudComputing from './components/DevelopmentRoutes/CloudDevOps/Roadmap';
@@ -31,68 +31,320 @@ import IoT from './components/DevelopmentRoutes/IoT/roadmap';
 import { ROUTES } from './constants/routes';
 import UserContext from './Context/user.context';
 import { Toaster } from 'sonner';
+import ProtectedRoute from './utils/ProtectedRoute';
+import PublicRoute from './utils/ PublicRoute';
 
 function App() {
-  const [Hide_Left, setHide_Left] = useState(false);
   const { isAuthanticate } = useContext(UserContext)
 
-  const toggleHideLeft = () => {
-    setHide_Left(!Hide_Left);
-  };
 
   const location = window.location;
 
   return (
     <Router>
-      {isAuthanticate ? "" :
+      <Toaster
+        position="bottom-center"
+        toastOptions={{
+          style: { borderRadius: "8px", backgroundColor: "black", color: "white" },
+        }}
+      />
 
-        <Routes>
-          <Route path={ROUTES.LANDINGPAGE} element={<LandingPage />} />
-          <Route path={ROUTES.REGISTER} element={<Registation />} />
-          <Route path={ROUTES.LOGIN} element={<Login />} />
-        </Routes>
-      }
-      {isAuthanticate ?
+      <Routes>
+        {/* Public Routes */}
+        <Route
+          path={ROUTES.LANDINGPAGE}
+          element={
+            <PublicRoute>
+              <LandingPage />
+            </PublicRoute>
+          }
+        />
 
-        <main className={` p-0 m-0 bg-primary-bg font-[Roboto] ${location.pathname === ROUTES.LANDINGPAGE ? 'hidden' : 'flex'}`}>
-          <Toaster
-            position="bottom-center"
-            richColors
-            toastOptions={{
-              style: { borderRadius: "8px" ,backgroundColor:"black",color:"white" },
-            }}
-          />
-          <MainLeft toggleHideLeft={toggleHideLeft} Hide_Left={Hide_Left} />
-          <Routes>
-            <Route path={ROUTES.HOME} element={<MainRight toggleHideLeft={toggleHideLeft} Hide_Left={Hide_Left} />} />
-            <Route path={ROUTES.DEVELOPMENT} element={<Development />} />
-            {/* <Route path={ROUTES.LANGUAGE} element={<Language />} /> */}
-            <Route path={ROUTES.SAVED} element={<Saved />} />
-            <Route path={ROUTES.ABOUT_US} element={<Contact />} />
-            <Route path={ROUTES.NOTFICATION} element={<Notification />} />
+        <Route
+          path={ROUTES.REGISTER}
+          element={
+            <PublicRoute>
+              <Registation />
+            </PublicRoute>
+          }
+        />
 
-            <Route path={ROUTES.UPDATEDETAILS} element={<UpdateDetails />} />
-            <Route path={ROUTES.ADDITIONALDETAILS} element={<AdditionalDetails />} />
-            <Route path={ROUTES.ADDPERSONALDETAILS} element={<PersonalDetails />} />
+        <Route
+          path={ROUTES.LOGIN}
+          element={
+            <PublicRoute>
+              <Login />
+            </PublicRoute>
+          }
+        />
 
-            <Route path={ROUTES.APP_DEV} element={<AppDev />} />
-            <Route path={ROUTES.AI_ML} element={<AiML />} />
-            <Route path={ROUTES.GAME_DEV} element={<Gamedev />} />
-            <Route path={ROUTES.WEB_DEV} element={<Webdev />} />
-            <Route path={ROUTES.FRONTEND_DEV} element={<FrontendDev />} />
-            <Route path={ROUTES.BACKEND_DEV} element={<BackendRoadmap />} />
-            <Route path={ROUTES.BLOCKCHAIN_DEV} element={<BlockchainDev />} />
-            <Route path={ROUTES.PROFILE} element={<Profile />} />
-            <Route path={ROUTES.CLOUD_COMPUTING} element={<CloudComputing />} />
-            <Route path={ROUTES.CYBERSECURITY} element={<Cybersecurity />} />
-            <Route path={ROUTES.DATASCIENCE} element={<DataScience />} />
-            <Route path={ROUTES.BIGDATA} element={<BigData />} />
-            <Route path={ROUTES.IOT} element={<IoT />} />
+        {/* Home / Main layout */}
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <main className="flex p-0 m-0 bg-primary-bg font-[Roboto]">
+                <MainLeft />
+                <MainRight />
+              </main>
+            </ProtectedRoute>
+          }
+        />
 
-          </Routes>
-        </main>
-        : ""
-      }
+        {/* Protected Routes (sidebar always visible) */}
+        <Route
+          path={ROUTES.DEVELOPMENT}
+          element={
+            <ProtectedRoute>
+              <main className="flex p-0 m-0 bg-primary-bg font-[Roboto]">
+                <MainLeft />
+                <Development />
+              </main>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path={ROUTES.SAVED}
+          element={
+            <ProtectedRoute>
+              <main className="flex p-0 m-0 bg-primary-bg font-[Roboto]">
+                <MainLeft />
+                <Saved />
+              </main>
+            </ProtectedRoute>
+          }
+        />
+  
+
+        <Route
+          path={ROUTES.PROFILE}
+          element={
+            <ProtectedRoute>
+              <main className="flex p-0 m-0 bg-primary-bg font-[Roboto]">
+                <MainLeft />
+                <Profile />
+              </main>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path={ROUTES.ABOUT_US}
+          element={
+            <ProtectedRoute>
+              <main className="flex p-0 m-0 bg-primary-bg font-[Roboto]">
+                <MainLeft />
+                <Contact />
+              </main>
+            </ProtectedRoute>
+          }
+        />
+             <Route
+          path={ROUTES.ACITVITY}
+          element={
+            <ProtectedRoute>
+              <main className="flex p-0 m-0 bg-primary-bg font-[Roboto]">
+                <MainLeft />
+                <Activity />
+              </main>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path={ROUTES.NOTFICATION}
+          element={
+            <ProtectedRoute>
+              <main className="flex p-0 m-0 bg-primary-bg font-[Roboto]">
+                <MainLeft />
+                <Notification />
+              </main>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path={ROUTES.UPDATEDETAILS}
+          element={
+            <ProtectedRoute>
+              <main className="flex p-0 m-0 bg-primary-bg font-[Roboto]">
+                <MainLeft />
+                <UpdateDetails />
+              </main>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path={ROUTES.ADDITIONALDETAILS}
+          element={
+            <ProtectedRoute>
+              <main className="flex p-0 m-0 bg-primary-bg font-[Roboto]">
+                <MainLeft />
+                <AdditionalDetails />
+              </main>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path={ROUTES.ADDPERSONALDETAILS}
+          element={
+            <ProtectedRoute>
+              <main className="flex p-0 m-0 bg-primary-bg font-[Roboto]">
+                <MainLeft />
+                <PersonalDetails />
+              </main>
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Dev routes */}
+        <Route
+          path={ROUTES.APP_DEV}
+          element={
+            <ProtectedRoute>
+              <main className="flex p-0 m-0 bg-primary-bg font-[Roboto]">
+                <MainLeft />
+                <AppDev />
+              </main>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path={ROUTES.AI_ML}
+          element={
+            <ProtectedRoute>
+              <main className="flex p-0 m-0 bg-primary-bg font-[Roboto]">
+                <MainLeft />
+                <AiML />
+              </main>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path={ROUTES.GAME_DEV}
+          element={
+            <ProtectedRoute>
+              <main className="flex p-0 m-0 bg-primary-bg font-[Roboto]">
+                <MainLeft />
+                <Gamedev />
+              </main>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path={ROUTES.WEB_DEV}
+          element={
+            <ProtectedRoute>
+              <main className="flex p-0 m-0 bg-primary-bg font-[Roboto]">
+                <MainLeft />
+                <Webdev />
+              </main>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path={ROUTES.FRONTEND_DEV}
+          element={
+            <ProtectedRoute>
+              <main className="flex p-0 m-0 bg-primary-bg font-[Roboto]">
+                <MainLeft />
+                <FrontendDev />
+              </main>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path={ROUTES.BACKEND_DEV}
+          element={
+            <ProtectedRoute>
+              <main className="flex p-0 m-0 bg-primary-bg font-[Roboto]">
+                <MainLeft />
+                <BackendRoadmap />
+              </main>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path={ROUTES.BLOCKCHAIN_DEV}
+          element={
+            <ProtectedRoute>
+              <main className="flex p-0 m-0 bg-primary-bg font-[Roboto]">
+                <MainLeft />
+                <BlockchainDev />
+              </main>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path={ROUTES.CLOUD_COMPUTING}
+          element={
+            <ProtectedRoute>
+              <main className="flex p-0 m-0 bg-primary-bg font-[Roboto]">
+                <MainLeft />
+                <CloudComputing />
+              </main>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path={ROUTES.CYBERSECURITY}
+          element={
+            <ProtectedRoute>
+              <main className="flex p-0 m-0 bg-primary-bg font-[Roboto]">
+                <MainLeft />
+                <Cybersecurity />
+              </main>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path={ROUTES.DATASCIENCE}
+          element={
+            <ProtectedRoute>
+              <main className="flex p-0 m-0 bg-primary-bg font-[Roboto]">
+                <MainLeft />
+                <DataScience />
+              </main>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path={ROUTES.BIGDATA}
+          element={
+            <ProtectedRoute>
+              <main className="flex p-0 m-0 bg-primary-bg font-[Roboto]">
+                <MainLeft />
+                <BigData />
+              </main>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path={ROUTES.IOT}
+          element={
+            <ProtectedRoute>
+              <main className="flex p-0 m-0 bg-primary-bg font-[Roboto]">
+                <MainLeft />
+                <IoT />
+              </main>
+            </ProtectedRoute>
+          }
+        />
+      </Routes>
     </Router>
   );
 }

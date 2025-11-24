@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Header from "../../layout/Header";
 
 // Import pages (create them later in ./BackendDev)
@@ -22,107 +22,129 @@ import SystemDesignPage from "../BackendDev/SystemDesignPage";
 import CareerPrepPage from "../BackendDev/CareerPrepPage";
 import Fullresource from "./FullResource";
 import Development from "../../../hooks/developments.hooks"
+import ActivityContext from "../../../Context/activity.context";
+import { toast } from "sonner"
 
 
 
 export default function BackendRoadmap() {
-  const [activeId, setActiveId] = useState(null);
+    const [activeId, setActiveId] = useState(null);
+    const { createActivity } = useContext(ActivityContext);
 
-  // State management for detail pages
-  const [shownodepage, setnodepage] = useState(false);
-  const [showpackagepage, setpackagepage] = useState(false);
-  const [showexpresspage, setexpresspage] = useState(false);
-  const [showsqlpage, setsqlpage] = useState(false);
-  const [shownosqlpage, setnosqlpage] = useState(false);
-  const [showormpage, setormpage] = useState(false);
-  const [showauthpage, setauthpage] = useState(false);
-  const [showapipage, setapipage] = useState(false);
-  const [showrealtimepage, setrealtimepage] = useState(false);
-  const [showsecuritypage, setsecuritypage] = useState(false);
-  const [showtestingpage, settestingpage] = useState(false);
-  const [showdevopspage, setdevopspage] = useState(false);
-  const [showscalabilitypage, setscalabilitypage] = useState(false);
-  const [showmonitoringpage, setmonitoringpage] = useState(false);
-  const [showcloudpage, setcloudpage] = useState(false);
-  const [showsystemdesignpage, setsystemdesignpage] = useState(false);
-  const [showcareerpage, setcareerpage] = useState(false);
-  const [showfullresource, setFullResource] = useState(false);
+    // State management for detail pages
+    const [shownodepage, setnodepage] = useState(false);
+    const [showpackagepage, setpackagepage] = useState(false);
+    const [showexpresspage, setexpresspage] = useState(false);
+    const [showsqlpage, setsqlpage] = useState(false);
+    const [shownosqlpage, setnosqlpage] = useState(false);
+    const [showormpage, setormpage] = useState(false);
+    const [showauthpage, setauthpage] = useState(false);
+    const [showapipage, setapipage] = useState(false);
+    const [showrealtimepage, setrealtimepage] = useState(false);
+    const [showsecuritypage, setsecuritypage] = useState(false);
+    const [showtestingpage, settestingpage] = useState(false);
+    const [showdevopspage, setdevopspage] = useState(false);
+    const [showscalabilitypage, setscalabilitypage] = useState(false);
+    const [showmonitoringpage, setmonitoringpage] = useState(false);
+    const [showcloudpage, setcloudpage] = useState(false);
+    const [showsystemdesignpage, setsystemdesignpage] = useState(false);
+    const [showcareerpage, setcareerpage] = useState(false);
+    const [showfullresource, setFullResource] = useState(false);
 
-  const handlers = {
-    nodepagehandler: () => setnodepage(!shownodepage),
-    packagepagehandler: () => setpackagepage(!showpackagepage),
-    expresspagehandler: () => setexpresspage(!showexpresspage),
-    sqlpagehandler: () => setsqlpage(!showsqlpage),
-    nosqlpagehandler: () => setnosqlpage(!shownosqlpage),
-    ormpagehandler: () => setormpage(!showormpage),
-    authpagehandler: () => setauthpage(!showauthpage),
-    apipagehandler: () => setapipage(!showapipage),
-    realtimepagehandler: () => setrealtimepage(!showrealtimepage),
-    securitypagehandler: () => setsecuritypage(!showsecuritypage),
-    testingpagehandler: () => settestingpage(!showtestingpage),
-    devopspagehandler: () => setdevopspage(!showdevopspage),
-    scalabilitypagehandler: () => setscalabilitypage(!showscalabilitypage),
-    monitoringpagehandler: () => setmonitoringpage(!showmonitoringpage),
-    cloudpagehandler: () => setcloudpage(!showcloudpage),
-    systemdesignpagehandler: () => setsystemdesignpage(!showsystemdesignpage),
-    careerpagehandler: () => setcareerpage(!showcareerpage),
-    fullresourcehandler: () => setFullResource(!showfullresource)
-  };
+    const handlers = {
+        nodepagehandler: () => setnodepage(!shownodepage),
+        packagepagehandler: () => setpackagepage(!showpackagepage),
+        expresspagehandler: () => setexpresspage(!showexpresspage),
+        sqlpagehandler: () => setsqlpage(!showsqlpage),
+        nosqlpagehandler: () => setnosqlpage(!shownosqlpage),
+        ormpagehandler: () => setormpage(!showormpage),
+        authpagehandler: () => setauthpage(!showauthpage),
+        apipagehandler: () => setapipage(!showapipage),
+        realtimepagehandler: () => setrealtimepage(!showrealtimepage),
+        securitypagehandler: () => setsecuritypage(!showsecuritypage),
+        testingpagehandler: () => settestingpage(!showtestingpage),
+        devopspagehandler: () => setdevopspage(!showdevopspage),
+        scalabilitypagehandler: () => setscalabilitypage(!showscalabilitypage),
+        monitoringpagehandler: () => setmonitoringpage(!showmonitoringpage),
+        cloudpagehandler: () => setcloudpage(!showcloudpage),
+        systemdesignpagehandler: () => setsystemdesignpage(!showsystemdesignpage),
+        careerpagehandler: () => setcareerpage(!showcareerpage),
+        fullresourcehandler: () => setFullResource(!showfullresource)
+    };
 
+    const { data: roadmap, loading, error } = Development();
 
-  const { data: roadmap, loading, error } = Development()
+    // normalize steps for backend (index 3 in roadmap array)
+    const backendSteps = roadmap?.[3]?.roadmapSteps ?? [];
 
-    const BackendRoadmap = roadmap?.[3]?.roadmapSteps
     if (loading) {
-        return <h1>loading</h1>
+        return <h1>loading</h1>;
     }
     if (error) {
-        return <h2 className='text-white'>Something went wrong!</h2>
+        return <h2 className='text-white'>Something went wrong!</h2>;
     }
-  return (
-    <section className="flex flex-col items-center justify-center h-full lg:w-[80%] w-[100%] gap-3 overflow-hidden">
-      {/* Conditional renders for detail pages */}
-      {shownodepage && <NodeBasicsPage closeNodeJS={() => setnodepage(false)} />}
-      {showpackagepage && <PackageManagerPage closePM={() => setpackagepage(false)} />}
-      {showexpresspage && <ExpressPage closeexpress={() => setexpresspage(false)} />}
-      {showsqlpage && <DatabaseSQLPage closeSQL={() => setsqlpage(false)} />}
-      {shownosqlpage && <DatabaseNoSQLPage closeNoSQL={() => setnosqlpage(false)} />}
-      {showormpage && <ORMPage closeOrm={() => setormpage(false)} />}
-      {showauthpage && <AuthPage closeAuth={() => setauthpage(false)} />}
-      {showapipage && <APIPage closeApi={() => setapipage(false)} />}
-      {showrealtimepage && <RealtimePage closeRealTime={() => setrealtimepage(false)} />}
-      {showsecuritypage && <SecurityPage closeSecurity={() => setsecuritypage(false)} />}
-      {showtestingpage && <TestingPage closeTesting={() => settestingpage(false)} />}
-      {showdevopspage && <DevOpsPage closeDeploy={() => setdevopspage(false)} />}
-      {showscalabilitypage && <ScalabilityPage closeScale={() => setscalabilitypage(false)} />}
-      {showmonitoringpage && <MonitoringPage closeMonitor={() => setmonitoringpage(false)} />}
-      {showcloudpage && <CloudPage closeCloudInfra={() => setcloudpage(false)} />}
-      {showsystemdesignpage && <SystemDesignPage closeSystemDesign={() => setsystemdesignpage(false)} />}
-      {showcareerpage && <CareerPrepPage closeCareer={() => setcareerpage(false)} />}
-      {showfullresource && <Fullresource closeFullResources={() => setFullResource(false)} />}
 
-      {/* Header */}
-      <div className="flex justify-center p-4 w-[100%]">
-        <Header />
-      </div>
+    // AddActivity: mark a roadmap step completed (similar to appdevelopmet)
+    const AddActivity = async (id) => {
+        if (!backendSteps?.[id]) {
+            console.warn('AddActivity: invalid step id', id);
+            return;
+        }
+        try {
+            const stepName = backendSteps[id].name;
+            const roadmapId = roadmap?.[3]?.route ?? roadmap?.[3]?.title;
+            const res = await createActivity({
+                roadmpStepsId: stepName,
+                roadmapId: roadmapId
+            });
+            toast.success(`${stepName} completed successfully!`);
+            console.log('AddActivity response', res);
+        } catch (err) {
+            console.error('AddActivity error', err);
+        }
+    };
 
-      {/* Section title */}
-      <div className="flex justify-center items-center gap-2 text-white text-xl border-b-2 border-white md:w-[90%] w-[100%]">
-        <h1>BACKEND DEVELOPMENT</h1>
-        <span className="material-symbols-outlined hover:text-[#198de0] cursor-pointer">
-          help
-        </span>
-      </div>
+    return (
+        <section className="flex flex-col items-center justify-center h-full lg:w-[80%] w-[100%] gap-3 overflow-hidden">
+            {/* Conditional renders for detail pages */}
+            {shownodepage && <NodeBasicsPage closeNodeJS={() => setnodepage(false)} Done={() => AddActivity(0)} />}
+            {showpackagepage && <PackageManagerPage closePM={() => setpackagepage(false)} Done={() => AddActivity(1)} />}
+            {showexpresspage && <ExpressPage closeexpress={() => setexpresspage(false)} Done={() => AddActivity(2)} />}
+            {showsqlpage && <DatabaseSQLPage closeSQL={() => setsqlpage(false)} Done={() => AddActivity(3)} />}
+            {shownosqlpage && <DatabaseNoSQLPage closeNoSQL={() => setnosqlpage(false)} Done={() => AddActivity(4)} />}
+            {showormpage && <ORMPage closeOrm={() => setormpage(false)} Done={() => AddActivity(5)} />}
+            {showauthpage && <AuthPage closeAuth={() => setauthpage(false)} Done={() => AddActivity(6)} />}
+            {showapipage && <APIPage closeApi={() => setapipage(false)} Done={() => AddActivity(7)} />}
+            {showrealtimepage && <RealtimePage closeRealTime={() => setrealtimepage(false)} Done={() => AddActivity(8)} />}
+            {showsecuritypage && <SecurityPage closeSecurity={() => setsecuritypage(false)} Done={() => AddActivity(9)} />}
+            {showtestingpage && <TestingPage closeTesting={() => settestingpage(false)} Done={() => AddActivity(10)} />}
+            {showdevopspage && <DevOpsPage closeDeploy={() => setdevopspage(false)} Done={() => AddActivity(11)} />}
+            {showscalabilitypage && <ScalabilityPage closeScale={() => setscalabilitypage(false)} Done={() => AddActivity(12)} />}
+            {showmonitoringpage && <MonitoringPage closeMonitor={() => setmonitoringpage(false)} Done={() => AddActivity(13)} />}
+            {showcloudpage && <CloudPage closeCloudInfra={() => setcloudpage(false)} Done={() => AddActivity(14)} />}
+            {showsystemdesignpage && <SystemDesignPage closeSystemDesign={() => setsystemdesignpage(false)} Done={() => AddActivity(15)} />}
+            {showcareerpage && <CareerPrepPage closeCareer={() => setcareerpage(false)} Done={() => AddActivity(16)} />}
+            {showfullresource && <Fullresource closeFullResources={() => setFullResource(false)} />}
 
-      {/* Roadmap Timeline */}
-      <div className="conater relative w-full h-full">
+            {/* Header */}
+            <div className="flex justify-center p-4 w-[100%]">
+                <Header />
+            </div>
+
+            {/* Section title */}
+            <div className="flex justify-center items-center gap-2 text-white text-xl border-b-2 border-white md:w-[90%] w-[100%]">
+                <h1>BACKEND DEVELOPMENT</h1>
+                <span className="material-symbols-outlined hover:text-[#198de0] cursor-pointer">
+                    help
+                </span>
+            </div>
+
+            {/* Roadmap Timeline */}
+            <div className="conater relative w-full h-full">
                 <div className="divider h-full items-center bg-white w-1 rounded-full absolute left-2 sm:left-[50%]"></div>
 
                 <div className="flex flex-col justify-center w-full">
-
-                    {BackendRoadmap.map((item) => {
-
-
+                    {backendSteps.map((item) => {
                         return (
                             <div
                                 key={item.id}
@@ -136,12 +158,11 @@ export default function BackendRoadmap() {
                                     >
                                         <div className="line w-[2rem] h-1 bg-white"></div>
                                         <div
-                                                               onClick={() => {
-                                                                if (item.handler) {
-                                                                    handlers[item.handler]?.();
-                                                                }
-                                                            }}
-                                    
+                                            onClick={() => {
+                                                if (item.handler) {
+                                                    handlers[item.handler]?.();
+                                                }
+                                            }}
                                             className={`relative w-[80%] sm:h-[5rem] text-center rounded-xl cursor-pointer bg-[#eeeeeedd] py-4 px-2 hover:bg-[#9aa3f6] transition-all duration-300`}
                                             onMouseEnter={() => setActiveId(item.id)}
                                             onMouseLeave={() => setActiveId(null)}
@@ -155,7 +176,7 @@ export default function BackendRoadmap() {
                                                     {item.des}
                                                 </p>
                                             </div>
-                                                <div
+                                            <div
                                                 className={` sm:hidden block transition-all duration-500 ease-in-out 
                                                     `}
                                             >
@@ -179,6 +200,6 @@ export default function BackendRoadmap() {
                     </span>
                 </button>
             </div>
-    </section>
-  );
+        </section>
+    );
 }

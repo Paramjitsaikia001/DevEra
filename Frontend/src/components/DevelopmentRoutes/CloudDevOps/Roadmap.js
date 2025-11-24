@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Header from "../../layout/Header";
 
 // Placeholder imports for each roadmap step page
@@ -21,10 +21,14 @@ import CertificationsPage from "../CloudDevOps/Certifications";
 import Fullresource from "../CloudDevOps/Fullresource";
 import Development from "../../../hooks/developments.hooks";
 
+import ActivityContext from "../../../Context/activity.context";
+import { toast } from "sonner";
+
 
 
 export default function DevOps() {
   const [activeId, setActiveId] = useState(null);
+  const { createActivity } = useContext(ActivityContext);
 
   // Modal states for each step
   const [showLinux, setShowLinux] = useState(false);
@@ -63,32 +67,53 @@ export default function DevOps() {
     handleFullResource: () => setFullResource(!showFullResource),
   };
 
-    const { data: roadmap, loading, error } = Development()
+  const { data: roadmap, loading, error } = Development()
 
-    const CloudRoadmap = roadmap?.[8]?.roadmapSteps
-    if (loading) {
-        return <h1>loading</h1>
+  const CloudRoadmap = roadmap?.[8]?.roadmapSteps
+  if (loading) {
+    return <h1>loading</h1>
+  }
+  if (error) {
+    return <h2 className='text-white'>Something went wrong!</h2>
+  }
+
+  // AddActivity: mark a roadmap step completed (records activity via context)
+  const AddActivity = async (id) => {
+    try {
+      if (!CloudRoadmap?.[id]) {
+        console.warn("AddActivity: invalid step id", id);
+        return;
+      }
+      const stepName = CloudRoadmap[id].name;
+      const roadmapId = roadmap?.[8]?.route ?? roadmap?.[8]?.title ?? "cloud-devops";
+      await createActivity({
+        roadmpStepsId: stepName,
+        roadmapId: roadmapId,
+      });
+      toast.success(`${stepName} completed successfully!`);
+    } catch (err) {
+      console.error("AddActivity error", err);
+      toast.error("Failed to record activity");
     }
-    if (error) {
-        return <h2 className='text-white'>Something went wrong!</h2>
-    }
+  };
+
   return (
     <section className="flex flex-col items-center justify-center h-full lg:w-[80%] w-[100%] gap-3 overflow-hidden ">
       {/* Modals */}
-      {showLinux && <LinuxPage closeLinux={handlers.handleLinux} />}
-      {showProgramming && <ProgrammingPage closeProgramming={handlers.handleProgramming} />}
-      {showCoreConcepts && <CoreConceptsPage closeCoreConcepts={handlers.handleCoreConcepts} />}
-      {showGit && <GitPage closeGit={handlers.handleGit} />}
-      {showCloudFundamentals && <CloudFundamentalsPage closeCloudFundamentals={handlers.handleCloudFundamentals} />}
-      {showIaC && <IaCPage closeIaC={handlers.handleIaC} />}
-      {showContainers && <ContainersPage closeContainers={handlers.handleContainers} />}
-      {showCICD && <CICDPage closeCICD={handlers.handleCICD} />}
-      {showConfigManagement && <ConfigManagementPage closeConfigManagement={handlers.handleConfigManagement} />}
-      {showMonitoring && <MonitoringPage closeMonitoring={handlers.handleMonitoring} />}
-      {showAdvancedCloud && <AdvancedCloudPage closeAdvancedCloud={handlers.handleAdvancedCloud} />}
-      {showSRE && <SREPage closeSRE={handlers.handleSRE} />}
-      {showFinOps && <FinOpsPage closeFinOps={handlers.handleFinOps} />}
-      {showCertifications && <CertificationsPage closeCertifications={handlers.handleCertifications} />}
+      {showLinux && <LinuxPage closeLinux={handlers.handleLinux} Done={() => AddActivity(0)} />}
+      {showProgramming && <ProgrammingPage closeProgramming={handlers.handleProgramming} Done={() => AddActivity(1)} />}
+      {showCoreConcepts && <CoreConceptsPage closeCoreConcepts={handlers.handleCoreConcepts} Done={() => AddActivity(2)} />}
+      {showGit && <GitPage closeGit={handlers.handleGit} Done={() => AddActivity(3)} />}
+      {showCloudFundamentals && <CloudFundamentalsPage closeCloudFundamentals={handlers.handleCloudFundamentals} Done={() => AddActivity(4)} />}
+      {showIaC && <IaCPage closeIaC={handlers.handleIaC} Done={() => AddActivity(5)} />}
+      {showContainers && <ContainersPage closeContainers={handlers.handleContainers} Done={() => AddActivity(6)} />}
+      {showCICD && <CICDPage closeCICD={handlers.handleCICD} Done={() => AddActivity(7)} />}
+      {showConfigManagement && <ConfigManagementPage closeConfigManagement={handlers.handleConfigManagement} Done={() => AddActivity(8)} />}
+      {showMonitoring && <MonitoringPage closeMonitoring={handlers.handleMonitoring} Done={() => AddActivity(9)} />}
+      {showAdvancedCloud && <AdvancedCloudPage closeAdvancedCloud={handlers.handleAdvancedCloud} Done={() => AddActivity(10)} />}
+      {showSRE && <SREPage closeSRE={handlers.handleSRE} Done={() => AddActivity(11)} />}
+      {showFinOps && <FinOpsPage closeFinOps={handlers.handleFinOps} Done={() => AddActivity(12)} />}
+      {showCertifications && <CertificationsPage closeCertifications={handlers.handleCertifications} Done={() => AddActivity(13)} />}
       {showFullResource && <Fullresource closeFullResources={handlers.handleFullResource} />}
 
       <div className="flex justify-center p-4 w-[100%]">
@@ -110,15 +135,13 @@ export default function DevOps() {
           {CloudRoadmap.map((item) => (
             <div
               key={item.id}
-              className={`flex items-center w-full my-4 ${
-                item.id % 2 === 0 ? "sm:justify-end pl-4 pr-4" : "sm:justify-start pl-4 pr-4"
-              }`}
+              className={`flex items-center w-full my-4 ${item.id % 2 === 0 ? "sm:justify-end pl-4 pr-4" : "sm:justify-start pl-4 pr-4"
+                }`}
             >
               <div className={`w-[95%] sm:w-1/2 flex items-center h-fit sm:h-[8rem]`}>
                 <div
-                  className={`flex items-center w-full ${
-                    item.id % 2 === 0 ? "sm:justify-start" : "sm:justify-start sm:flex-row-reverse"
-                  }`}
+                  className={`flex items-center w-full ${item.id % 2 === 0 ? "sm:justify-start" : "sm:justify-start sm:flex-row-reverse"
+                    }`}
                 >
                   <div className="line w-[2rem] h-1 bg-white"></div>
                   <div
@@ -133,9 +156,8 @@ export default function DevOps() {
                   >
                     <h4 className="text-lg text-center font-semibold text-gray-800">{item.name}</h4>
                     <div
-                      className={`overflow-hidden hidden sm:block transition-all duration-500 ease-in-out ${
-                        activeId === item.id ? "max-h-[500px] mt-2" : "max-h-0"
-                      }`}
+                      className={`overflow-hidden hidden sm:block transition-all duration-500 ease-in-out ${activeId === item.id ? "max-h-[500px] mt-2" : "max-h-0"
+                        }`}
                     >
                       <p className="text-sm text-gray-600 bg-white p-4 rounded-lg shadow-md">{item.des}</p>
                     </div>

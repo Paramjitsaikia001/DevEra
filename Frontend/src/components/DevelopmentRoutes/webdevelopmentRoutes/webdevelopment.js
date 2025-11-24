@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import CodeEditor from "./codeEditor";
 import Hyperpage from "./Htmlpage";
 import Header from "../../layout/Header";
@@ -29,6 +29,10 @@ import ReduxPage from "./reduxpage";
 import ZustandPage from "./ZustandPage";
 import Development from "../../../hooks/developments.hooks";
 import Reviews from "../../forms/Review";
+
+import ActivityContext from "../../../Context/activity.context";
+import { toast } from "sonner";
+
 // const roadmap = [
 //     {
 //         id: 1,
@@ -192,10 +196,9 @@ import Reviews from "../../forms/Review";
 
 export default function WebDevelopment() {
     const [activeId, setActiveId] = useState(null);
-    
-    
 
-
+    // Activity context
+    const { createActivity } = useContext(ActivityContext);
 
     // Step modals
     const [showCodeEditor, setCodeEditor] = useState(false);
@@ -286,61 +289,72 @@ export default function WebDevelopment() {
         zustandhandler,
     };
 
-
-
-
-    const {data:roadmap,loading,error} = Development()
+    const { data: roadmap, loading, error } = Development()
     console.log("Roadmap data:", roadmap?.[1]?.roadmapSteps);
-    if(loading){
+    if (loading) {
         return <h1>loading</h1>
     }
-     if (error) {
+    if (error) {
         return <h2 className='text-white'>Something went wrong!</h2>
     }
 
-const oneStepDone = () => {
-    const updatedRoadmap = Array.isArray(roadmap) ? [...roadmap] : [];
-    if (updatedRoadmap[1]?.roadmapSteps) {
-        console.log("All steps reset:", updatedRoadmap[1].roadmapSteps);
-        return <h1>array is fetched</h1>
-    } else {
-        console.warn("No roadmapSteps found to reset.");
-    }
-};
+    const WebRoadmap = roadmap?.[1]?.roadmapSteps ?? [];
+
+    // AddActivity: record completed step via ActivityContext
+    const AddActivity = async (id) => {
+        try {
+            if (!WebRoadmap?.[id]) {
+                console.warn("AddActivity: invalid step id", id);
+                return;
+            }
+            const stepName = WebRoadmap[id].name;
+            const roadmapId = roadmap?.[1]?.route ?? roadmap?.[1]?.title ?? "web-development";
+            await createActivity({
+                roadmpStepsId: stepName,
+                roadmapId: roadmapId
+            });
+            toast.success(`${stepName} completed successfully!`);
+        } catch (err) {
+            console.error("AddActivity error", err);
+            toast.error("Failed to record activity");
+        }
+    };
+
+    // One-step test replaced by AddActivity usage
+    const oneStepDone = () => AddActivity(0);
 
     console.log("Roadmap data:", roadmap?.[1]?.roadmapSteps?.[0]?.isDone);
 
     return (
         <section className="flex flex-col items-center justify-center h-full lg:w-[80%] w-[100%] gap-3 overflow-hidden">
             {/* Modals */}
-            {showCodeEditor && <CodeEditor closeEditor={() => setCodeEditor(false)} Done={oneStepDone}/>}
-            {showHTML && <Hyperpage closeHTML={() => setHTML(false)} />}
-            {showCSS && <CSSpage closeCSS={() => setCSS(false)} />}
-            {showJS && <Jspage closejs={() => setJS(false)} />}
-            {showPM && <PackageManager closePM={() => setPM(false)} />}
-            {showNodeJS && <NodeJSpage closeNodeJS={() => setNodeJS(false)} />}
-            {showExpress && <Expresspage closeexpress={() => setExpress(false)} />}
-            {showDBMS && <DBMSpage closeDBMS={() => setDBMS(false)} />}
-            {showVCS && <VersionControlSystems closeVCS={() => setVCS(false)} />}
-            {showFrontendProjectDeploy && <FrontendProjectDeploymentpage closeFrotendProjectDeploy={() => setFrontendProjectDeploy(false)} />}
-            {showAPI && <APIpage closeAPI={() => setAPI(false)} />}
-            {showfullstackDeployment && <FullstackDeploymentpage closeDeployment={() => setfullstackDeployment(false)} />}
-            {showProjectBuild && <ProjectBuild closeProjectBuild={() => setProjectBuild(false)} />}
-            {showLibraryFramework && <LibraryandFramework closeLibraryFramework={() => setLibraryFramework(false)} />}
-            {showReact && <ReactPage closeReact={() => setReact(false)} />}
-            {showAngular && <AngularPage closeAngular={() => setAngular(false)} />}
-            {showVue && <VuePage closeVue={() => setVue(false)} />}
-            {showNextForReact && <NextForReact closeNextForReact={() => setNextForReact(false)} />}
-            {showNuxt && <NustPage closeNuxt={() => setNuxt(false)} />}
-            {showAngularUniversal && <AngularUniversalPage closeAngularUniversal={() => setAngularUniversal(false)} />}
-            {showBootstrap && <BootstrapPage closeBootstrap={() => setBootstrap(false)} />}
-            {showTailwindcss && <Tailwindcss closeTailwindcss={() => setTailwindcss(false)} />}
-            {showMaterialUI && <MaterialUIPage closeMaterialUI={() => setMaterialUI(false)} />}
+            {showCodeEditor && <CodeEditor closeEditor={() => setCodeEditor(false)} Done={() => AddActivity(0)} />}
+            {showHTML && <Hyperpage closeHTML={() => setHTML(false)} Done={() => AddActivity(1)} />}
+            {showCSS && <CSSpage closeCSS={() => setCSS(false)} Done={() => AddActivity(2)} />}
+            {showJS && <Jspage closejs={() => setJS(false)} Done={() => AddActivity(3)} />}
+            {showPM && <PackageManager closePM={() => setPM(false)} Done={() => AddActivity(6)} />}
+            {showNodeJS && <NodeJSpage closeNodeJS={() => setNodeJS(false)} Done={() => AddActivity(7)} />}
+            {showExpress && <Expresspage closeexpress={() => setExpress(false)} Done={() => AddActivity(8)} />}
+            {showDBMS && <DBMSpage closeDBMS={() => setDBMS(false)} Done={() => AddActivity(9)} />}
+            {showVCS && <VersionControlSystems closeVCS={() => setVCS(false)} Done={() => AddActivity(4)} />}
+            {showFrontendProjectDeploy && <FrontendProjectDeploymentpage closeFrotendProjectDeploy={() => setFrontendProjectDeploy(false)} Done={() => AddActivity(5)} />}
+            {showAPI && <APIpage closeAPI={() => setAPI(false)} Done={() => AddActivity(10)} />}
+            {showfullstackDeployment && <FullstackDeploymentpage closeDeployment={() => setfullstackDeployment(false)} Done={() => AddActivity(11)} />}
+            {showProjectBuild && <ProjectBuild closeProjectBuild={() => setProjectBuild(false)} Done={() => AddActivity(12)} />}
+            {showLibraryFramework && <LibraryandFramework closeLibraryFramework={() => setLibraryFramework(false)} Done={() => AddActivity(13)} />}
+            {showReact && <ReactPage closeReact={() => setReact(false)} Done={() => AddActivity(14)} />}
+            {showAngular && <AngularPage closeAngular={() => setAngular(false)} Done={() => AddActivity(15)} />}
+            {showVue && <VuePage closeVue={() => setVue(false)} Done={() => AddActivity(16)} />}
+            {showNextForReact && <NextForReact closeNextForReact={() => setNextForReact(false)} Done={() => AddActivity(17)} />}
+            {showNuxt && <NustPage closeNuxt={() => setNuxt(false)} Done={() => AddActivity(18)} />}
+            {showAngularUniversal && <AngularUniversalPage closeAngularUniversal={() => setAngularUniversal(false)} Done={() => AddActivity(19)} />}
+            {showBootstrap && <BootstrapPage closeBootstrap={() => setBootstrap(false)} Done={() => AddActivity(20)} />}
+            {showTailwindcss && <Tailwindcss closeTailwindcss={() => setTailwindcss(false)} Done={() => AddActivity(21)} />}
+            {showMaterialUI && <MaterialUIPage closeMaterialUI={() => setMaterialUI(false)} Done={() => AddActivity(22)} />}
             {showFullResources && <FullResources closeFullResources={() => setFullResources(false)} />}
-            {showReactContextAPI && <ReactContextAPI closeContextAPI={() => setshowReactContextAPI(false)} />}
-            {showReduxPage && <ReduxPage closeRedux={() => setshowReduxPage(false)} />}
-            {showZustandPage && <ZustandPage closeZustand={() => setZustandPage(false)} />}
-         
+            {showReactContextAPI && <ReactContextAPI closeContextAPI={() => setshowReactContextAPI(false)} Done={() => AddActivity(23)} />}
+            {showReduxPage && <ReduxPage closeRedux={() => setshowReduxPage(false)} Done={() => AddActivity(24)} />}
+            {showZustandPage && <ZustandPage closeZustand={() => setZustandPage(false)} Done={() => AddActivity(25)} />}
 
             <div className='flex justify-center p-4 w-[100%]'>
                 <Header />
@@ -363,7 +377,7 @@ const oneStepDone = () => {
             <div className="conater relative w-full h-full">
                 <div className="divider h-full items-center bg-white w-1 rounded-full absolute left-2 sm:left-[50%]"></div>
                 <div className="flex flex-col justify-center w-full">
-                    {roadmap[1]?.roadmapSteps?.map((item) => (
+                    {WebRoadmap.map((item) => (
                         <div
                             key={item.id}
                             className={`flex items-center w-full my-4  ${item.id % 2 === 0 ? "sm:justify-end pl-4 pr-4" : "sm:justify-start pl-4 pr-4"
@@ -420,7 +434,7 @@ const oneStepDone = () => {
                     </span>
                 </button>
             </div>
-            <Reviews/>
+            <Reviews />
         </section>
     );
 }

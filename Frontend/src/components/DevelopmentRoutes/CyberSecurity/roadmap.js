@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Header from "../../layout/Header";
 
 // Placeholder imports for each roadmap ge
@@ -16,10 +16,12 @@ import RoutinePage from "../CyberSecurity/Routine";
 import Fullresource from "../CyberSecurity/Fullresource";
 import Development from "../../../hooks/developments.hooks";
 
-
+import ActivityContext from "../../../Context/activity.context";
+import { toast } from "sonner";
 
 export default function Cybersecurity() {
   const [activeId, setActiveId] = useState(null);
+  const { createActivity } = useContext(ActivityContext);
 
   // Modal states for each
   const [showBasics, setShowBasics] = useState(false);
@@ -34,9 +36,8 @@ export default function Cybersecurity() {
   const [showRoutine, setShowRoutine] = useState(false);
   const [showFullResource, setFullResource] = useState(false);
 
-
   //  Handlers for each step
-   const handlers = {
+  const handlers = {
     handleBasics: () => setShowBasics(!showBasics),
     handleNetworking: () => setShowNetworking(!showNetworking),
     handleOSBasics: () => setShowOSBasics(!showOSBasics),
@@ -50,28 +51,50 @@ export default function Cybersecurity() {
     handleFullResource: () => setFullResource(!showFullResource),
   };
 
-    const { data: roadmap, loading, error } = Development()
+  const { data: roadmap, loading, error } = Development();
 
-    const CyberSecurityRoadmap = roadmap?.[6]?.roadmapSteps
-    if (loading) {
-        return <h1>loading</h1>
+  const CyberSecurityRoadmap = roadmap?.[6]?.roadmapSteps ?? [];
+
+  if (loading) {
+    return <h1>loading</h1>;
+  }
+  if (error) {
+    return <h2 className="text-white">Something went wrong!</h2>;
+  }
+
+  // AddActivity: mark a roadmap step completed (records activity via context)
+  const AddActivity = async (id) => {
+    try {
+      if (!CyberSecurityRoadmap?.[id]) {
+        console.warn("AddActivity: invalid step id", id);
+        return;
+      }
+      const stepName = CyberSecurityRoadmap[id].name;
+      const roadmapId = roadmap?.[6]?.route ?? roadmap?.[6]?.title ?? "cybersecurity";
+      await createActivity({
+        roadmpStepsId: stepName,
+        roadmapId: roadmapId,
+      });
+      toast.success(`${stepName} completed successfully!`);
+    } catch (err) {
+      console.error("AddActivity error", err);
+      toast.error("Failed to record activity");
     }
-    if (error) {
-        return <h2 className='text-white'>Something went wrong!</h2>
-    }
+  };
+
   return (
     <section className="flex flex-col items-center justify-center h-full lg:w-[80%] w-[100%] gap-3 overflow-hidden">
-      {/* Modals */}
-      {showBasics && <BasicsPage closeBasics={handlers.handleBasics} />}
-      {showNetworking && <NetworkingPage closeNetworking={handlers.handleNetworking} />}
-      {showOSBasics && <OSBasicsPage closeOSBasics={handlers.handleOSBasics} />}
-      {showCyberLab && <CyberLabPage closeCyberLab={handlers.handleCyberLab} />}
-      {showRedTeam && <RedTeamPage closeRedTeam={handlers.handleRedTeam} />}
-      {showBlueTeam && <BlueTeamPage closeBlueTeam={handlers.handleBlueTeam} />}
-      {showTrackChoice && <TrackChoicePage closeTrackChoice={handlers.handleTrackChoice} />}
-      {showProjects && <ProjectsPage closeProjects={handlers.handleProjects} />}
-      {showCertifications && <CertificationsPage closeCertifications={handlers.handleCertifications} />}
-      {showRoutine && <RoutinePage closeRoutine={handlers.handleRoutine} />}
+      {/* Modals with Done callbacks */}
+      {showBasics && <BasicsPage closeBasics={handlers.handleBasics} Done={() => AddActivity(0)} />}
+      {showNetworking && <NetworkingPage closeNetworking={handlers.handleNetworking} Done={() => AddActivity(1)} />}
+      {showOSBasics && <OSBasicsPage closeOSBasics={handlers.handleOSBasics} Done={() => AddActivity(2)} />}
+      {showCyberLab && <CyberLabPage closeCyberLab={handlers.handleCyberLab} Done={() => AddActivity(3)} />}
+      {showRedTeam && <RedTeamPage closeRedTeam={handlers.handleRedTeam} Done={() => AddActivity(4)} />}
+      {showBlueTeam && <BlueTeamPage closeBlueTeam={handlers.handleBlueTeam} Done={() => AddActivity(5)} />}
+      {showTrackChoice && <TrackChoicePage closeTrackChoice={handlers.handleTrackChoice} Done={() => AddActivity(6)} />}
+      {showProjects && <ProjectsPage closeProjects={handlers.handleProjects} Done={() => AddActivity(7)} />}
+      {showCertifications && <CertificationsPage closeCertifications={handlers.handleCertifications} Done={() => AddActivity(8)} />}
+      {showRoutine && <RoutinePage closeRoutine={handlers.handleRoutine} Done={() => AddActivity(9)} />}
       {showFullResource && <Fullresource closeFullResources={handlers.handleFullResource} />}
 
       <div className="flex justify-center p-4 w-[100%]">
@@ -93,15 +116,13 @@ export default function Cybersecurity() {
           {CyberSecurityRoadmap.map((item) => (
             <div
               key={item.id}
-              className={`flex items-center w-full my-4 ${
-                item.id % 2 === 0 ? "sm:justify-end pl-4 pr-4" : "sm:justify-start pl-4 pr-4"
-              }`}
+              className={`flex items-center w-full my-4 ${item.id % 2 === 0 ? "sm:justify-end pl-4 pr-4" : "sm:justify-start pl-4 pr-4"
+                }`}
             >
               <div className={`w-[95%] sm:w-1/2 flex items-center h-fit sm:h-[8rem]`}>
                 <div
-                  className={`flex items-center w-full ${
-                    item.id % 2 === 0 ? "sm:justify-start" : "sm:justify-start sm:flex-row-reverse"
-                  }`}
+                  className={`flex items-center w-full ${item.id % 2 === 0 ? "sm:justify-start" : "sm:justify-start sm:flex-row-reverse"
+                    }`}
                 >
                   <div className="line w-[2rem] h-1 bg-white"></div>
                   <div
@@ -116,9 +137,8 @@ export default function Cybersecurity() {
                   >
                     <h4 className="text-lg text-center font-semibold text-gray-800">{item.name}</h4>
                     <div
-                      className={`overflow-hidden hidden sm:block transition-all duration-500 ease-in-out ${
-                        activeId === item.id ? "max-h-[500px] mt-2" : "max-h-0"
-                      }`}
+                      className={`overflow-hidden hidden sm:block transition-all duration-500 ease-in-out ${activeId === item.id ? "max-h-[500px] mt-2" : "max-h-0"
+                        }`}
                     >
                       <p className="text-sm text-gray-600 bg-white p-4 rounded-lg shadow-md">{item.des}</p>
                     </div>

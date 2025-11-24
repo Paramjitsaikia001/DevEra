@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Header from "../../layout/Header";
 
 // Placeholder imports for each roadmap step page
@@ -21,9 +21,12 @@ import Fullresource from "../BigData/Fullresource";
 import Development from "../../../hooks/developments.hooks";
 import Reviews from "../../forms/Review";
 
+import ActivityContext from "../../../Context/activity.context";
+import { toast } from "sonner";
 
 export default function BigData() {
   const [activeId, setActiveId] = useState(null);
+  const { createActivity } = useContext(ActivityContext);
 
   // Modal states for each step
   const [showFoundations, setShowFoundations] = useState(false);
@@ -63,33 +66,55 @@ export default function BigData() {
     handleFullResource: () => setFullResource(!showFullResource),
   };
 
-    const { data: roadmap, loading, error } = Development()
+  const { data: roadmap, loading, error } = Development();
 
-    const BigDataRoadmap = roadmap?.[11]?.roadmapSteps
-    if (loading) {
-        return <h1>loading</h1>
+  const BigDataRoadmap = roadmap?.[11]?.roadmapSteps ?? [];
+
+  if (loading) {
+    return <h1>loading</h1>;
+  }
+  if (error) {
+    return <h2 className='text-white'>Something went wrong!</h2>;
+  }
+
+  // AddActivity: mark a roadmap step completed (same pattern as appdevelopmet)
+  const AddActivity = async (id) => {
+    if (!BigDataRoadmap?.[id]) {
+      console.warn("AddActivity: invalid step id", id);
+      return;
     }
-    if (error) {
-        return <h2 className='text-white'>Something went wrong!</h2>
+    try {
+      const stepName = BigDataRoadmap[id].name;
+      const roadmapId = roadmap?.[11]?.route ?? roadmap?.[11]?.title ?? "bigdata";
+      await createActivity({
+        roadmpStepsId: stepName,
+        roadmapId: roadmapId
+      });
+      toast.success(`${stepName} completed successfully!`);
+    } catch (err) {
+      console.error("AddActivity error", err);
+      toast.error("Failed to record activity");
     }
+  };
+
   return (
     <section className="flex flex-col items-center justify-center h-full lg:w-[80%] w-[100%] gap-3 overflow-hidden">
       {/* Modals */}
-      {showFoundations && <FoundationsPage closeFoundations={handlers.handleFoundations} />}
-      {showDataEngineering && <DataEngineeringPage closeDataEngineering={handlers.handleDataEngineering} />}
-      {showStorage && <StoragePage closeStorage={handlers.handleStorage} />}
-      {showBatchProcessing && <BatchProcessingPage closeBatchProcessing={handlers.handleBatchProcessing} />}
-      {showDistributedProcessing && <DistributedProcessingPage closeDistributedProcessing={handlers.handleDistributedProcessing} />}
-      {showStreaming && <StreamingPage closeStreaming={handlers.handleStreaming} />}
-      {showQueryEngines && <QueryEnginesPage closeQueryEngines={handlers.handleQueryEngines} />}
-      {showOrchestration && <OrchestrationPage closeOrchestration={handlers.handleOrchestration} />}
-      {showInfrastructure && <InfrastructurePage closeInfrastructure={handlers.handleInfrastructure} />}
-      {showCloudServices && <CloudServicesPage closeCloudServices={handlers.handleCloudServices} />}
-      {showGovernance && <GovernancePage closeGovernance={handlers.handleGovernance} />}
-      {showObservability && <ObservabilityPage closeObservability={handlers.handleObservability} />}
-      {showML && <MLPage closeML={handlers.handleML} />}
-      {showCapstone && <CapstonePage closeCapstone={handlers.handleCapstone} />}
-      {showCareer && <CareerPage closeCareer={handlers.handleCareer} />}
+      {showFoundations && <FoundationsPage closeFoundations={handlers.handleFoundations} Done={() => AddActivity(0)} />}
+      {showDataEngineering && <DataEngineeringPage closeDataEngineering={handlers.handleDataEngineering} Done={() => AddActivity(1)} />}
+      {showStorage && <StoragePage closeStorage={handlers.handleStorage} Done={() => AddActivity(2)} />}
+      {showBatchProcessing && <BatchProcessingPage closeBatchProcessing={handlers.handleBatchProcessing} Done={() => AddActivity(3)} />}
+      {showDistributedProcessing && <DistributedProcessingPage closeDistributedProcessing={handlers.handleDistributedProcessing} Done={() => AddActivity(4)} />}
+      {showStreaming && <StreamingPage closeStreaming={handlers.handleStreaming} Done={() => AddActivity(5)} />}
+      {showQueryEngines && <QueryEnginesPage closeQueryEngines={handlers.handleQueryEngines} Done={() => AddActivity(6)} />}
+      {showOrchestration && <OrchestrationPage closeOrchestration={handlers.handleOrchestration} Done={() => AddActivity(7)} />}
+      {showInfrastructure && <InfrastructurePage closeInfrastructure={handlers.handleInfrastructure} Done={() => AddActivity(8)} />}
+      {showCloudServices && <CloudServicesPage closeCloudServices={handlers.handleCloudServices} Done={() => AddActivity(9)} />}
+      {showGovernance && <GovernancePage closeGovernance={handlers.handleGovernance} Done={() => AddActivity(10)} />}
+      {showObservability && <ObservabilityPage closeObservability={handlers.handleObservability} Done={() => AddActivity(11)} />}
+      {showML && <MLPage closeML={handlers.handleML} Done={() => AddActivity(12)} />}
+      {showCapstone && <CapstonePage closeCapstone={handlers.handleCapstone} Done={() => AddActivity(13)} />}
+      {showCareer && <CareerPage closeCareer={handlers.handleCareer} Done={() => AddActivity(14)} />}
       {showFullResource && <Fullresource closeFullResources={handlers.handleFullResource} />}
 
       <div className="flex justify-center p-4 w-[100%]">
@@ -108,18 +133,16 @@ export default function BigData() {
       <div className="conater relative w-full h-full">
         <div className="divider h-full items-center bg-white w-1 rounded-full absolute left-2 sm:left-[50%]"></div>
         <div className="flex flex-col justify-center w-full">
-          {BigDataRoadmap.map((item) => (
+          {BigDataRoadmap.map((item, idx) => (
             <div
-              key={item.id}
-              className={`flex items-center w-full my-4 ${
-                item.id % 2 === 0 ? "sm:justify-end pl-4 pr-4" : "sm:justify-start pl-4 pr-4"
-              }`}
+              key={item.id ?? idx}
+              className={`flex items-center w-full my-4 ${item.id % 2 === 0 ? "sm:justify-end pl-4 pr-4" : "sm:justify-start pl-4 pr-4"
+                }`}
             >
               <div className={`w-[95%] sm:w-1/2 flex items-center h-fit sm:h-[8rem]`}>
                 <div
-                  className={`flex items-center w-full ${
-                    item.id % 2 === 0 ? "sm:justify-start" : "sm:justify-start sm:flex-row-reverse"
-                  }`}
+                  className={`flex items-center w-full ${item.id % 2 === 0 ? "sm:justify-start" : "sm:justify-start sm:flex-row-reverse"
+                    }`}
                 >
                   <div className="line w-[2rem] h-1 bg-white"></div>
                   <div
@@ -134,9 +157,8 @@ export default function BigData() {
                   >
                     <h4 className="text-lg text-center font-semibold text-gray-800">{item.name}</h4>
                     <div
-                      className={`overflow-hidden hidden sm:block transition-all duration-500 ease-in-out ${
-                        activeId === item.id ? "max-h-[500px] mt-2" : "max-h-0"
-                      }`}
+                      className={`overflow-hidden hidden sm:block transition-all duration-500 ease-in-out ${activeId === item.id ? "max-h-[500px] mt-2" : "max-h-0"
+                        }`}
                     >
                       <p className="text-sm text-gray-600 bg-white p-4 rounded-lg shadow-md">{item.des}</p>
                     </div>
@@ -161,7 +183,7 @@ export default function BigData() {
           <span className="material-symbols-outlined">text_snippet</span>
         </button>
       </div>
-      <Reviews/>
+      <Reviews />
     </section>
   );
 }

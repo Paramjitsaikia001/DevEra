@@ -9,7 +9,7 @@ const createActivity = asyncHandler(async (req, res) => {
     const userId = req.user.id
 
     if (!roadmpStepsId || !roadmapId) {
-        throw new ApiError(400, "roadmap step with roadmap id id is required")
+        throw new ApiError(400, "roadmap step with roadmap id is required")
     }
 
     const exist = await Activity.findOne({ userId, roadmpStepsId, roadmapId })

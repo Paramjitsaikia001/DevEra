@@ -2,17 +2,17 @@ const ProfilePics = [
     {
         id: 1,
         tittle: "profilepic 1",
-        url: "http://localhost:3000/traintoexcellency/Frontend-build/profileAndCover/ProfilePic.png"
+        url: "http://localhost:3000/traintoexcellency/Frontend-build/profileAndCover/ProfilePic.jpg"
     },
     {
         id: 2,
         tittle: "profilepic 2",
-        url: "http://localhost:3000/traintoexcellency/Frontend-build/profileAndCover/ProfilePic.png"
+        url: "http://localhost:3000/traintoexcellency/Frontend-build/profileAndCover/ProfilePic2.png"
     },
     {
         id: 3,
         tittle: "profilepic 3",
-        url: "http://localhost:3000/traintoexcellency/Frontend-build/profileAndCover/ProfilePic.png"
+        url: "http://localhost:3000/traintoexcellency/Frontend-build/profileAndCover/ProfilePic3.png"
     },
 ]
 

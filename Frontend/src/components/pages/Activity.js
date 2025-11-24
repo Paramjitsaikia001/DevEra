@@ -2,7 +2,7 @@ import MobileNav from "../navigation/mobilenav"
 import Header from "../layout/Header"
 import Footer from "../layout/Footer"
 import React from "react";
-import SavedRoadmaps from "../../utils/savedRoadmap";
+import UserActivity from "../../utils/UserActivity";
 
 export default function Saved() {
   
@@ -15,7 +15,7 @@ export default function Saved() {
                 <Header />
             </div>
             <div className="flex flex-col items-center justify-center ">
-               <SavedRoadmaps />
+               <UserActivity />
             </div>
             <Footer />
             <MobileNav />

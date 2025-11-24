@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Header from "../../layout/Header";
 import PythonPage from "./Pythonpage";
 import MathematicalPage from "./Mathematical";
@@ -11,11 +11,13 @@ import EthicsAIPage from "./ERAI";
 import Fullresource from "./FullResource";
 import Development from "../../../hooks/developments.hooks";
 import Reviews from "../../forms/Review";
-
+import ActivityContext from "../../../Context/activity.context";
+import {toast} from "sonner"
 
 
 export default function AiMl() {
     const [activeId, setActiveId] = useState(null);
+    const {createActivity} = useContext(ActivityContext);
 
     // Modal states
     const [pythonpage, setPythonpage] = useState(false);
@@ -62,23 +64,41 @@ export default function AiMl() {
             return <h2 className='text-white'>Something went wrong!</h2>
         }
 
-        const isDone=(id)=>{
-            console.log(roadmap?.[0].title,roadmap?.[0].roadmapSteps[id].name ,"is varified" );
+      
+
+        const AddActivity=async(id)=>{
+            console.log({roadmpStepsId:roadmap?.[0].roadmapSteps[id].name,roadmapId:roadmap?.[0].title})
             
+            try{
+                const res = await createActivity({roadmpStepsId:roadmap?.[0].roadmapSteps[id].name,roadmapId:roadmap?.[0].route})
+                toast.success(`${roadmap?.[0].roadmapSteps[id].name} completed successfully!`)
+                console.log("res", res);
+                
+            }catch(err){
+                console.log(err);
+            }
         }
     return (
         <section className="flex flex-col items-center justify-center h-full lg:w-[80%] w-[100%] gap-3 overflow-hidden">
             {/* Modals */}
-            {pythonpage && <PythonPage closePython={handlePythonPage} Done={()=>isDone(0)
+            {pythonpage && <PythonPage closePython={handlePythonPage} Done={()=>AddActivity(0)
             } />}
-            {Mathematical && <MathematicalPage closeMathematical={handleMathematical} />}
-            {MLLinandAlgPage && <MLlibandalgPage closeMLLibandalg={handleMLLinandAlgPage} />}
-            {DataManiAndVisu && <DataManiAndVisuPage closeDataManiAndVisu={handleDataManiAndVisu} />}
-            {NeuralNetworks && <NeuralNetworksPage closeNeuralNetworks={handleNeuralNetworks} />}
-            {showNLPPage && <NLPPage closeNLP={NLPhandler} />}
-            {showcomputervission && <ComputerVisionPage closeComputerVision={computervisionHandler} />}
-            {showEthicsAIPage && <EthicsAIPage closeEthicsAI={EthicsAIHandler} />}
-            {showfullresource && <Fullresource closeFullResources={() => setFullResource(false)} />}
+            {Mathematical && <MathematicalPage closeMathematical={handleMathematical} Done={()=>AddActivity(1)
+            }/>}
+            {MLLinandAlgPage && <MLlibandalgPage closeMLLibandalg={handleMLLinandAlgPage} Done={()=>AddActivity(2)
+            }/>}
+            {DataManiAndVisu && <DataManiAndVisuPage closeDataManiAndVisu={handleDataManiAndVisu} Done={()=>AddActivity(3)
+            }/>}
+            {NeuralNetworks && <NeuralNetworksPage closeNeuralNetworks={handleNeuralNetworks} Done={()=>AddActivity(4)
+            }/>}
+            {showNLPPage && <NLPPage closeNLP={NLPhandler} Done={()=>AddActivity(5)
+            }/>}
+            {showcomputervission && <ComputerVisionPage closeComputerVision={computervisionHandler} Done={()=>AddActivity(6)
+            }/>}
+            {showEthicsAIPage && <EthicsAIPage closeEthicsAI={EthicsAIHandler} Done={()=>AddActivity(7)
+            }/>}
+            {showfullresource && <Fullresource closeFullResources={() => setFullResource(false)} Done={()=>AddActivity(8)
+            }/>}
 
             <div className='flex justify-center p-4 w-[100%]'>
                 <Header />

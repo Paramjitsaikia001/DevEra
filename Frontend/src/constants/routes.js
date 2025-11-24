@@ -7,7 +7,7 @@ export const ROUTES = {
     SAVED: '/traintoexcellency/Frontend-build/saved',
     NOTFICATION: '/traintoexcellency/Frontend-build/notification',
     ABOUT_US: '/traintoexcellency/Frontend-build/About-us',
-    AI_CHAT: '/traintoexcellency/Frontend-build/ai-chat',
+    ACITVITY:'/traintoexcellency/Frontend-build/activity',
     REGISTER: '/traintoexcellency/Frontend-build/Register',
     LOGIN:"/traintoexcellency/Frontend-build/login",
     ADDITIONALDETAILS:'/traintoexcellency/Frontend-build/Register/additional-details',

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import SavedRoadmaps from "../../utils/savedRoadmap";
 import UserContext from "../../Context/user.context";
 import ReviewsofUser from "../../utils/ReviewofUser";
+import UserActivity from "../../utils/UserActivity";
 
 export default function Profile() {
 
@@ -191,10 +192,8 @@ export default function Profile() {
                     <ReviewsofUser /> : ""
                 }
                 {isActivity ?
-
-                    <div className="activitysection w-full p-4">
-                        <p className="text-gray-500">No recent activity.</p>
-                    </div> : ""
+                    <UserActivity />
+                    :""
                 }
             </div>
         </section>

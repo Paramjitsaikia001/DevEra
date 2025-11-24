@@ -1,5 +1,4 @@
-import { useState } from 'react';
-
+import { useState, useContext } from 'react';
 import Header from '../../layout/Header';
 import Fullresource from '../Gamedevelopment/Fullresource';
 import GameEnginesPage from '../Gamedevelopment/GameEngines';
@@ -16,10 +15,14 @@ import PublishingPage from '../Gamedevelopment/Publishing';
 import MathPage from '../Gamedevelopment/Math';
 import Development from '../../../hooks/developments.hooks';
 
-
+import ActivityContext from '../../../Context/activity.context';
+import { toast } from 'sonner';
 
 export default function GameDev() {
   const [activeId, setActiveId] = useState(null);
+
+  // Activity context
+  const { createActivity } = useContext(ActivityContext);
 
   // Modal states for each step
   const [showProgramming, setShowProgramming] = useState(false);
@@ -47,29 +50,48 @@ export default function GameDev() {
     handleFullResource: () => setFullResource(!showFullResource),
   };
 
+  const { data: roadmap, loading, error } = Development();
 
-    const { data: roadmap, loading, error } = Development()
-  
-      const GamedevRoadmap = roadmap?.[5]?.roadmapSteps
-      if (loading) {
-          return <h1>loading</h1>
+  const GamedevRoadmap = roadmap?.[5]?.roadmapSteps ?? [];
+  if (loading) {
+    return <h1>loading</h1>;
+  }
+  if (error) {
+    return <h2 className='text-white'>Something went wrong!</h2>;
+  }
+
+  // AddActivity: record completed step via ActivityContext
+  const AddActivity = async (id) => {
+    try {
+      if (!GamedevRoadmap?.[id]) {
+        console.warn('AddActivity: invalid step id', id);
+        return;
       }
-      if (error) {
-          return <h2 className='text-white'>Something went wrong!</h2>
-      }
+      const stepName = GamedevRoadmap[id].name;
+      const roadmapId = roadmap?.[5]?.route ?? roadmap?.[5]?.title ?? 'game-development';
+      await createActivity({
+        roadmpStepsId: stepName,
+        roadmapId: roadmapId,
+      });
+      toast.success(`${stepName} completed successfully!`);
+    } catch (err) {
+      console.error('AddActivity error', err);
+      toast.error('Failed to record activity');
+    }
+  };
 
   return (
     <section className="flex flex-col items-center justify-center h-full lg:w-[80%] w-[100%] gap-3 overflow-hidden ">
       {/* Modals */}
-      {showProgramming && <ProgrammingPage closeProgramming={handlers.handleProgramming} />}
-      {showGameEngines && <GameEnginesPage closeGameEngines={handlers.handleGameEngines} />}
-      {showDSA && <DSAPage closeDSA={handlers.handleDSA} />}
-      {showGit && <GitPage closeGit={handlers.handleGit} />}
-      {showMath && <MathPage closeMath={handlers.handleMath} />}
-      {showGraphics && <GraphicsPage closeGraphics={handlers.handleGraphics} />}
-      {showNetworking && <NetworkingPage closeNetworking={handlers.handleNetworking} />}
-      {showAI && <AIPage closeAI={handlers.handleAI} />}
-      {showPublishing && <PublishingPage closePublishing={handlers.handlePublishing} />}
+      {showProgramming && <ProgrammingPage closeProgramming={handlers.handleProgramming} Done={() => AddActivity(0)} />}
+      {showGameEngines && <GameEnginesPage closeGameEngines={handlers.handleGameEngines} Done={() => AddActivity(1)} />}
+      {showDSA && <DSAPage closeDSA={handlers.handleDSA} Done={() => AddActivity(2)} />}
+      {showGit && <GitPage closeGit={handlers.handleGit} Done={() => AddActivity(3)} />}
+      {showMath && <MathPage closeMath={handlers.handleMath} Done={() => AddActivity(4)} />}
+      {showGraphics && <GraphicsPage closeGraphics={handlers.handleGraphics} Done={() => AddActivity(5)} />}
+      {showNetworking && <NetworkingPage closeNetworking={handlers.handleNetworking} Done={() => AddActivity(6)} />}
+      {showAI && <AIPage closeAI={handlers.handleAI} Done={() => AddActivity(7)} />}
+      {showPublishing && <PublishingPage closePublishing={handlers.handlePublishing} Done={() => AddActivity(8)} />}
       {showFullResource && <Fullresource closeFullResources={handlers.handleFullResource} />}
 
       <div className="flex justify-center p-4 w-[100%]">
@@ -91,15 +113,13 @@ export default function GameDev() {
           {GamedevRoadmap.map((item) => (
             <div
               key={item.id}
-              className={`flex items-center w-full my-4 ${
-                item.id % 2 === 0 ? "sm:justify-end pl-4 pr-4" : "sm:justify-start pl-4 pr-4"
-              }`}
+              className={`flex items-center w-full my-4 ${item.id % 2 === 0 ? "sm:justify-end pl-4 pr-4" : "sm:justify-start pl-4 pr-4"
+                }`}
             >
               <div className={`w-[95%] sm:w-1/2 flex items-center h-fit sm:h-[8rem]`}>
                 <div
-                  className={`flex items-center w-full ${
-                    item.id % 2 === 0 ? "sm:justify-start" : "sm:justify-start sm:flex-row-reverse"
-                  }`}
+                  className={`flex items-center w-full ${item.id % 2 === 0 ? "sm:justify-start" : "sm:justify-start sm:flex-row-reverse"
+                    }`}
                 >
                   <div className="line w-[2rem] h-1 bg-white"></div>
                   <div
@@ -113,11 +133,7 @@ export default function GameDev() {
                     onMouseLeave={() => setActiveId(null)}
                   >
                     <h4 className="text-lg text-center font-semibold text-gray-800">{item.name}</h4>
-                    <div
-                      className={`overflow-hidden hidden sm:block transition-all duration-500 ease-in-out ${
-                        activeId === item.id ? "max-h-[500px] mt-2" : "max-h-0"
-                      }`}
-                    >
+                    <div className={`overflow-hidden hidden sm:block transition-all duration-500 ease-in-out ${activeId === item.id ? "max-h-[500px] mt-2" : "max-h-0"}`}>
                       <p className="text-sm text-gray-600 bg-white p-4 rounded-lg shadow-md">{item.des}</p>
                     </div>
                     <div className={`sm:hidden block transition-all duration-500 ease-in-out`}>

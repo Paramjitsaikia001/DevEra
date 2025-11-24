@@ -12,6 +12,7 @@ export const ActivityProvider = ({ children }) => {
         setLoading(true)
         setError(null)
         try {
+            console.log("Activity created:", { roadmpStepsId, roadmapId });
             const res = await Api.post("/activity/create-activity", { roadmpStepsId, roadmapId })
             return res.data
         } catch (error) {

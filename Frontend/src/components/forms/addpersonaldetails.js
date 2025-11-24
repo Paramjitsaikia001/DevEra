@@ -25,7 +25,7 @@ const PersonalDetails = () => {
     const addDetailsHandler=async()=>{
     try {
       await addDetails(github,linkedin,Portfolio,bio)
-        window.location.href="/traintoexcellency/Frontend-build/home"
+        window.location.href="/"
     } catch (error) {
       
     }

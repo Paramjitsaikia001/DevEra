@@ -18,11 +18,13 @@ import ProjectIdeaPage from "../APPdevelopment/ProjectIdea"
 import FullresourcePage from "../APPdevelopment/Fullresource"
 import Development from "../../../hooks/developments.hooks"
 import Reviews from "../../forms/Review";
-
+import ActivityContext from "../../../Context/activity.context";
+import {useContext} from "react"
+import {toast} from "sonner"
 
 export default function CrossPlatformRoadmap() {
   const [activeId, setActiveId] = useState(null);
-
+  const {createActivity} = useContext(ActivityContext);
   // Modal states
   const [showFoundations, setFoundations] = useState(false);
   const [showFrameworks, setFrameworks] = useState(false);
@@ -83,23 +85,36 @@ export default function CrossPlatformRoadmap() {
          if (error) {
             return <h2 className='text-white'>Something went wrong!</h2>
         }
+
+             const AddActivity=async(id)=>{
+            // console.log({roadmpStepsId:roadmap?.[0].roadmapSteps[id].name,roadmapId:roadmap?.[4].title})
+            
+            try{
+                const res = await createActivity({roadmpStepsId:roadmap?.[4].roadmapSteps[id]?.name,roadmapId:roadmap?.[4].route})
+                toast.success(`${roadmap?.[4].roadmapSteps[id].name} completed successfully!`)
+                console.log("res", res);
+                
+            }catch(err){
+                console.log(err);
+            }
+        }
   return (
     <section className="flex flex-col items-center justify-center h-full lg:w-[80%] w-[100%] gap-3 overflow-hidden">
       {/* Modals */}
-      {showFoundations && <FoundationsPage closeFoundation={handleFoundations} />}
-      {showFrameworks && <FrameworksPage closeFrameworks={handleFrameworks} />}
-      {showUIStyling && <UIStylingPage closeUIStyling={handleUIStyling} />}
-      {showStateManagement && <StateManagementPage closeState={handleStateManagement} />}
-      {showNavigation && <NavigationRoutingPage closeNavigation={handleNavigation} />}
-      {showAPIsNetworking && <APIsNetworkingPage closeAPIs={handleAPIsNetworking} />}
-      {showNativeModules && <NativeModulesPage closeNative={handleNativeModules} />}
-      {showAuthSecurity && <AuthSecurityPage closeAuth={handleAuthSecurity} />}
-      {showTestingDebugging && <TestingDebuggingPage closeTesting={handleTestingDebugging} />}
-      {showPerformance && <PerformancePage closePerformance={handlePerformance} />}
-      {showDeployment && <DeploymentPage closeDeployment={handleDeployment} />}
-      {showAdvancedTopics && <AdvancedTopicsPage closeAdvanced={handleAdvancedTopics} />}
-      {showProjectIdeas && <ProjectIdeaPage closeProjects={handleProjectIdeas} />}
-      {showFullResources && <FullresourcePage closeFullResources={handleFullResources} />}
+      {showFoundations && <FoundationsPage closeFoundation={handleFoundations}  Done={()=>AddActivity(0)}/>}
+      {showFrameworks && <FrameworksPage closeFrameworks={handleFrameworks} Done={()=>AddActivity(1)}/>}
+      {showUIStyling && <UIStylingPage closeUIStyling={handleUIStyling} Done={()=>AddActivity(2)}/>}
+      {showStateManagement && <StateManagementPage closeState={handleStateManagement} Done={()=>AddActivity(3)}/>}
+      {showNavigation && <NavigationRoutingPage closeNavigation={handleNavigation} Done={()=>AddActivity(4)}/>}
+      {showAPIsNetworking && <APIsNetworkingPage closeAPIs={handleAPIsNetworking} Done={()=>AddActivity(5)}/>}
+      {showNativeModules && <NativeModulesPage closeNative={handleNativeModules} Done={()=>AddActivity(6)}/>}
+      {showAuthSecurity && <AuthSecurityPage closeAuth={handleAuthSecurity} Done={()=>AddActivity(7)}/>}
+      {showTestingDebugging && <TestingDebuggingPage closeTesting={handleTestingDebugging} Done={()=>AddActivity(8)}/>}
+      {showPerformance && <PerformancePage closePerformance={handlePerformance} Done={()=>AddActivity(9)}/>}
+      {showDeployment && <DeploymentPage closeDeployment={handleDeployment} Done={()=>AddActivity(10)}/>}
+      {showAdvancedTopics && <AdvancedTopicsPage closeAdvanced={handleAdvancedTopics} Done={()=>AddActivity(11)}/>}
+      {showProjectIdeas && <ProjectIdeaPage closeProjects={handleProjectIdeas} Done={()=>AddActivity(12)}/>}
+      {showFullResources && <FullresourcePage closeFullResources={handleFullResources} Done={()=>AddActivity(13)}/>}
 
       <div className="flex justify-center p-4 w-[100%]">
         <Header />

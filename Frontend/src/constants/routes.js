@@ -13,6 +13,7 @@ export const ROUTES = {
     ADDITIONALDETAILS:'/traintoexcellency/Frontend-build/Register/additional-details',
     ADDPERSONALDETAILS:"/traintoexcellency/Frontend-build/Register/personal-details",
     UPDATEDETAILS:"/traintoexcellency/Frontend-build/update-details",
+    SEARCH:"/traintoexcellency/Frontend-build/search",
 
     // Development sub-routes
     APP_DEV: '/traintoexcellency/Frontend-build/development/appdev',
@@ -30,8 +31,8 @@ export const ROUTES = {
 };
 
 export const NAV_ITEMS = [
-    { path: ROUTES.DEVELOPMENT, label: 'Development', icon: 'developer_board' },
-    { path: ROUTES.LANGUAGE, label: 'Language', icon: 'code_blocks' },
-    { path: ROUTES.EXPLORE, label: 'Explore', icon: 'search' },
-    { path: ROUTES.ABOUT_US, label: 'About us', icon: 'info' }
+    { path: ROUTES.HOME, label: 'Home', icon: 'Home' },
+    { path: ROUTES.DEVELOPMENT, label: 'Development', icon: 'FolderCode' },
+    { path: ROUTES.EXPLORE, label: 'Explore', icon: 'Search' },
+    { path: ROUTES.PROFILE, label: 'Profile', icon: 'person' }
 ]; 

@@ -17,9 +17,10 @@ export default function Header({ toggleHideLeft, Hide_Left }) {
 
     return (
         <section className={layoutStyles.header}>
-            <div className='md:hidden block'>
-                <Logo />
-            </div>
+             <div className="md:hidden block logo z-10 bg-white w-fit px-3 rounded-md shadow-sm shadow-black">
+
+            <Logo />
+          </div>
             <nav className={layoutStyles.nav}>
                 <Link
                 to="/traintoexcellency/Frontend-build/profile"

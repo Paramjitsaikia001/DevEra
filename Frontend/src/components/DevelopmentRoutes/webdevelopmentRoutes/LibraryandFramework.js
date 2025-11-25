@@ -1,36 +1,36 @@
 import { useState } from "react";
+import { getFullscreenClasses, getFullscreenIconName } from "../../../utils/fullscreenHandler";
 
 export default function LibraryandFramework({ closeLibraryFramework, Done }) {
-    const Nexthandler = () => {
+    const [isFullScreen, setFullScreen] = useState(false);
+
+    const fullscreenHandler = () => {
+        setFullScreen(prev => !prev);
+    };
+
+    const nextHandler = () => {
         Done();
         closeLibraryFramework();
-    }
-    const [isFullScreen, setFullScreen] = useState("left-[60%]");
-    const fullscrenHandler = () => {
-        if (isFullScreen === "left-[60%]") {
-            setFullScreen("left-[20%]");
-        } else {
-            setFullScreen("left-[60%]");
-        }
-    }
+    };
+
     return (
-        <section className={`transition-transform duration-300 ease-in-out fixed right-0 ${isFullScreen} top-0 bottom-0 overflow-y-scroll scrollbar scrollbar-thumb-scrollbarThumb scrollbar-track-scrollbarTrack scrollbar-bg-scrollbarBg inset-0 bg-[#0e1542] flex justify-center items-center z-50 m-0 h-[100%] pt-6`} style={{ boxShadow: "0 0 10px 0px #000000" }}>
+        <section
+            className={getFullscreenClasses(isFullScreen)}
+            style={{ boxShadow: "0 0 10px 0px #000000" }}
+        >
             <div className="bg-[#0e1542] text-white pb-0 px-4 h-[100%]">
                 <div className='flex pb-4 justify-between items-center w-[100%]'>
-                    {isFullScreen === "left-[60%]" ? (
-                        <span className="material-symbols-outlined text-[#8f8f8f] cursor-pointer" onClick={fullscrenHandler}>
-                            open_in_full
-                        </span>
-                    ) : (
-                        <span className="material-symbols-outlined text-[#8f8f8f] cursor-pointer" onClick={fullscrenHandler}>
-                            close_fullscreen
-                        </span>
-                    )}
+                    <span 
+                        className="material-symbols-outlined text-[#8f8f8f] cursor-pointer lg:block hidden" 
+                        onClick={fullscreenHandler}
+                    >
+                        {getFullscreenIconName(isFullScreen)}
+                    </span>
                     <span onClick={closeLibraryFramework} className="material-symbols-outlined text-[#8f8f8f] cursor-pointer">
                         close
                     </span>
                 </div>
-                <h2 className="text-2xl mb-4 bg-[#00d9ff] text-black w-[100%] rounded-md p-2">Libraries and Frameworks in Web Development</h2>
+                <h2 className="text-2xl mb-4 bg-[#00d9ff] text-black w-[100%] rounded-md p-2">Libraries and Frameworks</h2>
                 <div className="flex flex-col gap-1">
                     <p>In web development, <span className="text-[#23daff] font-bold">libraries</span> and <span className="text-[#23daff] font-bold">frameworks</span> are essential tools that help developers build applications more efficiently.</p>
                     
@@ -86,9 +86,9 @@ export default function LibraryandFramework({ closeLibraryFramework, Done }) {
                         </ul>
                     </div>
                 </div>
-                <div className="flex justify-between mt-6">
+                <div className="flex justify-between">
                     <button onClick={closeLibraryFramework} className="px-4 py-2 bg-blue-600 text-white rounded">Close</button>
-                    <button onClick={Nexthandler} className="px-4 py-2 bg-blue-600 text-white rounded">Done</button>
+                    <button onClick={nextHandler} className="px-4 py-2 bg-blue-600 text-white rounded">Done</button>
                 </div>
             </div>
         </section>

@@ -6,75 +6,71 @@ import 'swiper/css/pagination';
 
 // import required modules
 import { Pagination } from 'swiper/modules';
-
+import Development from '../../hooks/developments.hooks';
 
 import Footer from './Footer'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import TypingEffect from 'react-typing-effect';
 import Header from './Header'
 import MobileNav from '../navigation/mobilenav'
 import Reviews from '../forms/Review';
+import { useContext, useState } from 'react';
+import SavedRoadmapContext from '../../Context/savedRoadmap.context';
+import { toast } from 'sonner';
+import { Bookmark } from 'lucide-react';
 
-const cards = [
-    {
-        title: "Full Stack Web Development",
-        description: "Web Development includes front-end (client-side) and back-end (server-side) work, creating functional websites. The future is bright with AI advancements and high demand for responsive, user-friendly designs.",
-        
-        route: "webdev"
-    },
-    {
-        title: "App Development",
-        description: "App Development involves creating applications for mobile and desktop platforms. It covers both front-end (user interface) and back-end (server-side) development.",
-    
-        route: "appdev"
-    },
-    {
-        title: "Game Development",
-        description: "Game Development involves creating interactive games, blending art, storytelling, and coding. It's a dynamic field with growing opportunities thanks to advances in VR and AR technologies.",
-       
-        route: "gamedev"
-    }
-];
 
-// Add this CSS to your index.css or a relevant CSS file:
-/*
-.remove-bg {
-    mix-blend-mode: multiply;
-    background: transparent;
-}
-*/
 
-// Then, in your image tag for the cards, add the className "remove-bg":
-// Example (inside your .map for cards):
-// <img
-//     src={track.image}
-//     alt={track.title}
-//     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 remove-bg"
-// />
-// To visually remove the background of an image using CSS, you can use the `mix-blend-mode` property or apply a filter.
-// Example: Add a class to your <img> and use CSS like:
-// .remove-bg { mix-blend-mode: multiply; background: transparent; }
-// Or use filter: .remove-bg { filter: brightness(1.2) contrast(1.2); background: transparent; }
-// Note: This only works well if the background is a solid color and may not fully remove complex backgrounds.
 
 
 
 export default function Mainright({ toggleHideLeft, Hide_Left }) {
+    const { savedRoadmap, deleteSavedRoadmap, getSavedRoadmapByUser } = useContext(SavedRoadmapContext);
+
+
+
+
+
+
+    const location = useLocation();
+    const [savedMap, setSavedMap] = useState({});
     const navigate = useNavigate(); // Fixed typo: Changed 'nagivate' to 'navigate'
 
-    const routehander = (name) => {
-        navigate(`/traintoexcellency/Frontend-build/development/${name}`); // Use the corrected 'navigate'
-    };
+       const routerhander = (name) => {
+        navigate(`/traintoexcellency/Frontend-build/development/${name}`);
+    }
 
-    // Assign routeHandler to each card
-    cards.forEach(card => {
-        card.routeHandler = () => routehander(card.route);
-    });
+    const roadmapsavedHandler = async (roadmapRoute) => {
+        if (savedMap[roadmapRoute]) {
+            // already saved → delete
+            const res = await deleteSavedRoadmap({ roadmapRoute });
+            if (res?.success) {
+                setSavedMap(prev => ({ ...prev, [roadmapRoute]: false }));
+                toast.success("Removed from saved roadmaps");
+            }
+        } else {
+            // not saved → save
+            const res = await savedRoadmap({ roadmapRoute });
+            if (res?.success) {
+                setSavedMap(prev => ({ ...prev, [roadmapRoute]: true }));
+                toast.success("Saved to your roadmaps");
+            }
+        }
+    };
+   
+    const { data: developmentCards, loading, error } = Development();
+    if (loading) {
+        return <h2 className='text-white'>Loading...</h2>
+    }
+    if (error) {
+        return <h2 className='text-white'>Something went wrong!</h2>
+    }
+
 
     return (
         <section className={`
             flex flex-grow flex-col h-full gap-4 global-scroll-bar
-            ${Hide_Left ? 'w-[100%]' : 'lg:w-[80%] w-[100%]'}
+           w-[100%] xl:w-[80%] 
             transition-all duration-300 ease-in-out overflow-hidden
          `}>
             <div className='flex justify-between py-2 px-4'>
@@ -83,7 +79,7 @@ export default function Mainright({ toggleHideLeft, Hide_Left }) {
             <main className="flex flex-col gap-12 p-4 w-[100%]">
 
                 {/* main line  */}
-                <div className="mainline w-[60%]">
+                <div className="mainline w-[90%] lg:w-[60%]">
                     <p className="flex flex-col gap-4">
                         <span className="text-white font-bold text-4xl flex flex-col">
                             <span className='text-white'>Hello</span>
@@ -98,33 +94,33 @@ export default function Mainright({ toggleHideLeft, Hide_Left }) {
                 </div>
 
                 {/* sliders */}
-                <div className="whatisfor z-1 w-[100%] items-center flex flex-col gap-4 justify-center  relative md:h-[60vh] ">
+                <div className="whatisfor z-1 w-[100%] items-center flex flex-col gap-4 justify-center  relative h-[45vh]  md:h-[60vh] ">
                     <Swiper
                         pagination={{
                             dynamicBullets: true,
                         }}
                         modules={[Pagination]}
-                        className="swiper"
+                        className="swiper "
                     >
                         <SwiperSlide className='swiper-slide flex justify-center items-center'>
-                            <div className="slide1details text-6xl flex justify-center items-center text-[#a0d4ff] font-bold">
+                            <div className="slide1details text-[8vw] md:text-[8vw] md:text-6xl flex justify-center items-center text-[#a0d4ff] font-bold">
                                 <h1>We Features in</h1>
                             </div>
                         </SwiperSlide>
                         <SwiperSlide className='swiper-slide flex flex-col gap-3 justify-center items-center text-[#a0d4ff]'>
                             <div className="slide2Header">
-                                <h1 className="text-6xl font-bold">What is for?</h1>
+                                <h1 className="text-[8vw] md:text-6xl font-bold">What is for?</h1>
                             </div>
-                            <div className="slide2details text-xl text-white">
+                            <div className="slide2details text-[4vw] md:text-xl text-white">
                                 <p class="styleScript italic">Discover Your Passion, Blaze Your Trail, and Build Something Extraordinary!</p>
                             </div>
                         </SwiperSlide>
 
                         <SwiperSlide className='swiper-slide flex flex-col gap-3 justify-center items-center text-[#a0d4ff]'>
                             <div className="slide2Header">
-                                <h1 className="text-6xl font-bold">Development Areas</h1>
+                                <h1 className="text-[8vw] md:text-6xl font-bold">Development Areas</h1>
                             </div>
-                            <div className="slide2details text-xl text-white">
+                            <div className="slide2details text-[4vw] md:text-xl text-white">
                                 <p class="styleScript italic">
                                     We cover Web, Mobile, Game Development, AI, Data Science, Blockchain, IoT, DevOps, and more.
                                 </p>
@@ -133,17 +129,9 @@ export default function Mainright({ toggleHideLeft, Hide_Left }) {
                         </SwiperSlide>
                         <SwiperSlide className='swiper-slide flex flex-col gap-3 justify-center items-center text-[#a0d4ff]'>
                             <div className="slide2Header">
-                                <h1 className="text-6xl font-bold">Programming Languages</h1>
+                                <h1 className="text-[8vw] md:text-6xl font-bold">Personalized Roadmaps</h1>
                             </div>
-                            <div className="slide2details text-xl text-white">
-                                <p class="styleScript italic">Learn Python, JavaScript, C++, Swift, Kotlin, and other top languages with ease. </p>
-                            </div>
-                        </SwiperSlide>
-                        <SwiperSlide className='swiper-slide flex flex-col gap-3 justify-center items-center text-[#a0d4ff]'>
-                            <div className="slide2Header">
-                                <h1 className="text-6xl font-bold">Personalized Roadmaps</h1>
-                            </div>
-                            <div className="slide2details text-xl text-white">
+                            <div className="slide2details text-[4vw] md:text-xl text-white">
                                 <p class="styleScript italic">Your personalized learning journey tailored to your goals and interests.</p>
                             </div>
                         </SwiperSlide>
@@ -158,33 +146,32 @@ export default function Mainright({ toggleHideLeft, Hide_Left }) {
                         </div>
 
 
-                        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 ">
-                            {cards.map((track, index) => (
+                        <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 ">
+                            {developmentCards.slice(0, 3).map((card) => (
                                 <div
-                                    key={index}
+                                    key={card.id}
                                     className="relative group bg-white rounded-xl flex flex-col justify-between shadow-xl overflow-hidden transform transition-all duration-500 hover:scale-105 hover:shadow-2xl"
-                                >
+                                // onClick={() => routerhander(card.route)
+                                // }
 
+                                >
                                     {/* heading  */}
                                     <div className='p-6'>
-
-                                        <h2 className="text-xl font-bold text-gray-900 mb-4 uppercase tracking-tight">
-                                            {track.title}
-                                        </h2>
-                                        <p className="text-gray-600 text-sm leading-relaxed mb-6">
-                                            {track.description}
-                                        </p>
+                                        <h3 className="text-xl font-[900] text-gray-900 mb-4 uppercase tracking-tight">{card.title}</h3>
+                                        <p className="text-gray-600 text-md font-light leading-relaxed mb-6">{card.description}</p>
                                     </div>
-                                    <div className="p-6 flex items-center gap-5 jus
-                                    tify-between">
+                                    <div className="p-6 flex items-center gap-5 justify-between">
                                         {/* Icon */}
-                                        <span className="material-symbols-outlined text-[2.5rem] font-light cursor-pointer text-indigo-600">
-                                            bookmark
+                                        <span
+                                            onClick={() => roadmapsavedHandler(card.route)}
+                                            className={`text-[2.5rem] font-light cursor-pointer `}>
+
+                                            <Bookmark fill={savedMap[card.route] ? 'black' : 'none'} />
                                         </span>
                                         {/* Button */}
                                         <button
-                                            onClick={track.routeHandler} // Correctly assigned routeHandler
-                                            className="w-full py-3 bg-indigo-600 text-white font-semibold rounded-lg shadow-md  transition-colors duration-300 cursor-pointer"
+                                            onClick={e => { e.stopPropagation(); routerhander(card.route); }}
+                                            className="w-full py-3 bg-primary-bg text-white font-semibold rounded-lg shadow-md transition-colors duration-300 cursor-pointer"
                                         >
                                             Show Track
                                         </button>

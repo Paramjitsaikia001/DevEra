@@ -1,10 +1,11 @@
 import { useState } from "react";
+import { getFullscreenClasses, getFullscreenIconName } from "../../../utils/fullscreenHandler";
 
 export default function FrontendIntegration({ closeFrontendIntegration, Done }) {
-  const [isFullScreen, setFullScreen] = useState("left-[60%]");
-  const fullscrenHandler = () => {
-    setFullScreen(isFullScreen === "left-[60%]" ? "left-[20%]" : "left-[60%]");
-  };
+  const [isFullScreen, setFullScreen] = useState(false);
+  const fullscreenHandler = () => {
+        setFullScreen(prev => !prev);
+    };
   const handleDone = () => {
     Done();
     closeFrontendIntegration();
@@ -12,7 +13,7 @@ export default function FrontendIntegration({ closeFrontendIntegration, Done }) 
 
   return (
     <section
-      className={`transition-transform duration-300 ease-in-out fixed right-0 ${isFullScreen} top-0 bottom-0 overflow-y-scroll scrollbar scrollbar-thumb-scrollbarThumb scrollbar-track-scrollbarTrack scrollbar-bg-scrollbarBg inset-0 bg-[#0e1542] flex justify-center items-center z-50 m-0 h-[100%] pt-6`}
+      className={getFullscreenClasses(isFullScreen)}
       style={{
         boxShadow:
           "0 8px 32px 0 rgba(31, 38, 135, 0.37), 0 1.5px 8px 0 rgba(0,0,0,0.25)",
@@ -23,15 +24,16 @@ export default function FrontendIntegration({ closeFrontendIntegration, Done }) 
         <div className="flex justify-between items-center mb-4">
           <div className="flex items-center gap-2">
             <button
-              onClick={fullscrenHandler}
+              onClick={fullscreenHandler}
               className="text-[#00d9ff] hover:bg-[#25305b] rounded-full p-2 transition-colors"
               title={isFullScreen === "left-[60%]" ? "Expand" : "Shrink"}
             >
-              {isFullScreen === "left-[60%]" ? (
-                <span className="material-icons align-middle text-2xl">open_in_full</span>
-              ) : (
-                <span className="material-icons align-middle text-2xl">close_fullscreen</span>
-              )}
+              <span
+                                      className="material-symbols-outlined text-[#8f8f8f] cursor-pointer lg:block hidden"
+                                      onClick={fullscreenHandler}
+                                  >
+                                      {getFullscreenIconName(isFullScreen)}
+                                  </span>
             </button>
           </div>
           <button

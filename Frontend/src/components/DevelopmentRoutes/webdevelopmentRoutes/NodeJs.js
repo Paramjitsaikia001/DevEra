@@ -1,34 +1,27 @@
 import { useState } from "react";
+import { getFullscreenClasses, getFullscreenIconName } from "../../../utils/fullscreenHandler";
 export default function NodeJSpage({ closeNodeJS, Done }) {
     const Nexthandler = () => {
         Done();
         closeNodeJS();
     }
-  const [isFullScreen, setFullScreen] = useState("left-[60%]");
-    const fullscrenHandler = () => {
-        if (isFullScreen === "left-[60%]") {
-            setFullScreen("left-[20%]");
-        } else {
-            setFullScreen("left-[60%]");
-        }
+    const [isFullScreen, setFullScreen] = useState(false);
+    const fullscreenHandler = () => {
+        setFullScreen(prev => !prev);
     }
     return (
-        <section className={`transition-transform duration-300  ease-in-out fixed right-0 ${isFullScreen}  top-0 bottom-0 overflow-y-scroll scrollbar scrollbar-thumb-scrollbarThumb scrollbar-track-scrollbarTrack scrollbar-bg-scrollbarBg inset-0 bg-[#0e1542] flex justify-center items-center z-50 m-0 h-[100%] pt-6`} style={{boxShadow: "0 0 10px 0px #000000"}}>
+        <section className={getFullscreenClasses(isFullScreen)} style={{ boxShadow: "0 0 10px 0px #000000" }}>
             <div className="bg-[#0e1542] text-white pb-0 px-4  h-[100%]">
                 <div className='flex pb-4 justify-between items-center w-[100%]'>
-                    {isFullScreen === "left-[60%]" ? (
-                        <span className="material-symbols-outlined text-[#8f8f8f] cursor-pointer" onClick={fullscrenHandler}>
-                            open_in_full
-                        </span>
-                    ) : (
-                        <span className="material-symbols-outlined text-[#8f8f8f] cursor-pointer" onClick={fullscrenHandler}>
-                            close_fullscreen
-                        </span>
-                    )}
-
+                    <span
+                        className="material-symbols-outlined text-[#8f8f8f] cursor-pointer lg:block hidden"
+                        onClick={fullscreenHandler}
+                    >
+                        {getFullscreenIconName(isFullScreen)}
+                    </span>
                     <span
                         onClick={closeNodeJS}
-                        class="material-symbols-outlined text-[#8f8f8f] cursor-pointer">
+                        className="material-symbols-outlined text-[#8f8f8f] cursor-pointer">
                         close
                     </span>
                 </div>
@@ -40,12 +33,12 @@ export default function NodeJSpage({ closeNodeJS, Done }) {
 
                     </p>
                     <p>
-                    If a website were a human body, Node.js would be its circulatory system, managing the flow of data between the frontend and backend. It efficiently handles requests and responses, ensuring seamless communication and real-time interactivity, which is essential for creating fast and dynamic web applications.
+                        If a website were a human body, Node.js would be its circulatory system, managing the flow of data between the frontend and backend. It efficiently handles requests and responses, ensuring seamless communication and real-time interactivity, which is essential for creating fast and dynamic web applications.
                     </p>
                     <div className="flex flex-col my-5 gap-4">
                         <p className="font-bold">Resource to learn NodeJS:</p>
                         <div className="flex flex-col gap-4">
-                        <div className="flex gap-3">
+                            <div className="flex gap-3">
                                 <span className="text-white py-0 px-2 bg-[#3348ff] rounded-md">doc</span>
                                 <a href="https://nodejs.org/en/learn/getting-started/introduction-to-nodejs" target="_blank" rel="noopener noreferrer">
                                     <span className="text-[#28ffd4] underline">Introduction to Node.js(Original)</span>
@@ -63,7 +56,7 @@ export default function NodeJSpage({ closeNodeJS, Done }) {
                                     <span className="text-[#28ffd4] underline">Node.js Tutorial | Learn NodeJS - GeeksforGeeks</span>
                                 </a>
                             </div>
-                         
+
                             <div className="flex gap-3 items-center">
                                 <span class="material-symbols-outlined px-[10px] py-0 bg-red-600 text-white rounded-md">
                                     play_arrow

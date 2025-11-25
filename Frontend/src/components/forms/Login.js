@@ -44,7 +44,7 @@ const Login = () => {
     <section className='flex justify-center items-center w-[100%] h-[100vh]'>
       <div className='flex w-[95%] h-[90vh] bg-primary-dark rounded-[2rem] shadow-lg shadow-black/20'>
 
-        <div className="detailsofplatofoem relative w-[60%] flex-col h-full flex rounded-l-[2rem] p-12 bg-cover" style={{ backgroundImage: `url(${SampleRoadmapImage})` }}>
+        <div className="detailsofplatofoem hidden xl:flex relative w-[60%] flex-col h-full  rounded-l-[2rem] p-12 bg-cover" style={{ backgroundImage: `url(${SampleRoadmapImage})` }}>
           <div className="divbackcover bg-gradient-to-br from-black to-black/30  absolute top-0 right-0  w-full h-full rounded-l-[2rem]"></div>
           <div className="logo z-10 bg-white w-fit px-3 rounded-md shadow-sm shadow-black">
 
@@ -58,7 +58,7 @@ const Login = () => {
           </div>
         </div>
 
-        <div className="Login-container flex flex-col justify-center items-center w-[40%] h-full rounded-r-[2rem]">
+        <div className="Login-container flex flex-col justify-center items-center xl:w-[40%] w-full h-full rounded-r-[2rem]">
           <div className="Login-header mb-4">
           </div>
           <div className="Login-form w-[80%] ">

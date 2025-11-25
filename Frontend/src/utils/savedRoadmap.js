@@ -4,7 +4,7 @@ import RoadmapDetailContext from '../Context/fetchRoadmap.context'
 import { Bookmark } from 'lucide-react';
 const SavedRoadmaps = () => {
 
-    const { getSavedRoadmapByUser, deleteSavedRoadmap, savedRoadmap: createRoadmap } = useContext(SavedRoadmapContext)
+    const { getSavedRoadmapByUser, deleteSavedRoadmap, savedRoadmap: saveRoadmap, loading } = useContext(SavedRoadmapContext)
     const { getRoadmapdetails } = useContext(RoadmapDetailContext)
 
     const [savedRoadmap, setSavedRoadmap] = useState([])
@@ -75,10 +75,17 @@ const SavedRoadmaps = () => {
             }
         }
     }
-
+ if (loading) {
+        return (
+            <div className="flex justify-center items-center h-48">
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+            </div>
+        );
+    }
     return (
         <section className="min-h-screen ">
-            <div className="savedroadmaps max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 px-4 ">
+            {Object.keys(savedMap).length > 0 ? (
+            <div className="savedroadmaps max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-4 ">
 
 
 
@@ -137,6 +144,9 @@ const SavedRoadmaps = () => {
                     );
                 })}
             </div>
+            ) : (
+                <p className="text-center text-white mt-10">No saved roadmaps found.</p>
+            )}
         </section>
 
     )

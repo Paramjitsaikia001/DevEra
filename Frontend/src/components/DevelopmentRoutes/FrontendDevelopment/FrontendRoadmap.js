@@ -1,5 +1,6 @@
 import { useState, useContext } from "react";
 import Header from "../../layout/Header";
+import MobileNav from "../../navigation/mobilenav";
 import HTMLPage from "../webdevelopmentRoutes/Htmlpage"
 import CSSPage from "../webdevelopmentRoutes/CSSpage"
 import Jspage from "../webdevelopmentRoutes/Javascriptpage";
@@ -257,18 +258,14 @@ export default function FrontendRoadmap() {
                     })}
                 </div>
             </div>
-            <div className="fixed bottom-0 right-0 top-[90%] left-[82%] z-10">
-                <button
-                    onClick={fullresourcehandler}
-                    className="bg-[#198de0] hover:bg-[#ffff] px-3 py-3 rounded-2xl font-bold flex gap-2">
+            {/* Full Resources Button */}
+            <div onClick={fullresourcehandler} className="fixed bottom-[5rem] md:bottom-1 right-1 z-10">
+                <button className="bg-[#198de0] hover:bg-[#ffff] px-3 py-3 rounded-2xl font-bold flex gap-2">
                     full course Resource
-                    <span className="material-symbols-outlined">
-                        text_snippet
-                    </span>
+                    <span className="material-symbols-outlined">text_snippet</span>
                 </button>
             </div>
-
-
+            <MobileNav />
         </section>
     );
 }

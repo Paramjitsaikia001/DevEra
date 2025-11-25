@@ -12,6 +12,7 @@ import Fullresource from "./FullResource";
 import Development from "../../../hooks/developments.hooks";
 import Reviews from "../../forms/Review";
 import ActivityContext from "../../../Context/activity.context";
+import MobileNav from "../../navigation/mobilenav";
 import {toast} from "sonner"
 
 
@@ -156,7 +157,7 @@ export default function AiMl() {
             </div>
 
             {/* Full Resources Button */}
-            <div className="fixed bottom-0 right-0 top-[90%] left-[82%] z-10">
+            <div className="fixed bottom-[5rem] md:bottom-1 right-1 z-10">
                 <button onClick={fullresourcehandler} className="bg-[#198de0] hover:bg-[#ffff] px-3 py-3 rounded-2xl font-bold flex gap-2">
                     full course Resource
                     <span className="material-symbols-outlined">
@@ -165,6 +166,7 @@ export default function AiMl() {
                 </button>
             </div>
             <Reviews/>
+            <MobileNav />
         </section>
     );
 }

@@ -1,16 +1,17 @@
 import React, { useState } from 'react'
 import ProfileAndcover from '../../hooks/profileAndcover';
 import { CircleCheckBig } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import UserContext from '../../Context/user.context';
+import { ROUTES } from '../../constants/routes';
 const AdditionalDetails = () => {
-
-  const {addImages}=useContext(UserContext)
+  const navigate = useNavigate();
+  const { addImages } = useContext(UserContext)
 
   const [selectedProfile, setSelectedProfile] = useState("");
   const [selectedCover, setSelectedCover] = useState("");
-  console.log(selectedCover,selectedProfile);
+  console.log(selectedCover, selectedProfile);
 
 
 
@@ -20,15 +21,15 @@ const AdditionalDetails = () => {
     return <h1>loading</h1>
   }
 
-  const addImagesHandler=async()=>{
+  const addImagesHandler = async () => {
     try {
-      await addImages(selectedProfile,selectedCover)
-      window.location.href="/traintoexcellency/Frontend-build/Register/personal-details"
+      await addImages(selectedProfile, selectedCover)
+      navigate(ROUTES.ADDPERSONALDETAILS)
       console.log("done");
-      
+
     } catch (error) {
       console.log(error);
-      
+
     }
   }
 
@@ -91,16 +92,16 @@ const AdditionalDetails = () => {
 
         <div className="flex gap-4 w-full justify-between px-8">
           <Link
-            to="/traintoexcellency/Frontend-build/Register"
+            to={ROUTES.REGISTER}
             className="px-4 py-2 bg-blue-500 text-white rounded-sm">Back</Link>
           <div className="flex gap-2">
 
             <Link
-              to="/traintoexcellency/Frontend-build/Register/personal-details"
+              to={ROUTES.ADDPERSONALDETAILS}
 
               className="px-4 py-2 bg-blue-500 text-white rounded-sm">Skip & Next</Link>
             <button
-            onClick={addImagesHandler}
+              onClick={addImagesHandler}
 
               className="px-4 py-2 bg-gray-200 text-gray-950 rounded-sm">Done</button>
           </div>

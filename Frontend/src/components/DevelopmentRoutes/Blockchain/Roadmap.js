@@ -1,5 +1,6 @@
 import { useState, useContext } from "react";
 import Header from "../../layout/Header";
+import MobileNav from "../../navigation/mobilenav";
 
 // Placeholder imports for each roadmap step page (create these similar to your AI pages)
 import PrereqsPage from "../Blockchain/Prereqs";
@@ -176,15 +177,13 @@ export default function Blockchain() {
       </div>
 
       {/* Full Resources Button */}
-      <div className="fixed bottom-0 right-0 top-[90%] left-[82%] z-10">
-        <button
-          onClick={handlers.handleFullResource}
-          className="bg-[#198de0] hover:bg-[#ffff] px-3 py-3 rounded-2xl font-bold flex gap-2"
-        >
+      <div onClick={handlers.handleFullResource} className="fixed bottom-[5rem] md:bottom-1 right-1 z-10">
+        <button className="bg-[#198de0] hover:bg-[#ffff] px-3 py-3 rounded-2xl font-bold flex gap-2">
           full course Resource
           <span className="material-symbols-outlined">text_snippet</span>
         </button>
       </div>
+      <MobileNav />
     </section>
   );
 }

@@ -47,7 +47,6 @@ export default function UpdateDetails() {
             };
 
             await updateDetails(payload);
-
             toast.success("Profile updated successfully!");
             window.location.href = "/traintoexcellency/Frontend-build/profile";
         } catch (err) {

@@ -1,9 +1,10 @@
 import { useState } from "react";
+import { getFullscreenClasses, getFullscreenIconName } from "../../../utils/fullscreenHandler";
 
 export default function OraclesAutomation({ closeOraclesAutomation, Done }) {
-  const [isFullScreen, setFullScreen] = useState("left-[60%]");
-  const fullscrenHandler = () => {
-    setFullScreen(isFullScreen === "left-[60%]" ? "left-[20%]" : "left-[60%]");
+  const [isFullScreen, setFullScreen] = useState(false);
+  const fullscreenHandler = () => {
+    setFullScreen(prev => !prev);
   };
 
   const Nexthandler = () => {
@@ -13,19 +14,18 @@ export default function OraclesAutomation({ closeOraclesAutomation, Done }) {
 
   return (
     <section
-      className={`transition-transform duration-300 ease-in-out fixed right-0 ${isFullScreen} top-0 bottom-0 overflow-y-scroll scrollbar scrollbar-thumb-[#00d9ff] scrollbar-track-[#0e1542] bg-[#0e1542] flex justify-center items-center z-50 m-0 h-[100%] pt-6`}
+      className={getFullscreenClasses(isFullScreen)}
       style={{ boxShadow: "0 0 10px 0px #000000" }}
     >
       <div className="bg-[#0e1542] text-white pb-0 px-4 h-[100%]">
         {/* Header */}
         <div className="flex pb-4 justify-between items-center w-[100%]">
           <div />
-          <div className="flex gap-4">
+          <div className="flex pb-4 justify-between items-center w-[100%]">
             <span
-              className="material-symbols-outlined text-[#8f8f8f] cursor-pointer"
-              onClick={fullscrenHandler}
+              className="material-symbols-outlined text-[#8f8f8f] cursor-pointer lg:block hidden" onClick={fullscreenHandler}
             >
-              {isFullScreen === "left-[60%]" ? "open_in_full" : "close_fullscreen"}
+              {getFullscreenIconName(isFullScreen)}
             </span>
             <span
               className="material-symbols-outlined text-[#8f8f8f] cursor-pointer"

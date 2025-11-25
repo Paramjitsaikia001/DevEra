@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
-import {  inputStyles } from '../../utils/styles';
+import { inputStyles } from '../../utils/styles';
 import Logo from '../ui/Logo';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import UserContext from '../../Context/user.context';
 import { useContext } from 'react';
+import { ROUTES } from '../../constants/routes';
 const PersonalDetails = () => {
-
-
-
-    const {addDetails} =useContext(UserContext)
+    const navigate = useNavigate();
+    const { addDetails } = useContext(UserContext)
 
     const [bio, setbio] = useState('');
     const [github, setgithub] = useState("")
@@ -22,14 +21,14 @@ const PersonalDetails = () => {
     };
 
 
-    const addDetailsHandler=async()=>{
-    try {
-      await addDetails(github,linkedin,Portfolio,bio)
-        window.location.href="/"
-    } catch (error) {
-      
+    const addDetailsHandler = async () => {
+        try {
+            await addDetails(github, linkedin, Portfolio, bio)
+            navigate(ROUTES.PROFILE)
+        } catch (error) {
+
+        }
     }
-  }
 
 
 
@@ -102,10 +101,10 @@ const PersonalDetails = () => {
 
                 <div className="flex gap-4 w-full justify-between px-4 pb-4">
                     <Link
-                        to="/traintoexcellency/Frontend-build/Register/additional-details"
+                        to={ROUTES.ADDITIONALDETAILS}
                         className="px-4 py-2 bg-gray-200 text-gray-950 rounded-sm">Back</Link>
                     <button
-                    type='button'
+                        type='button'
                         onClick={addDetailsHandler}
 
                         className="px-4 py-2 bg-blue-500 text-white rounded-sm">Let's start</button>

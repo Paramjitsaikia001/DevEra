@@ -1,22 +1,22 @@
-import { useState, useContext } from 'react';
-import Header from '../../layout/Header';
-import Fullresource from '../Gamedevelopment/Fullresource';
-import GameEnginesPage from '../Gamedevelopment/GameEngines';
-import GitPage from '../Gamedevelopment/Git';
-import GraphicsPage from '../Gamedevelopment/Graphics';
-import NetworkingPage from '../Gamedevelopment/Networking';
-import AIPage from '../Gamedevelopment/AI';
-import DSAPage from '../Gamedevelopment/GamedDSA';
+import { useState, useContext } from "react";
+import Header from "../../layout/Header";
+import Fullresource from "../Gamedevelopment/Fullresource";
+import GameEnginesPage from "../Gamedevelopment/GameEngines";
+import GitPage from "../Gamedevelopment/Git";
+import GraphicsPage from "../Gamedevelopment/Graphics";
+import NetworkingPage from "../Gamedevelopment/Networking";
+import AIPage from "../Gamedevelopment/AI";
+import DSAPage from "../Gamedevelopment/GamedDSA";
 // Placeholder imports for each roadmap step page
 // You would need to create these components (e.g., ProgrammingPage, GameEnginesPage)
 // following the same pattern as your other roadmap pages.
-import ProgrammingPage from '../Gamedevelopment/Programming';
-import PublishingPage from '../Gamedevelopment/Publishing';
-import MathPage from '../Gamedevelopment/Math';
-import Development from '../../../hooks/developments.hooks';
+import ProgrammingPage from "../Gamedevelopment/Programming";
+import PublishingPage from "../Gamedevelopment/Publishing";
+import MathPage from "../Gamedevelopment/Math";
+import Development from "../../../hooks/developments.hooks";
 
-import ActivityContext from '../../../Context/activity.context';
-import { toast } from 'sonner';
+import ActivityContext from "../../../Context/activity.context";
+import { toast } from "sonner";
 
 export default function GameDev() {
   const [activeId, setActiveId] = useState(null);
@@ -57,31 +57,31 @@ export default function GameDev() {
     return <h1>loading</h1>;
   }
   if (error) {
-    return <h2 className='text-white'>Something went wrong!</h2>;
+    return <h2 className="text-white">Something went wrong!</h2>;
   }
 
   // AddActivity: record completed step via ActivityContext
   const AddActivity = async (id) => {
     try {
       if (!GamedevRoadmap?.[id]) {
-        console.warn('AddActivity: invalid step id', id);
+        console.warn("AddActivity: invalid step id", id);
         return;
       }
       const stepName = GamedevRoadmap[id].name;
-      const roadmapId = roadmap?.[5]?.route ?? roadmap?.[5]?.title ?? 'game-development';
+      const roadmapId = roadmap?.[5]?.route ?? roadmap?.[5]?.title ?? "game-development";
       await createActivity({
         roadmpStepsId: stepName,
         roadmapId: roadmapId,
       });
       toast.success(`${stepName} completed successfully!`);
     } catch (err) {
-      console.error('AddActivity error', err);
-      toast.error('Failed to record activity');
+      console.error("AddActivity error", err);
+      toast.error("Failed to record activity");
     }
   };
 
   return (
-    <section className="flex flex-col items-center justify-center h-full lg:w-[80%] w-[100%] gap-3 overflow-hidden ">
+    <section className="flex flex-col items-center justify-center h-full lg:w-[80%] w-[100%] gap-3 overflow-hidden">
       {/* Modals */}
       {showProgramming && <ProgrammingPage closeProgramming={handlers.handleProgramming} Done={() => AddActivity(0)} />}
       {showGameEngines && <GameEnginesPage closeGameEngines={handlers.handleGameEngines} Done={() => AddActivity(1)} />}
@@ -148,11 +148,8 @@ export default function GameDev() {
       </div>
 
       {/* Full Resources Button */}
-      <div className="fixed bottom-0 right-0 top-[90%] left-[82%] z-10">
-        <button
-          onClick={handlers.handleFullResource}
-          className="bg-[#198de0] hover:bg-[#ffff] px-3 py-3 rounded-2xl font-bold flex gap-2"
-        >
+      <div onClick={handlers.handleFullResource} className="fixed bottom-[5rem] md:bottom-1 right-1 z-10">
+        <button className="bg-[#198de0] hover:bg-[#ffff] px-3 py-3 rounded-2xl font-bold flex gap-2">
           full course Resource
           <span className="material-symbols-outlined">text_snippet</span>
         </button>

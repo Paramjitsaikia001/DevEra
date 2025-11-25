@@ -1,30 +1,21 @@
 import { useState } from "react";
+import { getFullscreenClasses, getFullscreenIconName } from "../../../utils/fullscreenHandler";
+
 export default function APIpage({ closeAPI, Done }) {
     const Nexthandler = () => {
         Done();
         closeAPI();
     }
-    const [isFullScreen, setFullScreen] = useState("left-[60%]");
-    const fullscrenHandler = () => {
-        if (isFullScreen === "left-[60%]") {
-            setFullScreen("left-[20%]");
-        } else {
-            setFullScreen("left-[60%]");
-        }
-    }
+    const [isFullScreen, setFullScreen] = useState(false);
+    const fullscreenHandler = () => setFullScreen(prev => !prev);
+
     return (
-        <section className={`transition-transform duration-300  ease-in-out fixed right-0 ${isFullScreen}  top-0 bottom-0 overflow-y-scroll scrollbar scrollbar-thumb-scrollbarThumb scrollbar-track-scrollbarTrack scrollbar-bg-scrollbarBg inset-0 bg-[#0e1542] flex justify-center items-center z-50 m-0 h-[100%] pt-6`} style={{ boxShadow: "0 0 10px 0px #000000" }}>
+        <section className={getFullscreenClasses(isFullScreen)} style={{ boxShadow: "0 0 10px 0px #000000" }}>
             <div className="bg-[#0e1542] text-white pb-0 px-4  h-[100%]">
                 <div className='flex pb-4 justify-between items-center w-[100%]'>
-                    {isFullScreen === "left-[60%]" ? (
-                        <span className="material-symbols-outlined text-[#8f8f8f] cursor-pointer" onClick={fullscrenHandler}>
-                            open_in_full
-                        </span>
-                    ) : (
-                        <span className="material-symbols-outlined text-[#8f8f8f] cursor-pointer" onClick={fullscrenHandler}>
-                            close_fullscreen
-                        </span>
-                    )}
+                    <span className="material-symbols-outlined text-[#8f8f8f] cursor-pointer lg:block hidden" onClick={fullscreenHandler}>
+                        {getFullscreenIconName(isFullScreen)}
+                    </span>
 
                     <span
                         onClick={closeAPI}
@@ -95,7 +86,7 @@ export default function APIpage({ closeAPI, Done }) {
                                     <h2>Resources to learn Postman</h2>
                                     <ul className="flex flex-col gap-2 pl-8">
                                         <li className="flex gap-3">
-                                        <span className="text-white py-0 px-2 bg-[#3348ff] rounded-md">doc</span>
+                                            <span className="text-white py-0 px-2 bg-[#3348ff] rounded-md">doc</span>
                                             <a href="https://learning.postman.com/docs/getting-started/introduction/" target="_blank" rel="noopener noreferrer">
                                                 <span className="text-[#28ffd4] underline">Postman Learning Center</span></a>
                                         </li>

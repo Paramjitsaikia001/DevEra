@@ -113,12 +113,12 @@ const timeAgo = (date) => {
         </div>
 
         <div className="User-review">
-          <form onSubmit={handleSubmit} className="flex items-end gap-2">
+          <form onSubmit={handleSubmit} className="flex sm:flex-row flex-col items-end gap-2">
             
-            <div className=" flex border-2 border-white/30 justify-between items-end rounded-3xl w-full">
+            <div className="relative flex border-2 border-white/30 justify-between items-end rounded-3xl w-full">
 
-            <input
-              className={ "bg-transparent outline-none text-white pl-5 h-[5rem] text-start  py-2 rounded w-full"}
+            <textarea
+              className={ "bg-transparent outline-none text-white pl-5 h-[10rem] sm:h-[5rem] text-start  py-2 rounded w-full pb-5"}
               type="text"
               value={reviewMsg}
               onChange={(e) => setReviewMsg(e.target.value)}
@@ -126,7 +126,7 @@ const timeAgo = (date) => {
             />
 
             <select
-              className="outline-none py-2 px-3 text-center rounded-3xl h-fit flex items-baseline justify-items-end border-2 text-white bg-transparent border-white/30"
+              className="outline-none py-2 absolute  right-0 bottom-0 px-3 text-center rounded-3xl h-fit flex items-baseline justify-items-end  text-white bg-primary-dark "
               value={roadmapId}
               onChange={(e) => setRoadmapId(e.target.value)}
             >

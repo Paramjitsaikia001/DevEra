@@ -171,13 +171,7 @@ const UserActivity = () => {
                     })}
                 </div>
             ) : (
-                <div className="text-center py-12 bg-white rounded-2xl border border-dashed border-slate-300">
-                    <div className="bg-slate-50 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-slate-400">
-                        <Activity size={32} />
-                    </div>
-                    <p className="text-slate-500 font-medium">No recent activity found.</p>
-                    <p className="text-slate-400 text-sm">Start a roadmap to see updates here.</p>
-                </div>
+             <p className="text-center text-white mt-10">No activity found.</p>
             )}
         </div>
     );

@@ -1,21 +1,21 @@
 import React, { useContext, useState, useEffect } from "react";
 
-import { textStyles } from '../utils/styles';
-import Development from "../hooks/developments.hooks.js";
+
+// import Development from "../hooks/developments.hooks.js";
 import ReviewContext from "../Context/review.context.js";
 
 export default function ReviewsofUser() {
 
-  const { data: developemntID } = Development();
-  const { getReviewsByUser} = useContext(ReviewContext);
+  // const { data: developemntID } = Development();
+  const { getReviewsByUser,loading} = useContext(ReviewContext);
 
-  const developments = Array.isArray(developemntID)
-    ? developemntID
-    : Array.isArray(developemntID?.data)
-      ? developemntID.data
-      : Array.isArray(developemntID?.results)
-        ? developemntID.results
-        : [];
+  // const developments = Array.isArray(developemntID)
+  //   ? developemntID
+  //   : Array.isArray(developemntID?.data)
+  //     ? developemntID.data
+  //     : Array.isArray(developemntID?.results)
+  //       ? developemntID.results
+  //       : [];
 
 
   const [reviews, setReviews] = useState([]);
@@ -23,16 +23,17 @@ export default function ReviewsofUser() {
   // Fetch all reviews on load
   useEffect(() => {
     const fetchReviews = async () => {
-      const res = await getReviewsByUser();
-   
-    console.log("res",res.data[0].userId.profilePicture);
-    
+      const res = await getReviewsByUser?.();
 
-
-      if (res) {
-        setReviews(res.data);
+      if (!res || !res.data) {
+        console.error("No review data received:", res);
+        setReviews([]);
+        return;
       }
-     
+
+      console.log("res", res.data[0]?.userId?.profilePicture);
+
+      setReviews(res.data);
     };
     
     fetchReviews();
@@ -57,6 +58,13 @@ const timeAgo = (date) => {
   return "just now";
 };
 
+ if (loading) {
+        return (
+            <div className="flex justify-center items-center h-48">
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+            </div>
+        );
+    }
   return (
     <section className="reviews w-full px-4">
 
@@ -90,7 +98,7 @@ const timeAgo = (date) => {
               </div>
             ))
           ) : (
-            <p className="text-gray-500 text-sm">No reviews yet.</p>
+            <p className="text-center text-white mt-10">No reviews found.</p>
           )}
         </div>
 

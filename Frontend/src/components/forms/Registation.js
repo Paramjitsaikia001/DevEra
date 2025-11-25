@@ -3,10 +3,11 @@ import { Eye, EyeClosed } from 'lucide-react';
 import { textStyles, inputStyles } from '../../utils/styles';
 import SampleRoadmapImage from "../../assets/images/sampleroadmap.png"
 import Logo from '../ui/Logo';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import UserContext from '../../Context/user.context';
+import { ROUTES } from '../../constants/routes';
 const Registration = () => {
-
+  const navigate = useNavigate();
   const { register, verifyOTP, sendOTP } = useContext(UserContext)
 
   const [userName, setUserName] = useState('');
@@ -21,12 +22,12 @@ const Registration = () => {
   const [showOTPsection, setShowotpsection] = useState(false)
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(password,confirmPassword);
-    
+    console.log(password, confirmPassword);
+
     // Handle form submission here
     try {
       await register(email, fullName, userName, password, confirmPassword, role)
-      window.location.href = "/traintoexcellency/Frontend-build/Register/additional-details"
+      navigate(ROUTES.ADDITIONALDETAILS)
     } catch (error) {
       console.log(error.message);
     }
@@ -67,14 +68,14 @@ const Registration = () => {
     try {
       await verifyOTP(email, otp)
     } catch (error) {
-console.log(error);
+      console.log(error);
     }
   }
   return (
     <section className='flex justify-center items-center w-[100%] h-[100vh]'>
       <div className='flex w-[95%] h-[90vh] bg-primary-dark rounded-[2rem] shadow-lg shadow-black/20'>
 
-        <div className="detailsofplatofoem relative w-[60%] flex-col h-full flex rounded-l-[2rem] p-12 bg-cover" style={{ backgroundImage: `url(${SampleRoadmapImage})` }}>
+        <div className="detailsofplatofoem hidden xl:flex relative w-[60%] flex-col h-full  rounded-l-[2rem] p-12 bg-cover" style={{ backgroundImage: `url(${SampleRoadmapImage})` }}>
           <div className="divbackcover bg-gradient-to-br from-black to-black/30  absolute top-0 right-0  w-full h-full rounded-l-[2rem]"></div>
           <div className="logo z-10 bg-white w-fit px-3 rounded-md shadow-sm shadow-black">
 
@@ -88,13 +89,12 @@ console.log(error);
           </div>
         </div>
 
-        <div className="registration-container flex flex-col  justify-center items-center w-[40%] h-full rounded-r-[2rem]">
-          <div className="registration-header mb-4">
-          </div>
-          <div className="registration-form w-[80%] ">
+        <div className="registration-container flex flex-col text-sm justify-center items-center xl:w-[40%] w-full h-full rounded-r-[2rem]">
+
+          <div className="registration-form w-[80%] text-sm ">
             <form onSubmit={handleSubmit} className="flex flex-col gap-8 justify-center w-full items-center">
 
-              <div className="fullnameandusername flex w-full  gap-4 h-14">
+              <div className="fullnameandusername flex w-full   gap-4 h-14">
 
                 <input
                   type="text"
@@ -134,11 +134,11 @@ console.log(error);
                     placeholder="Password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="h-14 w-[98%]  outline-none    text-xl bg-transparent  placeholder-white/40 text-white font-[500]"
+                    className="h-14 w-[98%]  outline-none     bg-transparent  placeholder-white/40 text-white font-[500]"
 
                   />
                   <button
-                   type='button'
+                    type='button'
                     onClick={hideShowPassword}
                     className='items-center justify-center'
                   >
@@ -160,11 +160,11 @@ console.log(error);
                     placeholder="Confirm Password"
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
-                    className="h-18 w-[98%] outline-none  text-xl bg-transparent  placeholder-white/40 text-white font-[500]"
+                    className="h-18 w-[98%] outline-none   bg-transparent  placeholder-white/40 text-white font-[500]"
 
                   />
                   <button
-                   type='button'
+                    type='button'
                     onClick={hideShowConfirmPassword}
                     className='items-center justify-center text-white/50'
                   >
@@ -188,12 +188,12 @@ console.log(error);
                     onChange={(e) => setEmail(e.target.value)}
                     className={`
                       ${inputStyles.primary}
-                      h-18 outline-none pl-2 text-xl w-[75%] bg-transparent border-2 border-white/50 rounded-lg  placeholder-white/40 text-white font-[500] h-full`}
+                      h-18 outline-none pl-2  w-[75%] bg-transparent border-2 border-white/50 rounded-lg  placeholder-white/40 text-white font-[500] h-full`}
                   />
                   <button
-                  type='button'
+                    type='button'
                     onClick={showOTPHandler}
-                    className="w-[25%] py-2 hover:bg-transparent border-2 rounded-full border-white/50  text-md text-black font-semibold bg-white hover:text-white transition-colors duration-300"
+                    className="w-[25%] py-2 hover:bg-transparent border-2 rounded-2xl md:rounded-full border-white/50  text-black font-semibold bg-white hover:text-white transition-colors duration-300"
                   >Send OTP</button>
                 </div>
                 <div className={`${showOTPsection === true ? "" : "hidden"} otpsection flex gap-4 items-center justify-center transition-transform duration-500`}>
@@ -206,12 +206,12 @@ console.log(error);
                     onChange={(e) => setOtp(e.target.value)}
                     className={`
                       ${inputStyles.primary}
-                      h-18 outline-none pl-2 text-xl w-[70%] bg-transparent border-2 border-[#00d0ff] rounded-lg  placeholder-white/40 text-white font-[500] h-14`}
+                      h-18 outline-none pl-2  w-[70%] bg-transparent border-2 border-[#00d0ff] rounded-lg  placeholder-white/40 text-white font-[500] h-14`}
                   />
                   <button
                     type='button'
                     onClick={otpVerification}
-                    className="w-[40%] py-2 hover:bg-transparent border-2 rounded-full border-[#00d0ff] hover:border-white/50  text-lg text-white font-semibold bg-[#00d0ff]/30 transition-colors duration-300"
+                    className="w-[40%] py-2 hover:bg-transparent border-2 rounded-full border-[#00d0ff] hover:border-white/50   text-white font-semibold bg-[#00d0ff]/30 transition-colors duration-300"
                   >
                     Verify Email
                   </button>
@@ -220,13 +220,13 @@ console.log(error);
 
 
               <div className="role flex w-full h-14 items-center font-extralight text-[#00ffee]  justify-end gap-1">
-                <span className='text-2xl  italic font-sans'>You're a </span>
+                <span className='  italic font-sans'>You're a </span>
                 <select
                   name="role"
                   id="role"
                   value={role}
                   onChange={(e) => setRole(e.target.value)}
-                  className="h-18 outline-none text-2xl  w-[40%] bg-transparent rounded-lg  placeholder-white/40 italic font-semibold h-full"
+                  className="h-18 outline-none   w-[40%] bg-transparent rounded-lg  placeholder-white/40 italic font-semibold h-full"
                 >
                   <option value="Developer">Developer</option>
                   <option value="Student" >Student</option>
@@ -236,7 +236,7 @@ console.log(error);
               <button
                 type="submit"
                 onClick={handleSubmit}
-                className=" w-full flex items-center justify-center bg-[#00ffee]/20 rounded-full h-14 text-xl font-semibold text-white hover:shadow-sm hover:shadow-white/30 transition-transform duration-300 ">
+                className=" w-full flex items-center justify-center bg-[#00ffee]/20 rounded-full h-14  font-semibold text-white hover:shadow-sm hover:shadow-white/30 transition-transform duration-300 ">
                 Register
               </button>
             </form>

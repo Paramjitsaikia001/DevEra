@@ -194,7 +194,7 @@ export default function Development() {
     };
 
     return (
-        <section className="flex flex-col lg:w-[80%] w-[100%] h-[100%] gap-4">
+        <section className="flex flex-col xl:w-[80%] w-[100%] h-[100%] gap-4">
             <div className='flex justify-center p-4'>
 
                 <Header />
@@ -212,7 +212,7 @@ export default function Development() {
                             Explore, Learn, and Grow with detailed, step-by-step guides Tailored for your journey in the world of tech.
                         </h4>
                     </div>
-                    <div className="development-container max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 py-4 border-t-2">
+                    <div className="development-container max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 py-4 border-t-2">
                         {developmentCards.map((card) => (
                             <div
                                 key={card.id}

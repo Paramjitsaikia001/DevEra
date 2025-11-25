@@ -21,6 +21,7 @@ import Reviews from "../../forms/Review";
 import ActivityContext from "../../../Context/activity.context";
 import {useContext} from "react"
 import {toast} from "sonner"
+import MobileNav from "../../navigation/mobilenav";
 
 export default function CrossPlatformRoadmap() {
   const [activeId, setActiveId] = useState(null);
@@ -188,13 +189,14 @@ export default function CrossPlatformRoadmap() {
       {/* Full Resources Button */}
       <div
        onClick={handleFullResources}
-      className="fixed bottom-0 right-0 top-[90%] left-[82%] z-10">
+      className="fixed bottom-[5rem] md:bottom-1 right-1 z-10">
         <button className="bg-[#198de0] hover:bg-[#ffff] px-3 py-3 rounded-2xl font-bold flex gap-2">
           full course Resource
           <span className="material-symbols-outlined">text_snippet</span>
         </button>
       </div>
       <Reviews/>
+      <MobileNav />
     </section>
   );
 }

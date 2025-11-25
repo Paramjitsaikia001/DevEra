@@ -1,10 +1,11 @@
 import { useState } from "react";
+import { getFullscreenClasses, getFullscreenIconName } from "../../../utils/fullscreenHandler";
 
 export default function L2CrossChain({ closeL2CrossChain, Done }) {
-  const [isFullScreen, setFullScreen] = useState("left-[60%]");
+  const [isFullScreen, setFullScreen] = useState(false);
 
-  const fullscrenHandler = () => {
-    setFullScreen(isFullScreen === "left-[60%]" ? "left-[20%]" : "left-[60%]");
+  const fullscreenHandler = () => {
+    setFullScreen(prev => !prev);
   };
 
   const Nexthandler = () => {
@@ -14,27 +15,17 @@ export default function L2CrossChain({ closeL2CrossChain, Done }) {
 
   return (
     <section
-      className={`transition-transform duration-300 ease-in-out fixed right-0 ${isFullScreen} top-0 bottom-0 overflow-y-scroll scrollbar scrollbar-thumb-scrollbarThumb scrollbar-track-scrollbarTrack scrollbar-bg-scrollbarBg inset-0 bg-[#0e1542] flex justify-center items-center z-50 m-0 h-[100%] pt-6`}
+      className={getFullscreenClasses(isFullScreen)}
       style={{ boxShadow: "0 0 10px 0px #000000" }}
     >
       <div className="bg-[#0e1542] text-white pb-0 px-4 h-[100%]">
         {/* Header controls */}
         <div className="flex pb-4 justify-between items-center w-[100%]">
-          {isFullScreen === "left-[60%]" ? (
-            <span
-              className="material-symbols-outlined text-[#8f8f8f] cursor-pointer"
-              onClick={fullscrenHandler}
+        <span
+              className="material-symbols-outlined text-[#8f8f8f] cursor-pointer lg:block hidden" onClick={fullscreenHandler}
             >
-              open_in_full
+              {getFullscreenIconName(isFullScreen)}
             </span>
-          ) : (
-            <span
-              className="material-symbols-outlined text-[#8f8f8f] cursor-pointer"
-              onClick={fullscrenHandler}
-            >
-              close_fullscreen
-            </span>
-          )}
           <span
             onClick={closeL2CrossChain}
             className="material-symbols-outlined text-[#8f8f8f] cursor-pointer"

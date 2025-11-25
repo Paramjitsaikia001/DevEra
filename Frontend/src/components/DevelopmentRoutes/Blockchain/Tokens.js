@@ -1,10 +1,11 @@
 import { useState } from "react";
+import { getFullscreenClasses, getFullscreenIconName } from "../../../utils/fullscreenHandler";
 
 export default function TokenStandards({ closeTokenStandards, Done }) {
-  const [isFullScreen, setFullScreen] = useState("left-[60%]");
-  const fullscrenHandler = () => {
-    setFullScreen(isFullScreen === "left-[60%]" ? "left-[20%]" : "left-[60%]");
-  };
+  const [isFullScreen, setFullScreen] = useState(false);
+  const fullscreenHandler = () => {
+        setFullScreen(prev => !prev);
+    };
   const handleDone = () => {
     Done();
     closeTokenStandards();
@@ -12,7 +13,7 @@ export default function TokenStandards({ closeTokenStandards, Done }) {
 
   return (
     <section
-      className={`transition-transform duration-300 ease-in-out fixed right-0 ${isFullScreen} top-0 bottom-0 overflow-y-scroll scrollbar scrollbar-thumb-scrollbarThumb scrollbar-track-scrollbarTrack scrollbar-bg-scrollbarBg inset-0 bg-[#0e1542] flex justify-center items-center z-50 m-0 h-[100%] pt-6`}
+      className={getFullscreenClasses(isFullScreen)}
       style={{
         boxShadow:
           "0 4px 32px 0 rgba(0, 0, 0, 0.45), 0 0.5px 1.5px 0 rgba(0, 0, 0, 0.18)",
@@ -22,12 +23,12 @@ export default function TokenStandards({ closeTokenStandards, Done }) {
         {/* Top bar: Fullscreen and Close */}
         <div className="flex items-center justify-between mb-2 w-full">
           <button
-            onClick={fullscrenHandler}
+            onClick={fullscreenHandler}
             className="material-icons text-[#23daff] hover:bg-[#23daff] hover:text-[#0e1542] rounded-full p-1 transition-colors"
-            title={isFullScreen === "left-[60%]" ? "Expand" : "Shrink"}
+            title={isFullScreen ? "Shrink" : "Expand"}
             style={{ fontSize: "2rem" }}
           >
-            {isFullScreen === "left-[60%]" ? "open_in_full" : "close_fullscreen"}
+            {getFullscreenIconName(isFullScreen)}
           </button>
           <button
             onClick={closeTokenStandards}

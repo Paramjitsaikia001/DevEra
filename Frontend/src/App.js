@@ -1,5 +1,5 @@
-import React, { useContext, useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import MainLeft from './components/layout/mainleft';
 import MainRight from './components/layout/mainright';
 import Development from './components/pages/Development';
@@ -28,17 +28,13 @@ import Cybersecurity from './components/DevelopmentRoutes/CyberSecurity/roadmap'
 import DataScience from './components/DevelopmentRoutes/DataScience/roadmap';
 import BigData from './components/DevelopmentRoutes/BigData/roadmap';
 import IoT from './components/DevelopmentRoutes/IoT/roadmap';
+import Search from './components/pages/search';
 import { ROUTES } from './constants/routes';
-import UserContext from './Context/user.context';
 import { Toaster } from 'sonner';
 import ProtectedRoute from './utils/ProtectedRoute';
 import PublicRoute from './utils/ PublicRoute';
 
 function App() {
-  const { isAuthanticate } = useContext(UserContext)
-
-
-  const location = window.location;
 
   return (
     <Router>
@@ -80,7 +76,7 @@ function App() {
 
         {/* Home / Main layout */}
         <Route
-          path="/"
+          path={ROUTES.HOME}
           element={
             <ProtectedRoute>
               <main className="flex p-0 m-0 bg-primary-bg font-[Roboto]">
@@ -105,6 +101,18 @@ function App() {
         />
 
         <Route
+          path={ROUTES.SEARCH}
+          element={
+            <ProtectedRoute>
+              <main className="flex p-0 m-0 bg-primary-bg font-[Roboto]">
+                <MainLeft />
+                <Search />
+              </main>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
           path={ROUTES.SAVED}
           element={
             <ProtectedRoute>
@@ -115,7 +123,7 @@ function App() {
             </ProtectedRoute>
           }
         />
-  
+
 
         <Route
           path={ROUTES.PROFILE}
@@ -140,7 +148,7 @@ function App() {
             </ProtectedRoute>
           }
         />
-             <Route
+        <Route
           path={ROUTES.ACITVITY}
           element={
             <ProtectedRoute>
@@ -180,10 +188,7 @@ function App() {
           path={ROUTES.ADDITIONALDETAILS}
           element={
             <ProtectedRoute>
-              <main className="flex p-0 m-0 bg-primary-bg font-[Roboto]">
-                <MainLeft />
-                <AdditionalDetails />
-              </main>
+              <AdditionalDetails />
             </ProtectedRoute>
           }
         />
@@ -192,10 +197,7 @@ function App() {
           path={ROUTES.ADDPERSONALDETAILS}
           element={
             <ProtectedRoute>
-              <main className="flex p-0 m-0 bg-primary-bg font-[Roboto]">
-                <MainLeft />
-                <PersonalDetails />
-              </main>
+              <PersonalDetails />
             </ProtectedRoute>
           }
         />

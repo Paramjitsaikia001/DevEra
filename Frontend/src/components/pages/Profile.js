@@ -6,6 +6,7 @@ import UserContext from "../../Context/user.context";
 import ReviewsofUser from "../../utils/ReviewofUser";
 import UserActivity from "../../utils/UserActivity";
 import MobileNav from "../navigation/mobilenav";
+import { ROUTES } from "../../constants/routes";
 
 export default function Profile() {
 
@@ -105,7 +106,7 @@ export default function Profile() {
 
                             </div>
                             <Link
-                                to="/traintoexcellency/Frontend-build/update-details"
+                                to={ROUTES.EDITPROFILE}
                                 className="text-center profilepic text-white/80 text-md rounded-full border-2 font-bold border-white/20 py-2 px-5 absolute right-0 m-2 cursor-pointer">
                                 <SquarePen className="inline-block w-4 h-4 sm:hidden " />
                                 <p className="sm:block hidden">Edit profile</p>

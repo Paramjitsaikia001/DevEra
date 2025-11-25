@@ -5,6 +5,7 @@ import { CircleCheckBig } from 'lucide-react';
 import { inputStyles, textStyles } from "../../utils/styles";
 import ProfileAndcover from "../../hooks/profileAndcover";
 import { toast } from "sonner";
+import { ROUTES } from "../../constants/routes";
 
 export default function UpdateDetails() {
     const { user, updateDetails } = useContext(UserContext);
@@ -48,7 +49,7 @@ export default function UpdateDetails() {
 
             await updateDetails(payload);
             toast.success("Profile updated successfully!");
-            window.location.href = "/traintoexcellency/Frontend-build/profile";
+            window.location.href = ROUTES.PROFILE;
         } catch (err) {
             console.error("Update failed", err);
             toast.error(err?.message || "Failed to update profile");

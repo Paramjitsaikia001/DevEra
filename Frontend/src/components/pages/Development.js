@@ -9,6 +9,7 @@ import DevelopmentHook from '../../hooks/developments.hooks.js'
 import SavedRoadmapContext from '../../Context/savedRoadmap.context.js'
 import { Bookmark } from 'lucide-react';
 import { toast } from 'sonner';
+import { ROUTES } from '../../constants/routes';
 
 // const developmentCards = [
 //     {
@@ -143,7 +144,7 @@ export default function Development() {
     const location = useLocation();
     const [savedMap, setSavedMap] = useState({});
     const routerhander = (name) => {
-        navigate(`/traintoexcellency/Frontend-build/development/${name}`);
+      navigate(`${ROUTES.DEVELOPMENT}/${name}`);
     }
 
     useEffect(() => {

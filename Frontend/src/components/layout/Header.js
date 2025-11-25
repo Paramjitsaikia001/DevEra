@@ -3,6 +3,7 @@ import Logo from '../ui/Logo';
 import { Link } from 'react-router-dom';
 import { buttonStyles, layoutStyles,} from '../../utils/styles';
 import UserContext from '../../Context/user.context';
+import { ROUTES } from '../../constants/routes';
 export default function Header({ toggleHideLeft, Hide_Left }) {
 
     const { user, getCurrentUser } = useContext(UserContext)
@@ -23,7 +24,7 @@ export default function Header({ toggleHideLeft, Hide_Left }) {
           </div>
             <nav className={layoutStyles.nav}>
                 <Link
-                to="/traintoexcellency/Frontend-build/profile"
+                to={ROUTES.PROFILE}
                 className={`${buttonStyles.primary} bg-transparent hover:bg-transparent bg-center bg-cover`}>
 
                     <img

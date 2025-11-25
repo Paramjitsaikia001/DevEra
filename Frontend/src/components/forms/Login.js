@@ -4,6 +4,7 @@ import { inputStyles, textStyles } from '../../utils/styles';
 import SampleRoadmapImage from "../../assets/images/sampleroadmap.png"
 import Logo from '../ui/Logo';
 import { Link } from 'react-router-dom';
+import { ROUTES } from '../../constants/routes';
 
 import UserContext from '../../Context/user.context';
 
@@ -22,7 +23,7 @@ const Login = () => {
     // Submit the form data to your server or API
     try {
       await login(email,userName,password)
-      window.location.href="/traintoexcellency/Frontend-build/profile"
+      window.location.href = ROUTES.HOME;
     } catch (error) {
       console.log(error.message);
       

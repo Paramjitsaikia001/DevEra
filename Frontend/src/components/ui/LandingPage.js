@@ -4,6 +4,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Logo from "./Logo";
 import Development from "../../hooks/developments.hooks";
 import { useNavigate } from "react-router-dom";
+import { ROUTES } from "../../constants/routes";
 gsap.registerPlugin(ScrollTrigger);
 
 export default function LandingPage() {
@@ -146,7 +147,7 @@ const navigate=useNavigate()
 
                 <nav className="flex gap-4 items-center text-lg justify-center  text-slate-300">
                     <a
-                        href="http://localhost:3000/traintoexcellency/Frontend-build/Register"
+                        href={ROUTES.REGISTER}
                         className="ml-2 inline-flex items-center gap-2 rounded-full bg-white/6 px-6 py-2 text-slate-100 hover:bg-white/20 border-2 border-white/10 transition"
                     >
                         Get Started

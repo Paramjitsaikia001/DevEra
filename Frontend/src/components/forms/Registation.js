@@ -243,7 +243,7 @@ const Registration = () => {
           </div>
           <div className="if-register mt-4">
             <p className={textStyles.body}>Already registered?
-              <Link to="/traintoexcellency/Frontend-build/login"
+              <Link to={ROUTES.LOGIN}
                 className='underline cursor-pointer text-[#00ffee]'>Click here</Link></p>
           </div>
         </div>

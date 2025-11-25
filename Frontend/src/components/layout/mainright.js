@@ -18,6 +18,7 @@ import { useContext, useState } from 'react';
 import SavedRoadmapContext from '../../Context/savedRoadmap.context';
 import { toast } from 'sonner';
 import { Bookmark } from 'lucide-react';
+import { ROUTES } from '../../constants/routes';
 
 
 
@@ -37,7 +38,7 @@ export default function Mainright({ toggleHideLeft, Hide_Left }) {
     const navigate = useNavigate(); // Fixed typo: Changed 'nagivate' to 'navigate'
 
        const routerhander = (name) => {
-        navigate(`/traintoexcellency/Frontend-build/development/${name}`);
+        navigate(`${ROUTES.DEVELOPMENT}/${name}`);
     }
 
     const roadmapsavedHandler = async (roadmapRoute) => {

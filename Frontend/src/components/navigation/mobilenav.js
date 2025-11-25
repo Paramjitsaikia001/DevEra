@@ -3,6 +3,7 @@ import { Home, Search, FolderCode, CircleUserRound } from 'lucide-react';
 import { useContext } from "react";
 import UserContext from "../../Context/user.context.js";
 import { LogOut } from "lucide-react";
+import { ROUTES } from "../../constants/routes";
 
 const macDockEffect = `
   .dock-item:hover {
@@ -26,7 +27,7 @@ export default function MobileNav() {
     const logoutHandler = async () => {
         try {
             await logOut()
-            window.location.href = "/traintoexcellency/Frontend-build"
+            window.location.href = ROUTES.LANDINGPAGE;
         } catch (error) {
             console.log(error);
 
@@ -36,34 +37,34 @@ export default function MobileNav() {
         <section className="fixed bottom-4 left-1/2 -translate-x-1/2 rounded-3xl bg-white/40 backdrop-blur-2xl shadow-2xl w-fit px-2 border-[1px] hover:px-2 transition-transform duration-300 border-white z-50  py-2 md:hidden flex justify-around gap-8 items-center">
             <style>{macDockEffect}</style>
             <ul className="flex w-full h-full  gap-2 justify-center items-center">
-                <Link to="/traintoexcellency/Frontend-build/">
-                    <li className={`text-white ${location.pathname === '/' ? 'xl:bg-[#314969] ' : ''} flex items-center justify-center hover:scale-100 transition-transform duration-200`}>
+                <Link to={ROUTES.LANDINGPAGE}>
+                    <li className={`text-white ${location.pathname === ROUTES.LANDINGPAGE ? 'xl:bg-[#314969] ' : ''} flex items-center justify-center hover:scale-100 transition-transform duration-200`}>
                         <span className="dock-item bg-primary-bg rounded-2xl p-2 text-white font-[150] transition-transform duration-200 flex justify-center items-center">
-                            <Home className={`${location.pathname === '/' ? '  ' : ''}  w-[8vw] h-[8vw] stroke-[1.5px] `} />
+                            <Home className={`${location.pathname === ROUTES.LANDINGPAGE ? '  ' : ''}  w-[8vw] h-[8vw] stroke-[1.5px] `} />
                         </span>
                     </li>
                 </Link>
 
                 {/* search  */}
-                <Link to="/traintoexcellency/Frontend-build/explore">
-                    <li className={`text-white ${location.pathname === '/traintoexcellency/Frontend-build/explore' ? 'xl:bg-[#314969] bg-none' : ''}  flex items-center justify-center hover:scale-100 transition-transform duration-200`}>
+                <Link to={ROUTES.SEARCH}>
+                    <li className={`text-white ${location.pathname === ROUTES.SEARCH ? 'xl:bg-[#314969] bg-none' : ''}  flex items-center justify-center hover:scale-100 transition-transform duration-200`}>
                         <span className="dock-item bg-primary-bg rounded-2xl p-2 text-white font-[150] transition-transform duration-200 flex justify-center items-center">
-                            <Search className={`${location.pathname === '/traintoexcellency/Frontend-build/explore' ? ' stroke-[2px]' : ''} w-[8vw] h-[8vw] stroke-[1.5px]`} />
+                            <Search className={`${location.pathname === ROUTES.SEARCH ? ' stroke-[2px]' : ''} w-[8vw] h-[8vw] stroke-[1.5px]`} />
                         </span>
                     </li>
                 </Link>
 
-                <Link to="/traintoexcellency/Frontend-build/development">
-                    <li className={`text-white ${location.pathname === '/traintoexcellency/Frontend-build/development' ? 'xl:bg-[#314969] bg-none' : ''} flex items-center justify-center hover:scale-100 transition-transform duration-200`}>
+                <Link to={ROUTES.DEVELOPMENT}>
+                    <li className={`text-white ${location.pathname === ROUTES.DEVELOPMENT ? 'xl:bg-[#314969] bg-none' : ''} flex items-center justify-center hover:scale-100 transition-transform duration-200`}>
                         <span className="dock-item bg-primary-bg rounded-2xl p-2 text-white font-[150] transition-transform duration-200 flex justify-center items-center">
-                            <FolderCode className={`${location.pathname === '/traintoexcellency/Frontend-build/development' ? ' xl:fill-transparent fill-white' : ''} w-[8vw] h-[8vw] stroke-[1.5px] `} />
+                            <FolderCode className={`${location.pathname === ROUTES.DEVELOPMENT ? ' xl:fill-transparent fill-white' : ''} w-[8vw] h-[8vw] stroke-[1.5px] `} />
                         </span>
                     </li>
                 </Link>
-                <Link to="/traintoexcellency/Frontend-build/profile">
-                    <li className={`text-white ${location.pathname === '/traintoexcellency/Frontend-build/profile' ? 'xl:bg-[#314969] bg-none' : ''} flex items-center justify-center hover:scale-100 transition-transform duration-200`}>
+                <Link to={ROUTES.PROFILE}>
+                    <li className={`text-white ${location.pathname === ROUTES.PROFILE ? 'xl:bg-[#314969] bg-none' : ''} flex items-center justify-center hover:scale-100 transition-transform duration-200`}>
                         <span className="dock-item bg-primary-bg rounded-2xl p-2 text-white font-[150] transition-transform duration-200 flex justify-center items-center">
-                            <CircleUserRound className={`${location.pathname === '/traintoexcellency/Frontend-build/profile' ? ' stroke-[2px]' : ''} w-[8vw] h-[8vw] stroke-[1.5px]`} />
+                            <CircleUserRound className={`${location.pathname === ROUTES.PROFILE ? ' stroke-[2px]' : ''} w-[8vw] h-[8vw] stroke-[1.5px]`} />
                         </span>
 
                     </li>

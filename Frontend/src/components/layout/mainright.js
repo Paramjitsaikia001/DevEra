@@ -19,6 +19,7 @@ import SavedRoadmapContext from '../../Context/savedRoadmap.context';
 import { toast } from 'sonner';
 import { Bookmark } from 'lucide-react';
 import { ROUTES } from '../../constants/routes';
+import Loading from '../../utils/loading';
 
 
 
@@ -61,7 +62,7 @@ export default function Mainright({ toggleHideLeft, Hide_Left }) {
    
     const { data: developmentCards, loading, error } = Development();
     if (loading) {
-        return <h2 className='text-white'>Loading...</h2>
+        return <Loading />;
     }
     if (error) {
         return <h2 className='text-white'>Something went wrong!</h2>

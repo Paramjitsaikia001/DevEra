@@ -107,7 +107,7 @@ export default function Profile() {
                                     </div>
                                     :     <div className="cover bg-cover bg-center w-full h-[20vh] md:h-[36vh] "
                                         style={{
-                                    backgroundImage: `url(${process.env.REACT_APP_BASE_URL}/profileAndCover/default.png)`,
+                                    backgroundImage: `url(/profileAndCover/default.png)`,
                                 }}
                                     >
                                     </div>

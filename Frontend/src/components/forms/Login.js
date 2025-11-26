@@ -130,7 +130,7 @@ const Login = () => {
           </div>
           <div className="if-register mt-4">
             <p className={textStyles.body}>New User?
-              <Link to="/traintoexcellency/Frontend-build/register"
+              <Link to={ROUTES.REGISTER}
                 className='underline cursor-pointer text-[#00ffee]'>Click here</Link></p>
           </div>
         </div>

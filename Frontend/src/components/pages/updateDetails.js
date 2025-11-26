@@ -2,10 +2,11 @@ import React, { useState, useEffect } from "react";
 import UserContext from '../../Context/user.context';
 import { useContext } from 'react';
 import { CircleCheckBig } from 'lucide-react';
-import { inputStyles, textStyles } from "../../utils/styles";
+import { inputStyles } from "../../utils/styles";
 import ProfileAndcover from "../../hooks/profileAndcover";
 import { toast } from "sonner";
 import { ROUTES } from "../../constants/routes";
+import Loading from "../../utils/loading";
 
 export default function UpdateDetails() {
     const { user, updateDetails } = useContext(UserContext);
@@ -58,6 +59,11 @@ export default function UpdateDetails() {
         }
     };
 
+    if (loading) {
+        return (
+          <Loading />
+        );
+    }
     return (
         <div className="min-h-screen bg-primary-bg flex items-center lg:w-[80%] w-[100%]  justify-center px-4 py-10">
             <div className="w-full px-12 text-white flex flex-col gap-4">

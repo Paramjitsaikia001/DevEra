@@ -2,9 +2,10 @@ import React, { useContext, useEffect, useState } from 'react'
 import SavedRoadmapContext from '../Context/savedRoadmap.context'
 import RoadmapDetailContext from '../Context/fetchRoadmap.context'
 import { Bookmark } from 'lucide-react';
+import Loading from './loading';
 const SavedRoadmaps = () => {
 
-    const { getSavedRoadmapByUser, deleteSavedRoadmap, savedRoadmap: saveRoadmap, loading } = useContext(SavedRoadmapContext)
+    const { getSavedRoadmapByUser, deleteSavedRoadmap, savedRoadmap: savedRoadmapData, loading } = useContext(SavedRoadmapContext)
     const { getRoadmapdetails } = useContext(RoadmapDetailContext)
 
     const [savedRoadmap, setSavedRoadmap] = useState([])
@@ -77,9 +78,7 @@ const SavedRoadmaps = () => {
     }
  if (loading) {
         return (
-            <div className="flex justify-center items-center h-48">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-            </div>
+            <Loading />
         );
     }
     return (

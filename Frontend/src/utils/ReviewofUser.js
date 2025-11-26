@@ -3,6 +3,7 @@ import React, { useContext, useState, useEffect } from "react";
 
 // import Development from "../hooks/developments.hooks.js";
 import ReviewContext from "../Context/review.context.js";
+import Loading from "./loading.js";
 
 export default function ReviewsofUser() {
 
@@ -60,9 +61,7 @@ const timeAgo = (date) => {
 
  if (loading) {
         return (
-            <div className="flex justify-center items-center h-48">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-            </div>
+            <Loading />
         );
     }
   return (

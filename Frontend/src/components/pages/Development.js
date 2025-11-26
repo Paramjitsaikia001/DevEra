@@ -10,6 +10,7 @@ import SavedRoadmapContext from '../../Context/savedRoadmap.context.js'
 import { Bookmark } from 'lucide-react';
 import { toast } from 'sonner';
 import { ROUTES } from '../../constants/routes';
+import Loading from '../../utils/loading.js';
 
 // const developmentCards = [
 //     {
@@ -142,6 +143,7 @@ export default function Development() {
 
     const navigate = useNavigate();
     const location = useLocation();
+
     const [savedMap, setSavedMap] = useState({});
     const routerhander = (name) => {
       navigate(`${ROUTES.DEVELOPMENT}/${name}`);
@@ -169,7 +171,7 @@ export default function Development() {
     //fetching the roadmap data from the backend
     const { data: developmentCards, loading, error } = DevelopmentHook();
     if (loading) {
-        return <h2 className='text-white'>Loading...</h2>
+        return <Loading />
     }
     if (error) {
         return <h2 className='text-white'>Something went wrong!</h2>

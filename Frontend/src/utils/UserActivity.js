@@ -11,6 +11,7 @@ import {
 } from 'lucide-react';
 
 import Development from "../hooks/developments.hooks.js";
+import Loading from './loading.js';
 
 const UserActivity = () => {
     const { getActivityByUser } = useContext(ActivityContext);
@@ -63,9 +64,7 @@ const UserActivity = () => {
 
     if (loading) {
         return (
-            <div className="flex justify-center items-center h-48">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-            </div>
+            <Loading />
         );
     }
 

@@ -97,14 +97,24 @@ export default function Profile() {
                                     :     <div className="cover bg-cover bg-center w-full h-[20vh] md:h-[36vh] bg-[#8796f8] "
                             >                            </div>
                             }
-                        
-                            <div className="profilepic w-[30vw] h-[30vw] sm:w-[10rem] sm:h-[10rem] rounded-full bg-center bg-cover  absolute border-[5px] border-primary-bg -bottom-16 left-3"
-                                style={{
-                                    backgroundImage: `url(${user?.profilePicture || "https://via.placeholder.com/200"})`,
-                                }}
-                            >
 
-                            </div>
+                            {
+                                user?.profilePicture ?
+                                    <div className="cover bg-cover bg-center w-full h-[20vh] md:h-[36vh] "
+                                        style={{
+                                    backgroundImage: `url(${user?.profilePicture}`,
+                                }}
+                                    >
+                                    </div>
+                                    :     <div className="cover bg-cover bg-center w-full h-[20vh] md:h-[36vh] "
+                                        style={{
+                                    backgroundImage: `url(${process.env.REACT_APP_BASE_URL}/profileAndCover/default.png)`,
+                                }}
+                                    >
+                                    </div>
+                            }
+                        
+
                             <Link
                                 to={ROUTES.EDITPROFILE}
                                 className="text-center profilepic text-white/80 text-md rounded-full border-2 font-bold border-white/20 py-2 px-5 absolute right-0 m-2 cursor-pointer">

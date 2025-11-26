@@ -76,7 +76,7 @@ const userSchema = new Schema(
         },
         profilePicture: {
             type: String,
-            default: "http://localhost:3000/traintoexcellency/Frontend-build/profileAndCover/default.png"
+          
         },
         coverPicture: {
             type: String,

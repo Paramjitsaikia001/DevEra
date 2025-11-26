@@ -10,7 +10,7 @@ const ProfileAndcover = () => {
     useEffect(() => {
         const fetchingProfile = async () => {
             try {
-                const response = await axios.get("http://localhost:8000/api/v1/profileAndCover/profile-pics")
+                const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/profileAndCover/profile-pics`)
                 console.log(response.data)
                 setProfilePics(response.data)
             } catch (error) {
@@ -23,7 +23,7 @@ const ProfileAndcover = () => {
 
         const fetchingCoverImage = async () => {
             try {
-                const response = await axios.get("http://localhost:8000/api/v1/profileAndCover/cover-pics")
+                const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/profileAndCover/cover-pics`)
                 console.log(response)
                 setCoverPics(response.data)
             } catch (error) {
